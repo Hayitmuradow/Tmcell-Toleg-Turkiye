@@ -63,7 +63,7 @@
             text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
         }
 
-        /* BEÝLEKI STILLER (Öňküsi ýaly galdy) */
+        /* BEÝLEKI STILLER */
         .header { background: var(--dark-green); padding: 12px; position: sticky; top: 0; z-index: 1000; }
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
         .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; }
@@ -168,7 +168,7 @@
 <script>
     let currentService = "";
     let alertText = "Maglumatlary dolduryň!";
-    let tlText = "Aljak talyňyz";
+    let tlText = "Lira möçberi";
     const kurs = 2.6; // 1 TMT = 2.6 TL
 
     function initApp() {
@@ -248,10 +248,10 @@
     }
 
     const langMap = {
-        tk: { id: "ID / Belgi", amt: "Möçberi (TMT)", btn: "DEKONDYŇYZY UGRADYŇ", back: "Yza", alert: "Maglumatlary dolduryň!", tlt: "Aljak talyňyz" },
-        tr: { id: "ID / Numara", amt: "Miktar (TMT)", btn: "DEKONTU GÖNDER", back: "Geri", alert: "Alanları doldurun!", tlt: "Alacağınız miktar" },
-        en: { id: "ID / Number", amt: "Amount (TMT)", btn: "SEND RECEIPT", back: "Back", alert: "Fill in all fields!", tlt: "You will receive" },
-        ru: { id: "ID / Номер", amt: "Сумма (TMT)", btn: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните поля!", tlt: "Вы получите" }
+        tk: { id: "ID / Belgi", amt: "Möçberi (TMT)", btn: "DEKONDYŇYZY UGRADYŇ", back: "Yza", alert: "Maglumatlary dolduryň!", tlt: "Lira möçberi" },
+        tr: { id: "ID / Numara", amt: "Miktar (TMT)", btn: "DEKONTU GÖNDER", back: "Geri", alert: "Alanları doldurun!", tlt: "Lira miktarı" },
+        en: { id: "ID / Number", amt: "Amount (TMT)", btn: "SEND RECEIPT", back: "Back", alert: "Fill in all fields!", tlt: "Amount in Lira" },
+        ru: { id: "ID / Номер", amt: "Сумма (TMT)", btn: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните поля!", tlt: "Сумма в лирах" }
     };
 
     function setLang(l, b) {
@@ -264,7 +264,6 @@
         alertText = langMap[l].alert;
         tlText = langMap[l].tlt;
         
-        // Eger meýdança doldurylan bolsa, kalkulýator tekstini täzele
         const amt = document.getElementById('pay-amount').value;
         if(amt > 0) {
             const tlRes = (amt * kurs).toFixed(2);
