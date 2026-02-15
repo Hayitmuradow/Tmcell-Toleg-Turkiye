@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aman Pay ⚡</title>
+    <title>Aman Töleg Hyzmaty</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -26,86 +26,78 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; min-height: 100vh; }
 
-        /* SPLASH SCREEN - TÜRKMEN & TÜRK BAÝDAK REŇKLERI */
+        /* TÄZE SPLASH SCREEN - DOSTLUK DIZAÝNY */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, var(--dark-green) 50%, var(--turkiye-red) 50%);
             display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 10000;
-            transition: opacity 0.8s ease;
+            transition: opacity 1s ease;
         }
-        .splash-content {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 30px; border-radius: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            text-align: center; color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        
+        .flag-container {
+            display: flex; align-items: center; gap: 30px; margin-bottom: 40px;
         }
-        .splash-logo { font-size: 40px; font-weight: 900; color: var(--gold); margin-bottom: 10px; }
-        .splash-motto { font-size: 16px; font-weight: 600; letter-spacing: 0.5px; }
 
-        /* HEADER */
+        .flag-icon { font-size: 80px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
+        
+        .handshake-icon {
+            font-size: 60px; color: var(--gold);
+            animation: pulse 2s infinite;
+            filter: drop-shadow(0 0 10px rgba(255,193,7,0.5));
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .motto-box {
+            text-align: center; color: white; padding: 0 20px;
+        }
+
+        .motto-text {
+            font-size: 28px; font-weight: 900; line-height: 1.4;
+            text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+        }
+
+        /* BEÝLEKI STILLER (Öňküsi ýaly galdy) */
         .header { background: var(--dark-green); padding: 12px; position: sticky; top: 0; z-index: 1000; }
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
         .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; }
         .lang-btn.active { background: var(--gold); color: #000; }
-
-        /* MAIN PAGE */
         .main-page { max-width: 500px; margin: auto; padding: 15px; }
-        .bank-card {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--dark-green) 100%);
-            padding: 25px; border-radius: 25px; color: white; box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-            margin-bottom: 25px;
-        }
-
-        /* MENU GRID */
+        .bank-card { background: linear-gradient(135deg, var(--primary) 0%, var(--dark-green) 100%); padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; }
         .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        .menu-item {
-            background: var(--card-bg); padding: 22px 10px; border-radius: 20px;
-            text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.05);
-        }
+        .menu-item { background: var(--card-bg); padding: 22px 10px; border-radius: 20px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.05); }
         .menu-item i { font-size: 28px; color: var(--primary); margin-bottom: 10px; }
         .menu-item span { display: block; font-size: 12px; font-weight: 700; }
-
-        /* PAYMENT PAGE */
-        #payment-page {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg); z-index: 2000; padding: 20px; overflow-y: auto;
-        }
+        #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; overflow-y: auto; }
         .back-btn { background: none; border: none; color: var(--primary); font-size: 18px; cursor: pointer; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; font-weight: bold; }
         .payment-container { background: var(--card-bg); padding: 30px; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .input-group { position: relative; margin-bottom: 25px; }
         .prefix { position: absolute; left: 16px; top: 14px; font-weight: 800; color: var(--primary); font-size: 18px; }
-        input {
-            width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #eef2f6;
-            font-size: 18px; font-weight: 700; background: var(--bg); color: var(--text); outline: none;
-        }
+        input { width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #eef2f6; font-size: 18px; font-weight: 700; background: var(--bg); color: var(--text); outline: none; }
         input.tel-input { padding-left: 68px; }
-        .send-btn {
-            width: 100%; background: #25d366; color: white; border: none; padding: 20px;
-            border-radius: 18px; font-size: 18px; font-weight: 800; cursor: pointer;
-        }
-
-        /* CUSTOM ALERT */
+        .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 20px; border-radius: 18px; font-size: 18px; font-weight: 800; cursor: pointer; }
         #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 11000; backdrop-filter: blur(4px); }
-        #custom-alert {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: var(--card-bg); color: var(--text); padding: 30px; border-radius: 25px;
-            z-index: 12000; text-align: center; width: 85%; max-width: 350px;
-        }
+        #custom-alert { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 30px; border-radius: 25px; z-index: 12000; text-align: center; width: 85%; }
         .alert-btn { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; margin-top: 20px; cursor: pointer; font-weight: bold; width: 100%; }
-        
         #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #1f2937; color: white; padding: 12px 30px; border-radius: 50px; display: none; z-index: 11000; }
     </style>
 </head>
 <body onload="initApp()">
 
 <div id="splash">
-    <div class="splash-content">
-        <div class="splash-logo">AMAN PAY ⚡</div>
-        <div class="splash-motto">Aman Töleg hyzmaty siziň bilen!</div>
-        <div style="margin-top: 15px; font-size: 12px; opacity: 0.8;">🇹🇲 & 🇹🇷</div>
+    <div class="flag-container">
+        <span class="flag-icon">🇹🇲</span>
+        <i class="fas fa-handshake handshake-icon"></i>
+        <span class="flag-icon">🇹🇷</span>
+    </div>
+    <div class="motto-box">
+        <div class="motto-text">AMAN TÖLEG HYZMATY<br>SIZIŇ BILEN!</div>
     </div>
 </div>
 
@@ -129,8 +121,8 @@
 
 <div class="main-page" id="main-page">
     <div class="bank-card">
-        <h2 onclick="copyText('AMAN HAYITMURADOV')" style="cursor:pointer;">AMAN HAYITMURADOV</h2>
-        <div onclick="copyText('TR910015700000000201151163')" style="margin-top:20px; background:rgba(0,0,0,0.2); padding:12px; border-radius:12px; display:flex; justify-content:space-between; cursor:pointer;">
+        <h2 onclick="copyText('AMAN HAYITMURADOV')" style="cursor:pointer; letter-spacing: 1px;">AMAN HAYITMURADOV</h2>
+        <div onclick="copyText('TR910015700000000201151163')" style="margin-top:25px; background:rgba(0,0,0,0.25); padding:15px; border-radius:12px; display:flex; justify-content:space-between; cursor:pointer;">
             <span>TR91 0015 ... 1163</span> <i class="fas fa-copy"></i>
         </div>
     </div>
@@ -166,12 +158,11 @@
     let alertText = "Maglumatlary dolduryň!";
 
     function initApp() {
-        // 2.5 sekuntdan splash aýrylýar
         setTimeout(() => {
             const sp = document.getElementById('splash');
             sp.style.opacity = '0';
-            setTimeout(() => sp.style.display = 'none', 800);
-        }, 2500);
+            setTimeout(() => sp.style.display = 'none', 1000);
+        }, 3000); // 3 sekunt dostluk ekrany görner
         window.onpopstate = function() { goBack(true); };
     }
 
