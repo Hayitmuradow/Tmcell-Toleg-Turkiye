@@ -81,6 +81,15 @@
         .prefix { position: absolute; left: 16px; top: 14px; font-weight: 800; color: var(--primary); font-size: 18px; }
         input { width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #eef2f6; font-size: 18px; font-weight: 700; background: var(--bg); color: var(--text); outline: none; }
         input.tel-input { padding-left: 68px; }
+
+        /* TL HASAPLAÝYŞ GUTUSY */
+        #tl-calc-box {
+            background: #fff3cd; color: #856404; padding: 15px; border-radius: 15px;
+            margin-bottom: 20px; text-align: center; border: 1px solid #ffeeba;
+            display: none; font-size: 18px; font-weight: 800; animation: fadeIn 0.4s;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 20px; border-radius: 18px; font-size: 18px; font-weight: 800; cursor: pointer; }
         #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 11000; backdrop-filter: blur(4px); }
         #custom-alert { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 30px; border-radius: 25px; z-index: 12000; text-align: center; width: 85%; }
@@ -147,6 +156,9 @@
         <div class="input-group">
             <input type="number" id="pay-amount" placeholder="0.00">
         </div>
+
+        <div id="tl-calc-box"></div>
+
         <button class="send-btn" onclick="finalizePayment()">DEKONDYŇYZY UGRADYŇ</button>
     </div>
 </div>
@@ -156,13 +168,29 @@
 <script>
     let currentService = "";
     let alertText = "Maglumatlary dolduryň!";
+    let tlText = "Aljak talyňyz";
+    const kurs = 2.6; // 1 TMT = 2.6 TL
 
     function initApp() {
         setTimeout(() => {
             const sp = document.getElementById('splash');
             sp.style.opacity = '0';
             setTimeout(() => sp.style.display = 'none', 1000);
-        }, 3000); // 3 sekunt dostluk ekrany görner
+        }, 3000); 
+
+        // KALKULÝATOR LOGIKASY
+        document.getElementById('pay-amount').addEventListener('input', function(e) {
+            const tmt = e.target.value;
+            const box = document.getElementById('tl-calc-box');
+            if(tmt > 0) {
+                const tlResult = (tmt * kurs).toFixed(2);
+                box.innerHTML = `🇹🇷 ${tlText}: <b>${tlResult} TL</b>`;
+                box.style.display = "block";
+            } else {
+                box.style.display = "none";
+            }
+        });
+
         window.onpopstate = function() { goBack(true); };
     }
 
@@ -192,6 +220,8 @@
     function goBack(isHardware = false) {
         document.getElementById('payment-page').style.display = 'none';
         document.getElementById('main-page').style.display = 'block';
+        document.getElementById('tl-calc-box').style.display = "none";
+        document.getElementById('pay-amount').value = "";
         if(!isHardware) history.back();
     }
 
@@ -199,8 +229,10 @@
         const id = document.getElementById('client-id').value;
         const amt = document.getElementById('pay-amount').value;
         if(!id || !amt) { showAlert(alertText); return; }
+        
+        const tlVal = (amt * kurs).toFixed(2);
         const pref = (currentService === 'Altyn Asyr') ? "+993" : "";
-        const msg = `Salam Aman, töleg etdim.%0A%0AHyzmat: ${currentService}%0A${pref}${id}%0AMöçberi: ${amt} TMT%0ADekondy ugradýaryn.`;
+        const msg = `Salam Aman, töleg etdim.%0A%0AHyzmat: ${currentService}%0AHasap: ${pref}${id}%0AMöçberi: ${amt} TMT (${tlVal} TL)%0ADekondy ugradýaryn.`;
         window.open(`https://wa.me/99364041065?text=${msg}`);
     }
 
@@ -216,10 +248,10 @@
     }
 
     const langMap = {
-        tk: { id: "ID / Belgi", amt: "Möçberi (TMT)", btn: "DEKONDYŇYZY UGRADYŇ", back: "Yza", alert: "Maglumatlary dolduryň!" },
-        tr: { id: "ID / Numara", amt: "Miktar (TMT)", btn: "DEKONTU GÖNDER", back: "Geri", alert: "Alanları doldurun!" },
-        en: { id: "ID / Number", amt: "Amount (TMT)", btn: "SEND RECEIPT", back: "Back", alert: "Fill in all fields!" },
-        ru: { id: "ID / Номер", amt: "Сумма (TMT)", btn: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните поля!" }
+        tk: { id: "ID / Belgi", amt: "Möçberi (TMT)", btn: "DEKONDYŇYZY UGRADYŇ", back: "Yza", alert: "Maglumatlary dolduryň!", tlt: "Aljak talyňyz" },
+        tr: { id: "ID / Numara", amt: "Miktar (TMT)", btn: "DEKONTU GÖNDER", back: "Geri", alert: "Alanları doldurun!", tlt: "Alacağınız miktar" },
+        en: { id: "ID / Number", amt: "Amount (TMT)", btn: "SEND RECEIPT", back: "Back", alert: "Fill in all fields!", tlt: "You will receive" },
+        ru: { id: "ID / Номер", amt: "Сумма (TMT)", btn: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните поля!", tlt: "Вы получите" }
     };
 
     function setLang(l, b) {
@@ -230,6 +262,14 @@
         document.querySelector('.send-btn').innerText = langMap[l].btn;
         document.getElementById('back-text').innerText = langMap[l].back;
         alertText = langMap[l].alert;
+        tlText = langMap[l].tlt;
+        
+        // Eger meýdança doldurylan bolsa, kalkulýator tekstini täzele
+        const amt = document.getElementById('pay-amount').value;
+        if(amt > 0) {
+            const tlRes = (amt * kurs).toFixed(2);
+            document.getElementById('tl-calc-box').innerHTML = `🇹🇷 ${tlText}: <b>${tlRes} TL</b>`;
+        }
     }
 </script>
 </body>
