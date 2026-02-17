@@ -26,7 +26,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; min-height: 100vh; }
 
-        /* TÄZE SPLASH SCREEN - DOSTLUK DIZAÝNY */
+        /* SPLASH SCREEN */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, var(--dark-green) 50%, var(--turkiye-red) 50%);
@@ -35,65 +35,42 @@
             transition: opacity 1s ease;
         }
         
-        .flag-container {
-            display: flex; align-items: center; gap: 30px; margin-bottom: 40px;
-        }
-
+        .flag-container { display: flex; align-items: center; gap: 30px; margin-bottom: 40px; }
         .flag-icon { font-size: 80px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
-        
-        .handshake-icon {
-            font-size: 60px; color: var(--gold);
-            animation: pulse 2s infinite;
-            filter: drop-shadow(0 0 10px rgba(255,193,7,0.5));
-        }
+        .handshake-icon { font-size: 60px; color: var(--gold); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .motto-text { font-size: 28px; font-weight: 900; color: white; text-align: center; text-transform: uppercase; }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .motto-box {
-            text-align: center; color: white; padding: 0 20px;
-        }
-
-        .motto-text {
-            font-size: 28px; font-weight: 900; line-height: 1.4;
-            text-transform: uppercase; letter-spacing: 1px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
-        }
-
-        /* BEÝLEKI STILLER */
+        /* HEADER */
         .header { background: var(--dark-green); padding: 12px; position: sticky; top: 0; z-index: 1000; }
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
         .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; }
         .lang-btn.active { background: var(--gold); color: #000; }
+
+        /* MAIN PAGE */
         .main-page { max-width: 500px; margin: auto; padding: 15px; }
         .bank-card { background: linear-gradient(135deg, var(--primary) 0%, var(--dark-green) 100%); padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; }
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        .menu-item { background: var(--card-bg); padding: 22px 10px; border-radius: 20px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.05); }
-        .menu-item i { font-size: 28px; color: var(--primary); margin-bottom: 10px; }
-        .menu-item span { display: block; font-size: 12px; font-weight: 700; }
+        
+        /* MENU GRID - SURATLY */
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .menu-item { background: var(--card-bg); padding: 15px 5px; border-radius: 20px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.05); transition: 0.3s; }
+        .menu-img { width: 48px; height: 48px; object-fit: contain; margin-bottom: 8px; }
+        .menu-item span { display: block; font-size: 11px; font-weight: 700; }
+
+        /* PAYMENT PAGE */
         #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; overflow-y: auto; }
-        .back-btn { background: none; border: none; color: var(--primary); font-size: 18px; cursor: pointer; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; font-weight: bold; }
+        .back-btn { background: none; border: none; color: var(--primary); font-size: 18px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
         .payment-container { background: var(--card-bg); padding: 30px; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .input-group { position: relative; margin-bottom: 25px; }
         .prefix { position: absolute; left: 16px; top: 14px; font-weight: 800; color: var(--primary); font-size: 18px; }
         input { width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #eef2f6; font-size: 18px; font-weight: 700; background: var(--bg); color: var(--text); outline: none; }
         input.tel-input { padding-left: 68px; }
 
-        /* TL HASAPLAÝYŞ GUTUSY */
-        #tl-calc-box {
-            background: #fff3cd; color: #856404; padding: 15px; border-radius: 15px;
-            margin-bottom: 20px; text-align: center; border: 1px solid #ffeeba;
-            display: none; font-size: 18px; font-weight: 800; animation: fadeIn 0.4s;
-        }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #tl-calc-box { background: #fff3cd; color: #856404; padding: 15px; border-radius: 15px; margin-bottom: 20px; text-align: center; border: 1px solid #ffeeba; display: none; font-size: 17px; font-weight: 800; }
 
         .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 20px; border-radius: 18px; font-size: 18px; font-weight: 800; cursor: pointer; }
         #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 11000; backdrop-filter: blur(4px); }
         #custom-alert { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 30px; border-radius: 25px; z-index: 12000; text-align: center; width: 85%; }
-        .alert-btn { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; margin-top: 20px; cursor: pointer; font-weight: bold; width: 100%; }
         #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #1f2937; color: white; padding: 12px 30px; border-radius: 50px; display: none; z-index: 11000; }
     </style>
 </head>
@@ -105,15 +82,13 @@
         <i class="fas fa-handshake handshake-icon"></i>
         <span class="flag-icon">🇹🇷</span>
     </div>
-    <div class="motto-box">
-        <div class="motto-text">AMAN TÖLEG HYZMATY<br>SIZIŇ BILEN!</div>
-    </div>
+    <div class="motto-text">AMAN TÖLEG HYZMATY<br>SIZIŇ BILEN!</div>
 </div>
 
 <div id="overlay"></div>
 <div id="custom-alert">
     <p id="alert-msg" style="font-weight: 700;"></p>
-    <button class="alert-btn" onclick="closeAlert()">OK</button>
+    <button style="background:var(--primary); color:white; border:none; padding:12px; border-radius:12px; margin-top:20px; width:100%;" onclick="closeAlert()">OK</button>
 </div>
 
 <header class="header">
@@ -130,19 +105,37 @@
 
 <div class="main-page" id="main-page">
     <div class="bank-card">
-        <h2 onclick="copyText('AMAN HAYITMURADOV')" style="cursor:pointer; letter-spacing: 1px;">AMAN HAYITMURADOV</h2>
+        <h2 onclick="copyText('AMAN HAYITMURADOV')" style="cursor:pointer;">AMAN HAYITMURADOV</h2>
         <div onclick="copyText('TR910015700000000201151163')" style="margin-top:25px; background:rgba(0,0,0,0.25); padding:15px; border-radius:12px; display:flex; justify-content:space-between; cursor:pointer;">
             <span>TR91 0015 ... 1163</span> <i class="fas fa-copy"></i>
         </div>
     </div>
 
     <div class="menu-grid">
-        <div class="menu-item" onclick="openPayment('Altyn Asyr', 'tel')"><i class="fas fa-mobile-alt"></i><span>Altyn Asyr</span></div>
-        <div class="menu-item" onclick="openPayment('Wi-Fi', 'id')"><i class="fas fa-wifi"></i><span>Wi-Fi</span></div>
-        <div class="menu-item" onclick="openPayment('Älem TV', 'id')"><i class="fas fa-tv"></i><span>Älem TV</span></div>
-        <div class="menu-item" onclick="openPayment('Belet Film', 'id')"><i class="fas fa-film"></i><span>Belet Film</span></div>
-        <div class="menu-item" onclick="openPayment('Öý Telefony', 'id')"><i class="fas fa-phone-alt"></i><span>Öý Tel</span></div>
-        <div class="menu-item" onclick="location.reload()"><i class="fas fa-redo-alt"></i><span>Täzele</span></div>
+        <div class="menu-item" onclick="openPayment('Altyn Asyr', 'tel')">
+            <img src="https://i.ibb.co/68vX33mP/image.png" class="menu-img">
+            <span>Altyn Asyr</span>
+        </div>
+        <div class="menu-item" onclick="openPayment('Wi-Fi', 'id')">
+            <img src="https://i.ibb.co/RkT9M6T0/wifi-logo.png" class="menu-img">
+            <span>Wi-Fi</span>
+        </div>
+        <div class="menu-item" onclick="openPayment('Älem TV', 'id')">
+            <img src="https://i.ibb.co/Kzs6C0hN/image.png" class="menu-img">
+            <span>Älem TV</span>
+        </div>
+        <div class="menu-item" onclick="openPayment('Belet Film', 'id')">
+            <img src="https://i.ibb.co/PZ0vQ8v3/image.png" class="menu-img">
+            <span>Belet Film</span>
+        </div>
+        <div class="menu-item" onclick="openPayment('Öý Telefony', 'id')">
+            <img src="https://i.ibb.co/Lz0Y8KzK/image.png" class="menu-img">
+            <span>Öý Tel</span>
+        </div>
+        <div class="menu-item" onclick="location.reload()">
+            <i class="fas fa-redo-alt" style="font-size: 28px; color: var(--primary); margin-bottom: 10px;"></i>
+            <span>Täzele</span>
+        </div>
     </div>
 </div>
 
@@ -156,10 +149,8 @@
         <div class="input-group">
             <input type="number" id="pay-amount" placeholder="0.00">
         </div>
-
         <div id="tl-calc-box"></div>
-
-        <button class="send-btn" onclick="finalizePayment()">DEKONDYŇYZY UGRADYŇ</button>
+        <button class="send-btn" onclick="finalizePayment()">DEKONT UGRAT</button>
     </div>
 </div>
 
@@ -169,16 +160,14 @@
     let currentService = "";
     let alertText = "Maglumatlary dolduryň!";
     let tlText = "Lira möçberi";
-    const kurs = 2.6; // 1 TMT = 2.6 TL
+    const kurs = 2.6;
 
     function initApp() {
         setTimeout(() => {
-            const sp = document.getElementById('splash');
-            sp.style.opacity = '0';
-            setTimeout(() => sp.style.display = 'none', 1000);
-        }, 3000); 
+            document.getElementById('splash').style.opacity = '0';
+            setTimeout(() => document.getElementById('splash').style.display = 'none', 1000);
+        }, 3000);
 
-        // KALKULÝATOR LOGIKASY
         document.getElementById('pay-amount').addEventListener('input', function(e) {
             const tmt = e.target.value;
             const box = document.getElementById('tl-calc-box');
@@ -186,23 +175,8 @@
                 const tlResult = (tmt * kurs).toFixed(2);
                 box.innerHTML = `🇹🇷 ${tlText}: <b>${tlResult} TL</b>`;
                 box.style.display = "block";
-            } else {
-                box.style.display = "none";
-            }
+            } else { box.style.display = "none"; }
         });
-
-        window.onpopstate = function() { goBack(true); };
-    }
-
-    function showAlert(msg) {
-        document.getElementById('alert-msg').innerText = msg;
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('custom-alert').style.display = 'block';
-    }
-
-    function closeAlert() {
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('custom-alert').style.display = 'none';
     }
 
     function openPayment(name, type) {
@@ -214,22 +188,17 @@
         holder.innerHTML = (name === 'Altyn Asyr') ? 
             `<span class="prefix">+993</span><input type="tel" class="tel-input" id="client-id" maxlength="8" placeholder="6x xxxxxx">` : 
             `<input type="text" id="client-id" placeholder="...">`;
-        history.pushState({page: 'payment'}, "Payment");
     }
 
-    function goBack(isHardware = false) {
+    function goBack() {
         document.getElementById('payment-page').style.display = 'none';
         document.getElementById('main-page').style.display = 'block';
-        document.getElementById('tl-calc-box').style.display = "none";
-        document.getElementById('pay-amount').value = "";
-        if(!isHardware) history.back();
     }
 
     function finalizePayment() {
         const id = document.getElementById('client-id').value;
         const amt = document.getElementById('pay-amount').value;
         if(!id || !amt) { showAlert(alertText); return; }
-        
         const tlVal = (amt * kurs).toFixed(2);
         const pref = (currentService === 'Altyn Asyr') ? "+993" : "";
         const msg = `Salam Aman, töleg etdim.%0A%0AHyzmat: ${currentService}%0AHasap: ${pref}${id}%0AMöçberi: ${amt} TMT (${tlVal} TL)%0ADekondy ugradýaryn.`;
@@ -238,7 +207,6 @@
 
     function toggleMode() {
         document.body.classList.toggle('dark-mode');
-        document.getElementById('mode-icon').className = document.body.classList.contains('dark-mode') ? 'fas fa-sun' : 'fas fa-moon';
     }
 
     function copyText(txt) {
@@ -248,9 +216,9 @@
     }
 
     const langMap = {
-        tk: { id: "ID / Belgi", amt: "Möçberi (TMT)", btn: "DEKONDYŇYZY UGRADYŇ", back: "Yza", alert: "Maglumatlary dolduryň!", tlt: "Lira möçberi" },
-        tr: { id: "ID / Numara", amt: "Miktar (TMT)", btn: "DEKONTU GÖNDER", back: "Geri", alert: "Alanları doldurun!", tlt: "Lira miktarı" },
-        en: { id: "ID / Number", amt: "Amount (TMT)", btn: "SEND RECEIPT", back: "Back", alert: "Fill in all fields!", tlt: "Amount in Lira" },
+        tk: { id: "ID / Belgi", amt: "Möçberi (TMT)", btn: "DEKONT UGRAT", back: "Yza", alert: "Maglumatlary dolduryň!", tlt: "Lira möçberi" },
+        tr: { id: "ID / Numara", amt: "Miktar (TMT)", btn: "DEKONT GÖNDER", back: "Geri", alert: "Alanları doldurun!", tlt: "Lira miktarı" },
+        en: { id: "ID / Number", amt: "Amount (TMT)", btn: "SEND RECEIPT", back: "Back", alert: "Fill fields!", tlt: "Amount in TL" },
         ru: { id: "ID / Номер", amt: "Сумма (TMT)", btn: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните поля!", tlt: "Сумма в лирах" }
     };
 
@@ -263,13 +231,10 @@
         document.getElementById('back-text').innerText = langMap[l].back;
         alertText = langMap[l].alert;
         tlText = langMap[l].tlt;
-        
-        const amt = document.getElementById('pay-amount').value;
-        if(amt > 0) {
-            const tlRes = (amt * kurs).toFixed(2);
-            document.getElementById('tl-calc-box').innerHTML = `🇹🇷 ${tlText}: <b>${tlRes} TL</b>`;
-        }
     }
+
+    function showAlert(m) { document.getElementById('alert-msg').innerText = m; document.getElementById('overlay').style.display = 'block'; document.getElementById('custom-alert').style.display = 'block'; }
+    function closeAlert() { document.getElementById('overlay').style.display = 'none'; document.getElementById('custom-alert').style.display = 'none'; }
 </script>
 </body>
 </html>
