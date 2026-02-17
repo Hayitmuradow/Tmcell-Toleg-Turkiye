@@ -46,9 +46,9 @@
 
         /* MAIN PAGE */
         .main-page { max-width: 500px; margin: auto; padding: 15px; }
-        .bank-card { background: linear-gradient(135deg, var(--primary) 0%, var(--dark-green) 100%); padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+        .bank-card { background: linear-gradient(135deg, var(--primary) 0%, var(--dark-green) 100%); padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         
-        /* MENU GRID - SURATLAR ULALDYLDY */
+        /* MENU GRID - SURATLAR KICELDILDI */
         .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         
         .menu-item { 
@@ -57,34 +57,33 @@
             text-align: center; 
             cursor: pointer; 
             border: 1px solid rgba(0,0,0,0.05); 
-            overflow: hidden; 
+            padding: 12px; /* Içinden boşluk goýuldy */
             display: flex;
             flex-direction: column;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             transition: transform 0.2s;
         }
-        .menu-item:active { transform: scale(0.95); }
+        .menu-item:active { transform: scale(0.96); }
         
         .menu-img { 
-            width: 100%; 
-            height: 140px; /* Suraty has uly etdim */
-            object-fit: cover; /* Suraty meýdana doly ýerleşdirýär */
-            background: #ffffff;
+            width: 85%; /* Has "akuratny" durmagy üçin azajyk kiçeldildi */
+            height: 110px; /* Beýikligi sazlandy */
+            object-fit: contain; /* Surat gyşarmaýar we doly görünýär */
+            margin-bottom: 10px;
         }
 
         .menu-item span { 
-            padding: 15px 5px; 
-            font-size: 15px; 
+            font-size: 14px; 
             font-weight: 800; 
             color: var(--text); 
             display: block;
-            border-top: 1px solid #f0f0f0;
         }
 
         /* PAYMENT PAGE */
         #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; overflow-y: auto; }
         .back-btn { background: none; border: none; color: var(--primary); font-size: 18px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
-        .payment-container { background: var(--card-bg); padding: 30px; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .payment-container { background: var(--card-bg); padding: 30px; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         
         .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 20px; border-radius: 18px; font-size: 18px; font-weight: 800; cursor: pointer; }
         #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #1f2937; color: white; padding: 12px 30px; border-radius: 50px; display: none; z-index: 11000; }
@@ -110,9 +109,9 @@
 
 <div class="main-page" id="main-page">
     <div class="bank-card">
-        <h2 onclick="copyText('AMAN HAYITMURADOV')" style="cursor:pointer; font-size: 20px;">AMAN HAYITMURADOV</h2>
-        <div onclick="copyText('TR910015700000000201151163')" style="margin-top:25px; background:rgba(255,255,255,0.2); padding:15px; border-radius:12px; display:flex; justify-content:space-between; cursor:pointer; border: 1px solid rgba(255,255,255,0.3);">
-            <span style="font-family: monospace; font-size: 16px;">TR91 0015 ... 1163</span> <i class="fas fa-copy"></i>
+        <h2 onclick="copyText('AMAN HAYITMURADOV')" style="cursor:pointer; font-size: 18px;">AMAN HAYITMURADOV</h2>
+        <div onclick="copyText('TR910015700000000201151163')" style="margin-top:20px; background:rgba(255,255,255,0.15); padding:12px; border-radius:12px; display:flex; justify-content:space-between; cursor:pointer;">
+            <span style="font-family: monospace; font-size: 14px;">TR91 0015 ... 1163</span> <i class="fas fa-copy"></i>
         </div>
     </div>
 
@@ -138,22 +137,22 @@
             <span>Öý Telefony</span>
         </div>
         <div class="menu-item" onclick="location.reload()">
-            <div style="height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #e5e7eb;">
-                <i class="fas fa-sync-alt" style="font-size: 40px; color: var(--primary); margin-bottom: 10px;"></i>
-                <span style="border:none; padding:0; font-size: 12px;">Täzele</span>
+            <div style="height: 110px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-sync-alt" style="font-size: 35px; color: var(--primary);"></i>
             </div>
+            <span>Täzele</span>
         </div>
     </div>
 </div>
 
 <div id="payment-page">
-    <button class="back-btn" onclick="goBack()"><i class="fas fa-chevron-left"></i> Yza dönmek</button>
+    <button class="back-btn" onclick="goBack()"><i class="fas fa-chevron-left"></i> Yza</button>
     <div class="payment-container">
         <h2 id="service-title" style="color: var(--primary); margin-bottom: 20px;">Hyzmat</h2>
         <div id="input-holder"></div>
-        <input type="number" id="pay-amount" placeholder="Möçberi (TMT)" style="width:100%; padding:18px; margin-top:20px; border-radius:15px; border:2px solid #eee; font-size: 18px; font-weight: bold; outline: none;">
-        <div id="tl-calc-box" style="margin-top:15px; font-size: 18px; font-weight: 800; color: #e30a17; text-align: center;"></div>
-        <button class="send-btn" style="margin-top:25px;" onclick="finalizePayment()">DEKONT UGRAT</button>
+        <input type="number" id="pay-amount" placeholder="Möçberi (TMT)" style="width:100%; padding:15px; margin-top:15px; border-radius:12px; border:1px solid #ddd; font-size: 18px; outline: none;">
+        <div id="tl-calc-box" style="margin-top:15px; font-weight: 800; color: #e30a17; text-align: center;"></div>
+        <button class="send-btn" style="margin-top:20px;" onclick="finalizePayment()">DEKONT UGRAT</button>
     </div>
 </div>
 
@@ -175,7 +174,7 @@
         const val = e.target.value;
         const box = document.getElementById('tl-calc-box');
         if(val > 0) {
-            box.innerText = "🇹🇷 Tölenmeli: " + (val * kurs).toFixed(2) + " TL";
+            box.innerText = "🇹🇷 " + (val * kurs).toFixed(2) + " TL";
         } else { box.innerText = ""; }
     });
 
@@ -186,8 +185,8 @@
         document.getElementById('service-title').innerText = name;
         const holder = document.getElementById('input-holder');
         holder.innerHTML = (name === 'Altyn Asyr') ? 
-            `<div style="position:relative;"><span style="position:absolute; left:15px; top:18px; font-weight:bold; color:var(--primary); font-size:18px;">+993</span><input type="tel" id="client-id" maxlength="8" placeholder="6x xxxxxx" style="width:100%; padding:18px 18px 18px 65px; border-radius:15px; border:2px solid #eee; font-size:18px; font-weight:bold; outline:none;"></div>` : 
-            `<input type="text" id="client-id" placeholder="ID ýa-da Belgi" style="width:100%; padding:18px; border-radius:15px; border:2px solid #eee; font-size:18px; font-weight:bold; outline:none;">`;
+            `<div style="position:relative;"><span style="position:absolute; left:12px; top:15px; font-weight:bold; color:var(--primary);">+993</span><input type="tel" id="client-id" maxlength="8" placeholder="6x xxxxxx" style="width:100%; padding:15px 15px 15px 55px; border-radius:12px; border:1px solid #ddd; font-size:18px;"></div>` : 
+            `<input type="text" id="client-id" placeholder="Belgi / ID" style="width:100%; padding:15px; border-radius:12px; border:1px solid #ddd; font-size:18px;">`;
     }
 
     function goBack() {
@@ -198,10 +197,10 @@
     function finalizePayment() {
         const id = document.getElementById('client-id').value;
         const amt = document.getElementById('pay-amount').value;
-        if(!id || !amt) { alert("Maglumatlary dolduryň!"); return; }
+        if(!id || !amt) { alert("Dolduryň!"); return; }
         const tlVal = (amt * kurs).toFixed(2);
-        const pref = (currentService === 'Altyn Asyr') ? "+993 " : "";
-        const msg = `Salam Aman, töleg etdim.%0A%0AHyzmat: *${currentService}*%0AHasap: *${pref}${id}*%0AMöçberi: *${amt} TMT*%0ATölenen: *${tlVal} TL*`;
+        const pref = (currentService === 'Altyn Asyr') ? "+993" : "";
+        const msg = `Hyzmat: ${currentService}%0AHasap: ${pref}${id}%0AMöçberi: ${amt} TMT (${tlVal} TL)`;
         window.open(`https://wa.me/99364041065?text=${msg}`);
     }
 
