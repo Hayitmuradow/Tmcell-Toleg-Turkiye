@@ -26,19 +26,17 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; min-height: 100vh; }
 
-        /* SPLASH SCREEN */
+        /* SPLASH SCREEN - DOŇMAZ ÝALY DÜZELDILDI */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, var(--dark-green) 50%, var(--turkiye-red) 50%);
             display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 10000;
-            transition: opacity 1s ease;
         }
         
         .flag-container { display: flex; align-items: center; gap: 30px; margin-bottom: 40px; }
-        .flag-icon { font-size: 80px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
-        .handshake-icon { font-size: 60px; color: var(--gold); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .flag-icon { font-size: 80px; }
+        .handshake-icon { font-size: 60px; color: var(--gold); }
         .motto-text { font-size: 28px; font-weight: 900; color: white; text-align: center; text-transform: uppercase; }
 
         /* HEADER */
@@ -60,14 +58,13 @@
             text-align: center; 
             cursor: pointer; 
             border: 1px solid rgba(0,0,0,0.05); 
-            transition: 0.3s;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .menu-img { 
             width: 100%; 
-            height: 90px; 
+            height: 85px; 
             object-fit: contain; 
             margin-bottom: 8px;
             border-radius: 12px;
@@ -84,15 +81,15 @@
         input { width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #eef2f6; font-size: 18px; font-weight: 700; background: var(--bg); color: var(--text); outline: none; }
         input.tel-input { padding-left: 68px; }
 
-        #tl-calc-box { background: #fff3cd; color: #856404; padding: 15px; border-radius: 15px; margin-bottom: 20px; text-align: center; border: 1px solid #ffeeba; display: none; font-size: 17px; font-weight: 800; }
+        #tl-calc-box { background: #fff3cd; color: #856404; padding: 15px; border-radius: 15px; margin-bottom: 20px; text-align: center; display: none; font-size: 17px; font-weight: 800; }
 
         .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 20px; border-radius: 18px; font-size: 18px; font-weight: 800; cursor: pointer; }
-        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 11000; backdrop-filter: blur(4px); }
+        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 11000; }
         #custom-alert { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 30px; border-radius: 25px; z-index: 12000; text-align: center; width: 85%; }
         #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #1f2937; color: white; padding: 12px 30px; border-radius: 50px; display: none; z-index: 11000; }
     </style>
 </head>
-<body onload="initApp()">
+<body>
 
 <div id="splash">
     <div class="flag-container">
@@ -131,27 +128,27 @@
 
     <div class="menu-grid">
         <div class="menu-item" onclick="openPayment('Altyn Asyr', 'tel')">
-            <img src="https://hayitmuradow.github.io/Tmcell-Toleg-Turkiye/tmcell.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Tmcell'">
+            <img src="tmcell.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Tmcell'">
             <span>Altyn Asyr</span>
         </div>
         <div class="menu-item" onclick="openPayment('Wi-Fi', 'id')">
-            <img src="https://hayitmuradow.github.io/Tmcell-Toleg-Turkiye/wifi.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=WiFi'">
+            <img src="wifi.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=WiFi'">
             <span>Wi-Fi</span>
         </div>
         <div class="menu-item" onclick="openPayment('Älem TV', 'id')">
-            <img src="https://hayitmuradow.github.io/Tmcell-Toleg-Turkiye/alemtv.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=AlemTV'">
+            <img src="alemtv.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=AlemTV'">
             <span>Älem TV</span>
         </div>
         <div class="menu-item" onclick="openPayment('Belet Film', 'id')">
-            <img src="https://hayitmuradow.github.io/Tmcell-Toleg-Turkiye/belet.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Belet'">
+            <img src="belet.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Belet'">
             <span>Belet Film</span>
         </div>
         <div class="menu-item" onclick="openPayment('Öý Telefony', 'id')">
-            <img src="https://hayitmuradow.github.io/Tmcell-Toleg-Turkiye/phone.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Phone'">
+            <img src="phone.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Phone'">
             <span>Öý Tel</span>
         </div>
         <div class="menu-item" onclick="location.reload()">
-            <div style="height: 90px; display: flex; align-items: center; justify-content: center;">
+            <div style="height: 85px; display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-redo-alt" style="font-size: 35px; color: var(--primary);"></i>
             </div>
             <span>Täzele</span>
@@ -177,27 +174,28 @@
 <div id="toast">Göçürildi! ✅</div>
 
 <script>
+    // DASHBOARD AÇMAK ÜÇIN FUNKSIÝA
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            const splash = document.getElementById('splash');
+            splash.style.display = 'none';
+        }, 2000); // 2 sekuntdan soň Splash öçer
+    });
+
     let currentService = "";
     let alertText = "Maglumatlary dolduryň!";
     let tlText = "Lira möçberi";
     const kurs = 2.6;
 
-    function initApp() {
-        setTimeout(() => {
-            document.getElementById('splash').style.opacity = '0';
-            setTimeout(() => document.getElementById('splash').style.display = 'none', 1000);
-        }, 3000);
-
-        document.getElementById('pay-amount').addEventListener('input', function(e) {
-            const tmt = e.target.value;
-            const box = document.getElementById('tl-calc-box');
-            if(tmt > 0) {
-                const tlResult = (tmt * kurs).toFixed(2);
-                box.innerHTML = `🇹🇷 ${tlText}: <b>${tlResult} TL</b>`;
-                box.style.display = "block";
-            } else { box.style.display = "none"; }
-        });
-    }
+    document.getElementById('pay-amount').addEventListener('input', function(e) {
+        const tmt = e.target.value;
+        const box = document.getElementById('tl-calc-box');
+        if(tmt > 0) {
+            const tlResult = (tmt * kurs).toFixed(2);
+            box.innerHTML = `🇹🇷 ${tlText}: <b>${tlResult} TL</b>`;
+            box.style.display = "block";
+        } else { box.style.display = "none"; }
+    });
 
     function openPayment(name, type) {
         currentService = name;
@@ -227,12 +225,6 @@
 
     function toggleMode() {
         document.body.classList.toggle('dark-mode');
-        const icon = document.getElementById('mode-icon');
-        if(document.body.classList.contains('dark-mode')) {
-            icon.classList.replace('fa-moon', 'fa-sun');
-        } else {
-            icon.classList.replace('fa-sun', 'fa-moon');
-        }
     }
 
     function copyText(txt) {
