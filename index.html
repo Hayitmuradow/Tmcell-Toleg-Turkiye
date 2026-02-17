@@ -11,18 +11,16 @@
             --primary: #00873c;
             --dark-green: #005a28;
             --gold: #ffc107;
-            --bg: #ffffff; /* ARKA FON AK EDILDI */
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --bg: #ffffff;
             --text: #111827;
         }
 
-        .dark-mode { --bg: #0b0f19; --card-bg: rgba(22, 27, 34, 0.8); --text: #f0f6fc; }
+        .dark-mode { --bg: #0b0f19; --text: #f0f6fc; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        
-        body { background: var(--bg); color: var(--text); min-height: 100vh; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-        /* SPLASH EKRAMY */
+        /* SPLASH SCREEN */
         #splash { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: linear-gradient(135deg, #004d26, #00873c); 
@@ -30,25 +28,23 @@
             z-index: 10000; color: white; padding: 20px; text-align: center;
         }
         .splash-title { font-weight: 900; font-size: 20px; line-height: 1.4; margin-bottom: 10px; }
-        
-        /* EL ÝAZMA SHRIFTI */
-        .handwritten { 
-            font-family: 'Dancing Script', cursive; 
-            font-size: 28px; 
-            color: var(--gold); 
-            margin-top: 10px;
-        }
+        .handwritten { font-family: 'Dancing Script', cursive; font-size: 28px; color: var(--gold); margin-top: 10px; }
 
-        /* BANK KARTY (KURS AÝRYLDY) */
+        /* HEADER */
+        .header { background: var(--dark-green); padding: 12px; position: sticky; top: 0; z-index: 1000; }
+        .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
+        .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 6px 10px; border-radius: 8px; font-size: 11px; cursor: pointer; }
+        .lang-btn.active { background: var(--gold); color: black; font-weight: bold; }
+
+        /* MAIN CONTENT */
+        .main-page { max-width: 500px; margin: auto; padding: 15px; }
         .bank-card { 
             background: linear-gradient(135deg, var(--dark-green), var(--primary)); 
             padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; 
-            position: relative; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        .info-trigger { position: absolute; top: 15px; right: 15px; opacity: 0.6; cursor: pointer; }
 
-        /* MENÝU */
-        .main-page { max-width: 500px; margin: auto; padding: 15px; }
+        /* MENU GRID */
         .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .menu-item { 
             background: #fff; border: 1px solid #eee; border-radius: 20px; 
@@ -59,19 +55,23 @@
         .menu-img { width: 100%; height: 80px; object-fit: contain; margin-bottom: 10px; }
         .menu-item span { font-weight: 800; font-size: 14px; }
 
-        /* HEADER */
-        .header { background: var(--dark-green); padding: 12px; position: sticky; top: 0; z-index: 1000; }
-        .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
-        .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 6px 10px; border-radius: 8px; font-size: 11px; cursor: pointer; }
-        .lang-btn.active { background: var(--gold); color: black; font-weight: bold; }
+        /* CUSTOM ALERT (GITHUB LINKLERI AYRYLDY) */
+        #custom-alert { 
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            background: #fff; width: 85%; max-width: 400px; padding: 25px; border-radius: 20px; 
+            z-index: 20000; text-align: center; box-shadow: 0 0 50px rgba(0,0,0,0.3);
+            border: 2px solid var(--primary);
+        }
+        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 15000; }
 
-        /* BEÝLEKI SAZLAMALAR */
+        /* PAYMENT PAGE */
         #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; overflow-y: auto; }
         .payment-container { background: #fff; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #eee; }
         input { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid #eee; font-size: 16px; font-weight: bold; margin-bottom: 12px; outline: none; }
         .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 900; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 25px; border-radius: 50px; display: none; }
-        .history-box { margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 15px; }
+
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 25px; border-radius: 50px; display: none; z-index: 25000; }
+        .history-box { margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 15px; border: 1px solid #eee; }
     </style>
 </head>
 <body>
@@ -82,6 +82,12 @@
     <i class="fas fa-star-and-crescent" style="font-size: 60px; color: var(--gold); margin-bottom: 15px;"></i>
     <div class="splash-title">ORAZA BAÝRAMYŇYZ<br>MÜBAREK BOLSUN!</div>
     <div class="handwritten">Aman töleg siz bilen</div>
+</div>
+
+<div id="overlay"></div>
+<div id="custom-alert">
+    <h3 id="alert-text" style="color: var(--text); font-size: 16px;"></h3>
+    <button onclick="closeAlert()" style="margin-top: 20px; background: var(--primary); color: white; border: none; padding: 12px 30px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer;">OK</button>
 </div>
 
 <header class="header">
@@ -98,7 +104,7 @@
 
 <div class="main-page" id="main-page">
     <div class="bank-card">
-        <i class="fas fa-info-circle info-trigger" onclick="showInfo()"></i>
+        <i class="fas fa-info-circle" style="position:absolute; top:15px; right:15px; opacity:0.6; cursor:pointer;" onclick="showInfo()"></i>
         <h3 onclick="copyText('AMAN HAYITMURADOV')">AMAN HAYITMURADOV</h3>
         <p onclick="copyText('TR910015700000000201151163')" style="margin-top:15px; font-family:monospace; background:rgba(0,0,0,0.1); padding:12px; border-radius:12px; display:flex; justify-content:space-between;">
             <span>TR91 0015 ... 1163</span> <i class="fas fa-copy"></i>
@@ -125,7 +131,7 @@
 <div id="payment-page">
     <button onclick="goBack()" style="background:none; border:none; color:var(--primary); font-weight:900; font-size:18px; cursor:pointer; margin-bottom: 15px;"><i class="fas fa-arrow-left"></i> <span id="txt-back">Yza</span></button>
     <div class="payment-container">
-        <h2 id="pay-title" style="color:var(--primary); margin-bottom:15px;">Hyzmat</h2>
+        <h2 id="pay-title" style="color:var(--primary); margin-bottom:15px; text-align:center;">Hyzmat</h2>
         <input type="text" id="inp-name" spellcheck="false">
         <div style="position:relative;">
             <span id="tel-prefix" style="position:absolute; left:15px; top:18px; font-weight:bold; color:var(--primary); display:none;">+993</span>
@@ -141,10 +147,10 @@
 
 <script>
     const langs = {
-        tk: { info: "Töleg: Karta pul geçirip, soňra dekont ugratmaly.", hist: "Soňky tölegler", holiday: "🌙 Oraza baýramyňyz mübarek! Alla kabul etsin!", name: "Adyňyz Familiýaňyz", wifi: "Öý telefon belgiňiz", id: "ID belgiňiz", tel: "Telefon belgiňiz", amt: "Manat (TMT)", send: "DEKONT UGRAT", back: "Yza", alert: "Ähli ýeri dolduryň!" },
-        tr: { info: "Ödeme: Karta para atıp dekont gönderin.", hist: "Son işlemler", holiday: "🌙 Ramazan Bayramınız Mübarek!", name: "Adınız Soyadınız", wifi: "Ev telefonu no", id: "ID numaranız", tel: "Telefon numaranız", amt: "Miktar (TMT)", send: "DEKONT GÖNDER", back: "Geri", alert: "Tüm alanları doldurun!" },
-        en: { info: "Payment: Transfer to card, then send receipt.", hist: "Recent payments", holiday: "🌙 Eid Mubarak!", name: "Your Full Name", wifi: "Phone number", id: "ID number", tel: "Phone number", amt: "Amount (TMT)", send: "SEND RECEIPT", back: "Back", alert: "Fill all fields!" },
-        ru: { info: "Оплата: Перевод на карту и чек.", hist: "История", holiday: "🌙 С праздником Ораза!", name: "Имя Фамилия", wifi: "Дом. телефон", id: "ID номер", tel: "Номер телефона", amt: "Сумма (TMT)", send: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните поля!" }
+        tk: { info: "Töleg: Karta pul geçirip, soňra dekont ugratmaly.", hist: "Soňky tölegler", holiday: "🌙 Oraza baýramyňyz mübarek! Alla kabul etsin!", name: "Adyňyz Familiýaňyz", wifi: "Öý telefon belgiňiz", id: "ID belgiňiz", tel: "Telefon belgiňiz", amt: "Manat (TMT)", send: "DEKONT UGRAT", back: "Yza", alert: "Ähli maglumatlary giriziň!" },
+        tr: { info: "Ödeme: Karta para atıp dekont gönderin.", hist: "Son işlemler", holiday: "🌙 Ramazan Bayramınız Mübarek!", name: "Adınız Soyadınız", wifi: "Ev telefonu no", id: "ID numaranız", tel: "Telefon numaranız", amt: "Miktar (TMT)", send: "DEKONT GÖNDER", back: "Geri", alert: "Lütfen tüm bilgileri girin!" },
+        en: { info: "Payment: Transfer to card, then send receipt.", hist: "Recent payments", holiday: "🌙 Eid Mubarak!", name: "Your Full Name", wifi: "Home phone no", id: "ID number", tel: "Phone number", amt: "Amount (TMT)", send: "SEND RECEIPT", back: "Back", alert: "Please enter all info!" },
+        ru: { info: "Оплата: Перевод на карту и чек.", hist: "История", holiday: "🌙 С праздником Ораза!", name: "Имя Фамилия", wifi: "Дом. телефон", id: "ID номер", tel: "Номер телефона", amt: "Сумма (TMT)", send: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните все данные!" }
     };
     
     let curLang = 'tk', currentType = '';
@@ -153,7 +159,8 @@
         const n = localStorage.getItem('aman_customer_name');
         if(n) document.getElementById('inp-name').value = n;
         updateHistory();
-        setTimeout(() => { document.getElementById('splash').style.display='none'; }, 3000); 
+        setTimeout(() => { document.getElementById('splash').style.opacity = '0'; 
+        setTimeout(() => document.getElementById('splash').style.display = 'none', 500); }, 3000); 
     };
 
     function changeLang(l, btn) {
@@ -176,6 +183,19 @@
         document.getElementById('inp-amt').placeholder = langs[curLang].amt;
     }
 
+    function showAlert(msg) {
+        document.getElementById('alert-text').innerText = msg;
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('custom-alert').style.display = 'block';
+    }
+
+    function closeAlert() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('custom-alert').style.display = 'none';
+    }
+
+    function showInfo() { showAlert(langs[curLang].info); }
+
     function openPay(n, t) {
         currentType = t; document.getElementById('pay-title').innerText = n;
         const p = document.getElementById('tel-prefix');
@@ -194,13 +214,11 @@
         document.getElementById('tl-box').innerText = this.value > 0 ? "🇹🇷 " + v + " TL" : "";
     };
 
-    function showInfo() { alert(langs[curLang].info); }
-
     function send() {
         let n = document.getElementById('inp-name').value;
         let id = document.getElementById('inp-id').value;
         let a = document.getElementById('inp-amt').value;
-        if(!n || !id || !a) { alert(langs[curLang].alert); return; }
+        if(!n || !id || !a) { showAlert(langs[curLang].alert); return; }
         document.getElementById('clickSound').play();
         localStorage.setItem('aman_customer_name', n);
         let h = JSON.parse(localStorage.getItem('aman_history') || '[]');
