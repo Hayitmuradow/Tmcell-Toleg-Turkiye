@@ -53,13 +53,19 @@
             background: var(--card-bg); border-radius: 15px; text-align: center; padding: 10px; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer;
         }
-        .menu-img { width: 80%; height: 100px; object-fit: contain; margin-bottom: 8px; }
+        .menu-img { width: 85%; height: 110px; object-fit: contain; margin-bottom: 8px; }
         .menu-item span { font-weight: 800; font-size: 14px; }
 
         /* PAYMENT PAGE */
         #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; }
         .payment-container { background: var(--card-bg); padding: 25px; border-radius: 20px; margin-top: 20px; }
-        input { width: 100%; padding: 15px; margin-top: 10px; border-radius: 10px; border: 1px solid #ddd; font-size: 16px; font-weight: bold; }
+        
+        .input-wrapper { position: relative; margin-top: 10px; }
+        .prefix { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-weight: bold; color: var(--primary); font-size: 18px; }
+        
+        input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #ddd; font-size: 16px; font-weight: bold; outline: none; }
+        input.with-prefix { padding-left: 65px; }
+
         .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 18px; border-radius: 15px; margin-top: 20px; font-weight: bold; cursor: pointer; }
         
         #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 20px; border-radius: 20px; display: none; }
@@ -97,10 +103,10 @@
     </div>
 
     <div class="menu-grid">
-        <div class="menu-item" onclick="openPay('Altyn Asyr')"><img src="tmcell.png" class="menu-img"><span>Altyn Asyr</span></div>
-        <div class="menu-item" onclick="openPay('Wi-Fi')"><img src="wifi.png" class="menu-img"><span>Wi-Fi</span></div>
-        <div class="menu-item" onclick="openPay('Älem TV')"><img src="alemtv.png" class="menu-img"><span>Älem TV</span></div>
-        <div class="menu-item" onclick="openPay('Belet Film')"><img src="belet.png" class="menu-img"><span>Belet Film</span></div>
+        <div class="menu-item" onclick="openPay('Altyn Asyr', 'tel')"><img src="tmcell.png" class="menu-img"><span>Altyn Asyr</span></div>
+        <div class="menu-item" onclick="openPay('Wi-Fi', 'wifi')"><img src="wifi.png" class="menu-img"><span>Wi-Fi</span></div>
+        <div class="menu-item" onclick="openPay('Älem TV', 'id')"><img src="alemtv.png" class="menu-img"><span>Älem TV</span></div>
+        <div class="menu-item" onclick="openPay('Belet Film', 'id')"><img src="belet.png" class="menu-img"><span>Belet Film</span></div>
     </div>
 </div>
 
@@ -108,8 +114,13 @@
     <button onclick="goBack()" style="background:none; border:none; color:var(--primary); font-weight:bold; cursor:pointer;"><i class="fas fa-arrow-left"></i> <span id="txt-back">Yza</span></button>
     <div class="payment-container">
         <h2 id="pay-title">Hyzmat</h2>
-        <input type="text" id="inp-id" placeholder="ID / Belgi">
-        <input type="number" id="inp-amt" placeholder="Manat (TMT)">
+        
+        <div class="input-wrapper">
+            <span id="tel-prefix" class="prefix" style="display:none;">+993</span>
+            <input type="text" id="inp-id" placeholder="Maglumat ýazyň">
+        </div>
+
+        <input type="number" id="inp-amt" placeholder="Manat (TMT)" style="margin-top:15px;">
         <div id="tl-box" style="margin-top:10px; font-weight:bold; color:red;"></div>
         <button class="send-btn" id="btn-send" onclick="send()">DEKONT UGRAT</button>
     </div>
@@ -119,12 +130,14 @@
 
 <script>
     const langs = {
-        tk: { id: "ID / Belgi", amt: "Manat (TMT)", send: "DEKONT UGRAT", back: "Yza", alert: "Maglumatlary dolduryň!" },
-        tr: { id: "ID / Numara", amt: "Miktar (TMT)", send: "DEKONT GÖNDER", back: "Geri", alert: "Bilgileri doldurun!" },
-        en: { id: "ID / Number", amt: "Amount (TMT)", send: "SEND RECEIPT", back: "Back", alert: "Fill in the information!" },
-        ru: { id: "ID / Номер", amt: "Сумма (TMT)", send: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните данные!" }
+        tk: { wifi: "Öý telefon belgiňizi ýazyň", id: "ID belgiňizi ýazyň", tel: "Telefon belgiňizi ýazyň", amt: "Manat (TMT)", send: "DEKONT UGRAT", back: "Yza", alert: "Maglumatlary dolduryň!" },
+        tr: { wifi: "Ev telefon numaranızı girin", id: "ID numaranızı girin", tel: "Telefon numaranızı girin", amt: "Miktar (TMT)", send: "DEKONT GÖNDER", back: "Geri", alert: "Bilgileri doldurun!" },
+        en: { wifi: "Enter home phone number", id: "Enter ID number", tel: "Enter phone number", amt: "Amount (TMT)", send: "SEND RECEIPT", back: "Back", alert: "Fill in the information!" },
+        ru: { wifi: "Введите номер домашнего тел.", id: "Введите свой ID номер", tel: "Введите номер телефона", amt: "Сumma (TMT)", send: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните данные!" }
     };
+    
     let curLang = 'tk';
+    let currentType = '';
 
     function checkNet() {
         document.getElementById('offline-screen').style.display = navigator.onLine ? 'none' : 'block';
@@ -139,14 +152,40 @@
         curLang = l;
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        document.getElementById('inp-id').placeholder = langs[l].id;
-        document.getElementById('inp-amt').placeholder = langs[l].amt;
+        updatePlaceholders();
         document.getElementById('btn-send').innerText = langs[l].send;
         document.getElementById('txt-back').innerText = langs[l].back;
     }
 
-    function openPay(name) {
+    function updatePlaceholders() {
+        const inp = document.getElementById('inp-id');
+        if (currentType === 'tel') inp.placeholder = langs[curLang].tel;
+        else if (currentType === 'wifi') inp.placeholder = langs[curLang].wifi;
+        else inp.placeholder = langs[curLang].id;
+        document.getElementById('inp-amt').placeholder = langs[curLang].amt;
+    }
+
+    function openPay(name, type) {
+        currentType = type;
         document.getElementById('pay-title').innerText = name;
+        document.getElementById('tel-prefix').style.display = (type === 'tel') ? 'block' : 'none';
+        
+        const inp = document.getElementById('inp-id');
+        if (type === 'tel') {
+            inp.classList.add('with-prefix');
+            inp.type = "tel";
+            inp.maxLength = 8;
+        } else {
+            inp.classList.remove('with-prefix');
+            inp.type = "text";
+            inp.maxLength = 20;
+        }
+        
+        updatePlaceholders();
+        document.getElementById('inp-id').value = '';
+        document.getElementById('inp-amt').value = '';
+        document.getElementById('tl-box').innerText = '';
+        
         document.getElementById('main-page').style.display = 'none';
         document.getElementById('payment-page').style.display = 'block';
     }
@@ -168,7 +207,8 @@
             alert(langs[curLang].alert);
             return;
         }
-        let msg = `Hyzmat: ${document.getElementById('pay-title').innerText}%0AHasap: ${id}%0AMöçberi: ${amt} TMT (${(amt*2.6).toFixed(2)} TL)`;
+        let prefix = (currentType === 'tel') ? "+993 " : "";
+        let msg = `Hyzmat: ${document.getElementById('pay-title').innerText}%0AHasap: ${prefix}${id}%0AMöçberi: ${amt} TMT (${(amt*2.6).toFixed(2)} TL)`;
         window.open(`https://wa.me/99364041065?text=${msg}`);
     }
 
