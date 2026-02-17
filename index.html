@@ -21,23 +21,28 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
+        /* SPLASH & OFFLINE */
         #offline-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 20000; text-align: center; padding-top: 100px; }
         #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--dark-green) 50%, var(--turkiye-red) 50%); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; }
         
+        /* HEADER */
         .header { background: var(--dark-green); padding: 12px; position: sticky; top: 0; z-index: 1000; }
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
         .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; }
         .lang-btn.active { background: var(--gold); color: black; font-weight: bold; }
 
+        /* MAIN PAGE */
         .main-page { max-width: 500px; margin: auto; padding: 15px; }
         .bank-card { background: linear-gradient(135deg, var(--primary), var(--dark-green)); padding: 25px; border-radius: 20px; color: white; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
         
+        /* MENU GRID - SURATLAR ÖŇKI ÝALY ULY */
         .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .menu-item { background: var(--card-bg); border-radius: 20px; text-align: center; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); cursor: pointer; transition: 0.2s; }
         .menu-item:active { transform: scale(0.95); }
         .menu-img { width: 100%; height: 100px; object-fit: contain; margin-bottom: 12px; }
         .menu-item span { font-weight: 800; font-size: 14px; display: block; color: var(--text); }
 
+        /* PAYMENT PAGE */
         #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; overflow-y: auto; }
         .payment-container { background: var(--card-bg); padding: 25px; border-radius: 25px; margin-top: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         
@@ -49,12 +54,15 @@
 
         .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 18px; border-radius: 15px; margin-top: 10px; font-weight: 900; font-size: 17px; cursor: pointer; }
         
+        /* CUSTOM ALERT */
         #custom-alert { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 30px; border-radius: 20px; z-index: 30000; text-align: center; width: 85%; box-shadow: 0 0 100px rgba(0,0,0,0.5); }
         #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 29000; }
         #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 20px; border-radius: 20px; display: none; }
     </style>
 </head>
 <body ononline="checkNet()" onoffline="checkNet()">
+
+<audio id="clickSound" src="https://www.myinstants.com/media/sounds/cash-register-purchase.mp3" preload="auto"></audio>
 
 <div id="overlay"></div>
 <div id="custom-alert">
@@ -108,7 +116,7 @@
     <div class="payment-container">
         <h2 id="pay-title" style="color:var(--primary); margin-bottom:10px;">Hyzmat</h2>
         
-        <input type="text" id="inp-name" placeholder="Adyňyz we Familiýaňyz">
+        <input type="text" id="inp-name" spellcheck="false">
 
         <div class="input-wrapper">
             <span id="tel-prefix" class="prefix">+993</span>
@@ -134,7 +142,13 @@
     let curLang = 'tk', currentType = '';
 
     function checkNet() { document.getElementById('offline-screen').style.display = navigator.onLine ? 'none' : 'block'; }
-    window.onload = () => { checkNet(); setTimeout(() => document.getElementById('splash').style.display = 'none', 2500); };
+    
+    window.onload = () => { 
+        checkNet(); 
+        const savedName = localStorage.getItem('aman_customer_name');
+        if(savedName) document.getElementById('inp-name').value = savedName;
+        setTimeout(() => document.getElementById('splash').style.display = 'none', 2500); 
+    };
 
     function changeLang(l, btn) {
         curLang = l;
@@ -159,12 +173,9 @@
         document.getElementById('pay-title').innerText = name;
         const prefix = document.getElementById('tel-prefix');
         const inp = document.getElementById('inp-id');
-        
         if (type === 'tel') { prefix.style.display = 'block'; inp.classList.add('with-prefix'); inp.type = "tel"; }
         else { prefix.style.display = 'none'; inp.classList.remove('with-prefix'); inp.type = "text"; }
-        
         updatePlaceholders();
-        document.getElementById('inp-name').value = '';
         document.getElementById('inp-id').value = '';
         document.getElementById('inp-amt').value = '';
         document.getElementById('tl-box').innerText = '';
@@ -194,19 +205,16 @@
         let name = document.getElementById('inp-name').value;
         let id = document.getElementById('inp-id').value;
         let amt = document.getElementById('inp-amt').value;
-        
-        if(!name || !id || !amt) {
-            showAlert(langs[curLang].alert);
-            return;
-        }
+        if(!name || !id || !amt) { showAlert(langs[curLang].alert); return; }
+
+        document.getElementById('clickSound').play();
+        localStorage.setItem('aman_customer_name', name);
 
         let prefix = (currentType === 'tel') ? "+993 " : "";
         let tlVal = (amt * 2.6).toFixed(2);
-        
-        // WHATSAPP HATYNYŇ GÖRNÜŞI
         let msg = `👤 *Müşderi:* ${name}%0A🛠 *Hyzmat:* ${document.getElementById('pay-title').innerText}%0A💳 *Hasap:* ${prefix}${id}%0A💰 *Möçberi:* ${amt} TMT (${tlVal} TL)`;
         
-        window.open(`https://wa.me/99364041065?text=${msg}`);
+        setTimeout(() => { window.open(`https://wa.me/99364041065?text=${msg}`); }, 400);
     }
 
     function copyText(t) {
