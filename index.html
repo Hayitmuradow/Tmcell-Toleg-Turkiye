@@ -51,9 +51,8 @@
         .main-page { max-width: 500px; margin: auto; padding: 15px; }
         .bank-card { background: linear-gradient(135deg, var(--primary) 0%, var(--dark-green) 100%); padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; }
         
-        /* MENU GRID - SURATLAR ULALDYLDY */
+        /* MENU GRID */
         .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        
         .menu-item { 
             background: var(--card-bg); 
             padding: 8px; 
@@ -66,15 +65,14 @@
             flex-direction: column;
             align-items: center;
         }
-        
         .menu-img { 
             width: 100%; 
             height: 90px; 
-            object-fit: contain; /* Suraty gyşartman, doly görkezýär */
+            object-fit: contain; 
             margin-bottom: 8px;
             border-radius: 12px;
+            background: #f9f9f9;
         }
-
         .menu-item span { display: block; font-size: 11px; font-weight: 800; color: var(--text); }
 
         /* PAYMENT PAGE */
@@ -133,23 +131,23 @@
 
     <div class="menu-grid">
         <div class="menu-item" onclick="openPayment('Altyn Asyr', 'tel')">
-            <img src="tmcell.jpeg" class="menu-img">
+            <img src="https://hayitmuradow.github.io/Tmcell-Toleg-Turkiye/tmcell.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Tmcell'">
             <span>Altyn Asyr</span>
         </div>
         <div class="menu-item" onclick="openPayment('Wi-Fi', 'id')">
-            <img src="wifi.jpeg" class="menu-img">
+            <img src="https://hayitmuradow.github.io/Tmcell-Toleg-Turkiye/wifi.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=WiFi'">
             <span>Wi-Fi</span>
         </div>
         <div class="menu-item" onclick="openPayment('Älem TV', 'id')">
-            <img src="alemtv.jpeg" class="menu-img">
+            <img src="https://hayitmuradow.github.io/Tmcell-Toleg-Turkiye/alemtv.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=AlemTV'">
             <span>Älem TV</span>
         </div>
         <div class="menu-item" onclick="openPayment('Belet Film', 'id')">
-            <img src="belet.jpeg" class="menu-img">
+            <img src="https://hayitmuradow.github.io/Tmcell-Toleg-Turkiye/belet.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Belet'">
             <span>Belet Film</span>
         </div>
         <div class="menu-item" onclick="openPayment('Öý Telefony', 'id')">
-            <img src="phone.jpeg" class="menu-img">
+            <img src="https://hayitmuradow.github.io/Tmcell-Toleg-Turkiye/phone.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Phone'">
             <span>Öý Tel</span>
         </div>
         <div class="menu-item" onclick="location.reload()">
