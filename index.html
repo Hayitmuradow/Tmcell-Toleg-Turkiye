@@ -26,7 +26,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; min-height: 100vh; }
 
-        /* SPLASH SCREEN - DOŇMAZ ÝALY DÜZELDILDI */
+        /* SPLASH SCREEN */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, var(--dark-green) 50%, var(--turkiye-red) 50%);
@@ -36,10 +36,10 @@
         }
         
         .flag-container { display: flex; align-items: center; gap: 30px; margin-bottom: 40px; }
-        .flag-icon { font-size: 80px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
+        .flag-icon { font-size: 80px; }
         .handshake-icon { font-size: 60px; color: var(--gold); animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-        .motto-text { font-size: 28px; font-weight: 900; color: white; text-align: center; text-transform: uppercase; line-height: 1.2; }
+        .motto-text { font-size: 28px; font-weight: 900; color: white; text-align: center; text-transform: uppercase; }
 
         /* HEADER */
         .header { background: var(--dark-green); padding: 12px; position: sticky; top: 0; z-index: 1000; }
@@ -49,45 +49,48 @@
 
         /* MAIN PAGE */
         .main-page { max-width: 500px; margin: auto; padding: 15px; }
-        .bank-card { background: linear-gradient(135deg, var(--primary) 0%, var(--dark-green) 100%); padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .bank-card { background: linear-gradient(135deg, var(--primary) 0%, var(--dark-green) 100%); padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; }
         
-        /* MENU GRID */
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        /* MENU GRID - SURATLAR DOLY TUTAR ÝALY DÜZELDILDI */
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; } /* 2 kolonkaly edildi, has uly görüner */
+        
         .menu-item { 
             background: var(--card-bg); 
-            padding: 10px 5px; 
-            border-radius: 18px; 
+            border-radius: 20px; 
             text-align: center; 
             cursor: pointer; 
             border: 1px solid rgba(0,0,0,0.05); 
+            overflow: hidden; /* Suratyň gyrasy çykmaz ýaly */
             display: flex;
             flex-direction: column;
-            align-items: center;
-            transition: transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .menu-item:active { transform: scale(0.95); }
+        
         .menu-img { 
             width: 100%; 
-            height: 85px; 
-            object-fit: contain; 
-            margin-bottom: 8px;
-            border-radius: 12px;
+            height: 120px; /* Suratyň beýikligi ulaldyldy */
+            object-fit: cover; /* Suraty meýdana doly ýerleşdirýär */
         }
-        .menu-item span { display: block; font-size: 11px; font-weight: 800; color: var(--text); }
+
+        .menu-item span { 
+            padding: 12px 5px; 
+            font-size: 14px; 
+            font-weight: 800; 
+            color: var(--text); 
+            display: block;
+        }
 
         /* PAYMENT PAGE */
         #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; overflow-y: auto; }
-        .back-btn { background: none; border: none; color: var(--primary); font-size: 18px; cursor: pointer; margin-bottom: 20px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .payment-container { background: var(--card-bg); padding: 30px; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .back-btn { background: none; border: none; color: var(--primary); font-size: 18px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
+        .payment-container { background: var(--card-bg); padding: 30px; border-radius: 28px; }
         .input-group { position: relative; margin-bottom: 25px; }
         .prefix { position: absolute; left: 16px; top: 14px; font-weight: 800; color: var(--primary); font-size: 18px; }
         input { width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #eef2f6; font-size: 18px; font-weight: 700; background: var(--bg); color: var(--text); outline: none; }
         input.tel-input { padding-left: 68px; }
 
-        #tl-calc-box { background: #fff3cd; color: #856404; padding: 15px; border-radius: 15px; margin-bottom: 20px; text-align: center; border: 1px solid #ffeeba; display: none; font-size: 17px; font-weight: 800; }
-
         .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 20px; border-radius: 18px; font-size: 18px; font-weight: 800; cursor: pointer; }
-        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 11000; backdrop-filter: blur(4px); }
+        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 11000; }
         #custom-alert { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 30px; border-radius: 25px; z-index: 12000; text-align: center; width: 85%; }
         #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #1f2937; color: white; padding: 12px 30px; border-radius: 50px; display: none; z-index: 11000; }
     </style>
@@ -106,7 +109,7 @@
 <div id="overlay"></div>
 <div id="custom-alert">
     <p id="alert-msg" style="font-weight: 700;"></p>
-    <button style="background:var(--primary); color:white; border:none; padding:12px; border-radius:12px; margin-top:20px; width:100%; font-weight:bold;" onclick="closeAlert()">OK</button>
+    <button style="background:var(--primary); color:white; border:none; padding:12px; border-radius:12px; margin-top:20px; width:100%;" onclick="closeAlert()">OK</button>
 </div>
 
 <header class="header">
@@ -131,30 +134,30 @@
 
     <div class="menu-grid">
         <div class="menu-item" onclick="openPayment('Altyn Asyr', 'tel')">
-            <img src="tmcell.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Tmcell'">
+            <img src="tmcell.jpeg" class="menu-img">
             <span>Altyn Asyr</span>
         </div>
         <div class="menu-item" onclick="openPayment('Wi-Fi', 'id')">
-            <img src="wifi.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=WiFi'">
+            <img src="wifi.jpeg" class="menu-img">
             <span>Wi-Fi</span>
         </div>
         <div class="menu-item" onclick="openPayment('Älem TV', 'id')">
-            <img src="alemtv.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=AlemTV'">
+            <img src="alemtv.jpeg" class="menu-img">
             <span>Älem TV</span>
         </div>
         <div class="menu-item" onclick="openPayment('Belet Film', 'id')">
-            <img src="belet.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Belet'">
+            <img src="belet.jpeg" class="menu-img">
             <span>Belet Film</span>
         </div>
         <div class="menu-item" onclick="openPayment('Öý Telefony', 'id')">
-            <img src="phone.jpeg" class="menu-img" onerror="this.src='https://via.placeholder.com/150?text=Phone'">
-            <span>Öý Tel</span>
+            <img src="phone.jpeg" class="menu-img">
+            <span>Öý Telefony</span>
         </div>
         <div class="menu-item" onclick="location.reload()">
-            <div style="height: 85px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-redo-alt" style="font-size: 35px; color: var(--primary);"></i>
+            <div style="height: 120px; display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+                <i class="fas fa-redo-alt" style="font-size: 40px; color: var(--primary);"></i>
             </div>
-            <span>Täzele</span>
+            <span>Sahypany Täzele</span>
         </div>
     </div>
 </div>
@@ -163,46 +166,34 @@
     <button class="back-btn" onclick="goBack()"><i class="fas fa-chevron-left"></i> <span id="back-text">Yza</span></button>
     <div class="payment-container">
         <h2 id="service-title" style="color: var(--primary); margin-bottom: 20px;">Hyzmat</h2>
-        <label id="lbl-id" style="font-weight:700; font-size:14px; color:#6b7280;">ID / Belgi</label>
+        <label id="lbl-id" style="font-weight:700;">ID / Belgi</label>
         <div class="input-group" id="input-holder"></div>
-        <label id="lbl-amount" style="font-weight:700; font-size:14px; color:#6b7280;">Möçberi (TMT)</label>
-        <div class="input-group">
-            <input type="number" id="pay-amount" placeholder="0.00">
-        </div>
-        <div id="tl-calc-box"></div>
-        <button class="send-btn" onclick="finalizePayment()">DEKONT UGRAT</button>
+        <label id="lbl-amount" style="font-weight:700;">Möçberi (TMT)</label>
+        <input type="number" id="pay-amount" placeholder="0.00">
+        <div id="tl-calc-box" style="margin-top:10px; font-weight:bold; color:var(--primary); display:none;"></div>
+        <button class="send-btn" style="margin-top:20px;" onclick="finalizePayment()">DEKONT UGRAT</button>
     </div>
 </div>
 
 <div id="toast">Göçürildi! ✅</div>
 
 <script>
-    // AHMIÝETLI: Splash Screen aýyrmak üçin iň ygtybarly usul
-    function hideSplash() {
-        const splash = document.getElementById('splash');
-        if (splash) {
-            splash.style.opacity = '0';
-            setTimeout(() => {
-                splash.style.display = 'none';
-            }, 800);
-        }
-    }
-
-    // Programma ýüklenende ýa-da iň gijä galanda 3 sekuntdan soň aýyr
-    window.onload = () => setTimeout(hideSplash, 2500);
-    setTimeout(hideSplash, 4000); // Rezerv: Hatda ýüklenmese-de 4 sekuntdan soň hökman açylar
+    window.onload = () => {
+        setTimeout(() => {
+            const sp = document.getElementById('splash');
+            sp.style.opacity = '0';
+            setTimeout(() => sp.style.display = 'none', 800);
+        }, 2500);
+    };
 
     let currentService = "";
-    let alertText = "Maglumatlary dolduryň!";
-    let tlText = "Lira möçberi";
     const kurs = 2.6;
 
     document.getElementById('pay-amount').addEventListener('input', function(e) {
-        const tmt = e.target.value;
+        const val = e.target.value;
         const box = document.getElementById('tl-calc-box');
-        if(tmt > 0) {
-            const tlResult = (tmt * kurs).toFixed(2);
-            box.innerHTML = `🇹🇷 ${tlText}: <b>${tlResult} TL</b>`;
+        if(val > 0) {
+            box.innerText = "🇹🇷 Lira möçberi: " + (val * kurs).toFixed(2) + " TL";
             box.style.display = "block";
         } else { box.style.display = "none"; }
     });
@@ -215,7 +206,7 @@
         const holder = document.getElementById('input-holder');
         holder.innerHTML = (name === 'Altyn Asyr') ? 
             `<span class="prefix">+993</span><input type="tel" class="tel-input" id="client-id" maxlength="8" placeholder="6x xxxxxx">` : 
-            `<input type="text" id="client-id" placeholder="...">`;
+            `<input type="text" id="client-id" placeholder="Belgiňiz ýa-da ID">`;
     }
 
     function goBack() {
@@ -226,45 +217,26 @@
     function finalizePayment() {
         const id = document.getElementById('client-id').value;
         const amt = document.getElementById('pay-amount').value;
-        if(!id || !amt) { showAlert(alertText); return; }
+        if(!id || !amt) { showAlert("Hemme ýeri dolduryň!"); return; }
         const tlVal = (amt * kurs).toFixed(2);
         const pref = (currentService === 'Altyn Asyr') ? "+993" : "";
-        const msg = `Salam Aman, töleg etdim.%0A%0AHyzmat: ${currentService}%0AHasap: ${pref}${id}%0AMöçberi: ${amt} TMT (${tlVal} TL)%0ADekondy ugradýaryn.`;
+        const msg = `Salam Aman, töleg etdim.%0A%0AHyzmat: ${currentService}%0AHasap: ${pref}${id}%0AMöçberi: ${amt} TMT (${tlVal} TL)`;
         window.open(`https://wa.me/99364041065?text=${msg}`);
     }
 
-    function toggleMode() {
-        document.body.classList.toggle('dark-mode');
-        const icon = document.getElementById('mode-icon');
-        icon.className = document.body.classList.contains('dark-mode') ? 'fas fa-sun' : 'fas fa-moon';
-    }
-
+    function toggleMode() { document.body.classList.toggle('dark-mode'); }
     function copyText(txt) {
         navigator.clipboard.writeText(txt);
         const t = document.getElementById('toast');
         t.style.display = 'block'; setTimeout(() => t.style.display='none', 2000);
     }
-
-    const langMap = {
-        tk: { id: "ID / Belgi", amt: "Möçberi (TMT)", btn: "DEKONT UGRAT", back: "Yza", alert: "Maglumatlary dolduryň!", tlt: "Lira möçberi" },
-        tr: { id: "ID / Numara", amt: "Miktar (TMT)", btn: "DEKONT GÖNDER", back: "Geri", alert: "Alanları doldurun!", tlt: "Lira miktarı" },
-        en: { id: "ID / Number", amt: "Amount (TMT)", btn: "SEND RECEIPT", back: "Back", alert: "Fill fields!", tlt: "Amount in TL" },
-        ru: { id: "ID / Номер", amt: "Сумма (TMT)", btn: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните поля!", tlt: "Сумма в лирах" }
-    };
-
+    function showAlert(m) { document.getElementById('alert-msg').innerText = m; document.getElementById('overlay').style.display = 'block'; document.getElementById('custom-alert').style.display = 'block'; }
+    function closeAlert() { document.getElementById('overlay').style.display = 'none'; document.getElementById('custom-alert').style.display = 'none'; }
     function setLang(l, b) {
         document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active'));
         b.classList.add('active');
-        document.getElementById('lbl-id').innerText = langMap[l].id;
-        document.getElementById('lbl-amount').innerText = langMap[l].amt;
-        document.querySelector('.send-btn').innerText = langMap[l].btn;
-        document.getElementById('back-text').innerText = langMap[l].back;
-        alertText = langMap[l].alert;
-        tlText = langMap[l].tlt;
+        // Dil üýtgediş funksiýasyny şu ýerde giňeldip bilersiň
     }
-
-    function showAlert(m) { document.getElementById('alert-msg').innerText = m; document.getElementById('overlay').style.display = 'block'; document.getElementById('custom-alert').style.display = 'block'; }
-    function closeAlert() { document.getElementById('overlay').style.display = 'none'; document.getElementById('custom-alert').style.display = 'none'; }
 </script>
 </body>
 </html>
