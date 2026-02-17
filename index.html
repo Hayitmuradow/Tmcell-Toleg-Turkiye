@@ -16,62 +16,57 @@
             --turkiye-red: #e30a17;
         }
 
-        .dark-mode {
-            --bg: #0b0f19; --card-bg: #161b22; --text: #f0f6fc; --primary: #10b981;
-        }
+        .dark-mode { --bg: #0b0f19; --card-bg: #161b22; --text: #f0f6fc; --primary: #10b981; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-        /* INTERNET ÝOK BOLSA */
-        #offline-screen {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 20000; text-align: center; padding-top: 100px;
-        }
-
-        /* SPLASH SCREEN */
-        #splash {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--dark-green) 50%, var(--turkiye-red) 50%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000;
-        }
-        .motto-text { font-size: 24px; font-weight: 900; color: white; text-align: center; margin-top: 20px; }
-
+        /* INTERNET WE SPLASH */
+        #offline-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 20000; text-align: center; padding-top: 100px; }
+        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--dark-green) 50%, var(--turkiye-red) 50%); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; }
+        
         /* HEADER */
         .header { background: var(--dark-green); padding: 12px; position: sticky; top: 0; z-index: 1000; }
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
-        .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 5px 8px; border-radius: 8px; cursor: pointer; font-size: 12px; }
+        .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; }
         .lang-btn.active { background: var(--gold); color: black; font-weight: bold; }
 
         /* MAIN PAGE */
         .main-page { max-width: 500px; margin: auto; padding: 15px; }
-        .bank-card { background: linear-gradient(135deg, var(--primary), var(--dark-green)); padding: 25px; border-radius: 20px; color: white; margin-bottom: 20px; }
+        .bank-card { background: linear-gradient(135deg, var(--primary), var(--dark-green)); padding: 25px; border-radius: 20px; color: white; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         
-        /* MENU */
         .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .menu-item { 
-            background: var(--card-bg); border-radius: 15px; text-align: center; padding: 10px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer;
-        }
-        .menu-img { width: 85%; height: 110px; object-fit: contain; margin-bottom: 8px; }
-        .menu-item span { font-weight: 800; font-size: 14px; }
+        .menu-item { background: var(--card-bg); border-radius: 15px; text-align: center; padding: 15px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; }
+        .menu-img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 10px; }
+        .menu-item span { font-weight: 800; font-size: 14px; display: block; }
 
         /* PAYMENT PAGE */
         #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; }
-        .payment-container { background: var(--card-bg); padding: 25px; border-radius: 20px; margin-top: 20px; }
+        .payment-container { background: var(--card-bg); padding: 25px; border-radius: 20px; margin-top: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         
-        .input-wrapper { position: relative; margin-top: 10px; }
-        .prefix { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-weight: bold; color: var(--primary); font-size: 18px; }
+        .input-wrapper { position: relative; margin-top: 15px; width: 100%; }
+        .prefix { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-weight: bold; color: var(--primary); font-size: 18px; display: none; }
         
-        input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #ddd; font-size: 16px; font-weight: bold; outline: none; }
+        input { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid #eee; font-size: 16px; font-weight: bold; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--primary); }
         input.with-prefix { padding-left: 65px; }
 
-        .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 18px; border-radius: 15px; margin-top: 20px; font-weight: bold; cursor: pointer; }
+        .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 18px; border-radius: 15px; margin-top: 20px; font-weight: bold; font-size: 16px; cursor: pointer; }
         
-        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 20px; border-radius: 20px; display: none; }
+        /* ÝÖRITE MODAL (GITHUB GÖRÜNMEZ ÝALY) */
+        #custom-alert { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 30px; border-radius: 20px; z-index: 30000; text-align: center; width: 85%; box-shadow: 0 0 100px rgba(0,0,0,0.5); }
+        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 29000; }
+
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 20px; border-radius: 20px; display: none; z-index: 10000; }
     </style>
 </head>
 <body ononline="checkNet()" onoffline="checkNet()">
+
+<div id="overlay"></div>
+<div id="custom-alert">
+    <h3 id="alert-text" style="margin-bottom: 20px;"></h3>
+    <button onclick="closeAlert()" style="background:var(--primary); color:white; border:none; padding:12px 30px; border-radius:10px; font-weight:bold;">OK</button>
+</div>
 
 <div id="offline-screen">
     <i class="fas fa-wifi-slash" style="font-size: 50px; color: red;"></i>
@@ -81,12 +76,12 @@
 
 <div id="splash">
     <div style="font-size: 60px;">🇹🇲 🤝 🇹🇷</div>
-    <div class="motto-text">AMAN TÖLEG HYZMATY<br>SIZIŇ BILEN!</div>
+    <div style="color:white; font-weight:900; font-size:22px; text-align:center; margin-top:20px;">AMAN TÖLEG HYZMATY<br>SIZIŇ BILEN!</div>
 </div>
 
 <header class="header">
     <div class="top-row">
-        <div id="lang-box">
+        <div>
             <button class="lang-btn active" onclick="changeLang('tk', this)">🇹🇲 TM</button>
             <button class="lang-btn" onclick="changeLang('tr', this)">🇹🇷 TR</button>
             <button class="lang-btn" onclick="changeLang('en', this)">🇺🇸 EN</button>
@@ -99,7 +94,7 @@
 <div class="main-page" id="main-page">
     <div class="bank-card">
         <h3 onclick="copyText('AMAN HAYITMURADOV')">AMAN HAYITMURADOV</h3>
-        <p onclick="copyText('TR910015700000000201151163')" style="margin-top:10px; font-family:monospace; background:rgba(255,255,255,0.1); padding:8px; border-radius:5px;">TR91 0015 ... 1163 <i class="fas fa-copy"></i></p>
+        <p onclick="copyText('TR910015700000000201151163')" style="margin-top:10px; font-family:monospace; background:rgba(255,255,255,0.15); padding:10px; border-radius:8px;">TR91 0015 ... 1163 <i class="fas fa-copy"></i></p>
     </div>
 
     <div class="menu-grid">
@@ -111,17 +106,17 @@
 </div>
 
 <div id="payment-page">
-    <button onclick="goBack()" style="background:none; border:none; color:var(--primary); font-weight:bold; cursor:pointer;"><i class="fas fa-arrow-left"></i> <span id="txt-back">Yza</span></button>
+    <button onclick="goBack()" style="background:none; border:none; color:var(--primary); font-weight:bold; font-size:16px; margin-bottom:10px;"><i class="fas fa-arrow-left"></i> <span id="txt-back">Yza</span></button>
     <div class="payment-container">
-        <h2 id="pay-title">Hyzmat</h2>
+        <h2 id="pay-title" style="margin-bottom:10px; color:var(--primary);">Hyzmat</h2>
         
         <div class="input-wrapper">
-            <span id="tel-prefix" class="prefix" style="display:none;">+993</span>
-            <input type="text" id="inp-id" placeholder="Maglumat ýazyň">
+            <span id="tel-prefix" class="prefix">+993</span>
+            <input type="text" id="inp-id">
         </div>
 
-        <input type="number" id="inp-amt" placeholder="Manat (TMT)" style="margin-top:15px;">
-        <div id="tl-box" style="margin-top:10px; font-weight:bold; color:red;"></div>
+        <input type="number" id="inp-amt" style="margin-top:15px;">
+        <div id="tl-box" style="margin-top:15px; font-weight:900; color:red; text-align:center; font-size:18px;"></div>
         <button class="send-btn" id="btn-send" onclick="send()">DEKONT UGRAT</button>
     </div>
 </div>
@@ -133,20 +128,13 @@
         tk: { wifi: "Öý telefon belgiňizi ýazyň", id: "ID belgiňizi ýazyň", tel: "Telefon belgiňizi ýazyň", amt: "Manat (TMT)", send: "DEKONT UGRAT", back: "Yza", alert: "Maglumatlary dolduryň!" },
         tr: { wifi: "Ev telefon numaranızı girin", id: "ID numaranızı girin", tel: "Telefon numaranızı girin", amt: "Miktar (TMT)", send: "DEKONT GÖNDER", back: "Geri", alert: "Bilgileri doldurun!" },
         en: { wifi: "Enter home phone number", id: "Enter ID number", tel: "Enter phone number", amt: "Amount (TMT)", send: "SEND RECEIPT", back: "Back", alert: "Fill in the information!" },
-        ru: { wifi: "Введите номер домашнего тел.", id: "Введите свой ID номер", tel: "Введите номер телефона", amt: "Сumma (TMT)", send: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните данные!" }
+        ru: { wifi: "Введите номер домашнего тел.", id: "Введите свой ID номер", tel: "Введите номер телефона", amt: "Сумма (TMT)", send: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните данные!" }
     };
     
-    let curLang = 'tk';
-    let currentType = '';
+    let curLang = 'tk', currentType = '';
 
-    function checkNet() {
-        document.getElementById('offline-screen').style.display = navigator.onLine ? 'none' : 'block';
-    }
-
-    window.onload = () => {
-        checkNet();
-        setTimeout(() => document.getElementById('splash').style.display = 'none', 2500);
-    };
+    function checkNet() { document.getElementById('offline-screen').style.display = navigator.onLine ? 'none' : 'block'; }
+    window.onload = () => { checkNet(); setTimeout(() => document.getElementById('splash').style.display = 'none', 2500); };
 
     function changeLang(l, btn) {
         curLang = l;
@@ -158,53 +146,61 @@
     }
 
     function updatePlaceholders() {
-        const inp = document.getElementById('inp-id');
-        if (currentType === 'tel') inp.placeholder = langs[curLang].tel;
-        else if (currentType === 'wifi') inp.placeholder = langs[curLang].wifi;
-        else inp.placeholder = langs[curLang].id;
-        document.getElementById('inp-amt').placeholder = langs[curLang].amt;
+        const inpId = document.getElementById('inp-id');
+        const inpAmt = document.getElementById('inp-amt');
+        if (currentType === 'tel') inpId.placeholder = langs[curLang].tel;
+        else if (currentType === 'wifi') inpId.placeholder = langs[curLang].wifi;
+        else inpId.placeholder = langs[curLang].id;
+        inpAmt.placeholder = langs[curLang].amt;
     }
 
     function openPay(name, type) {
         currentType = type;
         document.getElementById('pay-title').innerText = name;
-        document.getElementById('tel-prefix').style.display = (type === 'tel') ? 'block' : 'none';
-        
+        const prefix = document.getElementById('tel-prefix');
         const inp = document.getElementById('inp-id');
+        
         if (type === 'tel') {
+            prefix.style.display = 'block';
             inp.classList.add('with-prefix');
             inp.type = "tel";
-            inp.maxLength = 8;
         } else {
+            prefix.style.display = 'none';
             inp.classList.remove('with-prefix');
             inp.type = "text";
-            inp.maxLength = 20;
         }
         
         updatePlaceholders();
         document.getElementById('inp-id').value = '';
         document.getElementById('inp-amt').value = '';
         document.getElementById('tl-box').innerText = '';
-        
         document.getElementById('main-page').style.display = 'none';
         document.getElementById('payment-page').style.display = 'block';
     }
 
-    function goBack() {
-        document.getElementById('payment-page').style.display = 'none';
-        document.getElementById('main-page').style.display = 'block';
-    }
+    function goBack() { document.getElementById('payment-page').style.display = 'none'; document.getElementById('main-page').style.display = 'block'; }
 
     document.getElementById('inp-amt').oninput = function() {
         let tl = (this.value * 2.6).toFixed(2);
         document.getElementById('tl-box').innerText = this.value > 0 ? "🇹🇷 " + tl + " TL" : "";
     };
 
+    function showAlert(msg) {
+        document.getElementById('alert-text').innerText = msg;
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('custom-alert').style.display = 'block';
+    }
+
+    function closeAlert() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('custom-alert').style.display = 'none';
+    }
+
     function send() {
         let id = document.getElementById('inp-id').value;
         let amt = document.getElementById('inp-amt').value;
         if(!id || !amt) {
-            alert(langs[curLang].alert);
+            showAlert(langs[curLang].alert);
             return;
         }
         let prefix = (currentType === 'tel') ? "+993 " : "";
