@@ -3,105 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aman Töleg - Animasiýaly</title>
+    <title>Aman Töleg - 3D Glass Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #00873c;
             --dark-green: #005a28;
             --gold: #ffc107;
-            --bg: #f3f4f6;
-            --card-bg: #ffffff;
+            --bg: #e0e7ff;
+            --glass: rgba(255, 255, 255, 0.25);
             --text: #111827;
         }
 
-        .dark-mode { --bg: #0b0f19; --card-bg: #161b22; --text: #f0f6fc; }
+        .dark-mode { --bg: #0b0f19; --glass: rgba(22, 27, 34, 0.4); --text: #f0f6fc; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         
-        /* 1. ÝYLDYZLY ARKA TARAP */
         body { 
             background: var(--bg); 
             color: var(--text); 
-            min-height: 100vh; 
-            overflow-x: hidden;
-            background-image: radial-gradient(circle at 20% 30%, rgba(255, 193, 7, 0.05) 1px, transparent 0),
-                              radial-gradient(circle at 70% 60%, rgba(255, 193, 7, 0.05) 1px, transparent 0);
-            background-size: 50px 50px;
-            animation: starsMove 100s linear infinite;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 10% 20%, rgba(0, 135, 60, 0.1) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(255, 193, 7, 0.1) 0%, transparent 40%);
         }
-        @keyframes starsMove { from { background-position: 0 0; } to { background-position: 1000px 1000px; } }
 
-        /* 2. KARTYŇ ÝALPYLDYSY (GLOW) */
+        /* 1. KART WE 3D EFFEKT */
+        .main-page { max-width: 500px; margin: auto; padding: 15px; perspective: 1000px; }
+        
         .bank-card { 
-            background: linear-gradient(135deg, var(--primary), var(--dark-green)); 
-            padding: 25px; border-radius: 20px; color: white; margin-bottom: 25px; 
+            background: linear-gradient(135deg, var(--dark-green), var(--primary)); 
+            padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; 
             position: relative; overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
         }
-        .bank-card::after {
-            content: "";
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: rotate(45deg);
-            animation: cardShine 4s infinite;
+        .bank-card:hover { transform: rotateX(5deg) rotateY(-5deg); }
+
+        /* 2. FROSTED GLASS & 3D HOVER MENÝU */
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        
+        .menu-item { 
+            background: var(--glass); 
+            backdrop-filter: blur(15px); /* Frosted Glass */
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px; text-align: center; padding: 20px 10px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
-        @keyframes cardShine { 0% { left: -100%; } 100% { left: 100%; } }
+        
+        /* 3D HOVER ANIMASIÝASY */
+        .menu-item:hover { 
+            transform: translateY(-12px) scale(1.05); 
+            box-shadow: 0 20px 40px rgba(0, 135, 60, 0.2);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .menu-item:active { transform: scale(0.95); }
 
-        /* SPLASH & HEADER */
-        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #004d26, #00873c); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; color: white; transition: 0.5s; }
-        .moon-icon { font-size: 80px; color: var(--gold); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
+        .menu-img { width: 100%; height: 90px; object-fit: contain; margin-bottom: 12px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1)); }
+        .menu-item span { font-weight: 800; font-size: 14px; color: var(--text); }
 
-        .header { background: var(--dark-green); padding: 12px; position: sticky; top: 0; z-index: 1000; }
+        /* BEÝLEKI ELEMENTLER */
+        .header { background: var(--dark-green); padding: 12px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
-        .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 6px 10px; border-radius: 8px; font-size: 11px; cursor: pointer; }
+        .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 6px 12px; border-radius: 10px; cursor: pointer; font-size: 12px; }
         .lang-btn.active { background: var(--gold); color: black; font-weight: bold; }
 
-        /* MAIN PAGE ANIMATION */
-        .main-page { max-width: 500px; margin: auto; padding: 15px; animation: fadeIn 0.8s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .history-box { margin-top: 25px; background: var(--glass); backdrop-filter: blur(10px); border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.2); }
+        .history-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 13px; font-weight: 600; }
 
-        /* MENU GRID */
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .menu-item { background: var(--card-bg); border-radius: 20px; text-align: center; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); cursor: pointer; transition: 0.3s; }
-        .menu-item:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
-        .menu-item:active { transform: scale(0.9); }
-        .menu-img { width: 100%; height: 100px; object-fit: contain; margin-bottom: 12px; }
-        .menu-item span { font-weight: 800; font-size: 14px; display: block; }
-
-        /* PAYMENT PAGE */
-        #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; animation: slideUp 0.4s ease-out; }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; overflow-y: auto; }
+        .payment-container { background: white; padding: 30px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
         
-        .payment-container { background: var(--card-bg); padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        input { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid #eee; font-size: 16px; font-weight: bold; outline: none; margin-bottom: 10px; }
-        
-        .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 900; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        input { width: 100%; padding: 16px; border-radius: 15px; border: 2px solid #f0f0f0; font-size: 16px; font-weight: bold; margin-bottom: 15px; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--primary); background: #fafafa; }
 
-        /* HOLIDAY BANNER */
-        .holiday-banner { text-align: center; margin-top: 30px; padding: 15px; background: rgba(255, 193, 7, 0.1); border-radius: 15px; border: 1px dashed var(--gold); color: var(--dark-green); font-weight: bold; animation: flare 3s infinite; }
-        @keyframes flare { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 20px; border-radius: 18px; font-weight: 900; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-        #custom-alert { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 30px; border-radius: 20px; z-index: 30000; text-align: center; width: 85%; box-shadow: 0 0 100px rgba(0,0,0,0.5); }
-        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 29000; }
-        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 20px; border-radius: 20px; display: none; }
+        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #004d26, #00873c); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; color: white; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 12px 30px; border-radius: 50px; display: none; font-weight: bold; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
 
 <audio id="clickSound" src="https://www.myinstants.com/media/sounds/cash-register-purchase.mp3" preload="auto"></audio>
 
-<div id="overlay"></div>
-<div id="custom-alert">
-    <h3 id="alert-text"></h3>
-    <button onclick="closeAlert()" style="background:var(--primary); color:white; border:none; padding:12px 35px; border-radius:12px; font-weight:bold; margin-top:20px;">OK</button>
-</div>
-
 <div id="splash">
-    <i class="fas fa-star-and-crescent moon-icon"></i>
-    <div style="font-weight:900; font-size:24px; text-align:center; margin-top: 20px;">ORAZA BAÝRAMYŇYZ<br>MÜBAREK BOLSUN!</div>
+    <i class="fas fa-star-and-crescent" style="font-size: 80px; color: var(--gold); margin-bottom: 20px; animation: pulse 2s infinite;"></i>
+    <div style="font-weight:900; font-size:24px;">ORAZA BAÝRAMYŇYZ MÜBAREK!</div>
 </div>
 
 <header class="header">
@@ -109,6 +103,7 @@
         <div>
             <button class="lang-btn active" onclick="changeLang('tk', this)">🇹🇲 TM</button>
             <button class="lang-btn" onclick="changeLang('tr', this)">🇹🇷 TR</button>
+            <button class="lang-btn" onclick="changeLang('en', this)">🇺🇸 EN</button>
             <button class="lang-btn" onclick="changeLang('ru', this)">🇷🇺 RU</button>
         </div>
         <i class="fas fa-moon" onclick="document.body.classList.toggle('dark-mode')" style="color:white; cursor:pointer;"></i>
@@ -117,10 +112,12 @@
 
 <div class="main-page" id="main-page">
     <div class="bank-card">
+        <i class="fas fa-info-circle" style="position:absolute; top:20px; right:20px; opacity:0.6; cursor:pointer;" onclick="showInfo()"></i>
         <h3 onclick="copyText('AMAN HAYITMURADOV')">AMAN HAYITMURADOV</h3>
-        <p onclick="copyText('TR910015700000000201151163')" style="margin-top:15px; font-family:monospace; background:rgba(255,255,255,0.18); padding:12px; border-radius:10px; display:flex; justify-content:space-between;">
+        <p onclick="copyText('TR910015700000000201151163')" style="margin-top:20px; font-family:monospace; background:rgba(0,0,0,0.2); padding:15px; border-radius:15px; display:flex; justify-content:space-between; align-items:center;">
             <span>TR91 0015 ... 1163</span> <i class="fas fa-copy"></i>
         </p>
+        <div style="margin-top: 15px; font-size: 13px; font-weight: bold;">Kurs: <span style="color:var(--gold)">1 TMT = 2.60 TL</span></div>
     </div>
 
     <div class="menu-grid">
@@ -129,25 +126,28 @@
         <div class="menu-item" onclick="openPay('Öý Telefony', 'phone')"><img src="phone.png" class="menu-img"><span>Öý Telefony</span></div>
         <div class="menu-item" onclick="openPay('Älem TV', 'id')"><img src="alemtv.png" class="menu-img"><span>Älem TV</span></div>
         <div class="menu-item" onclick="openPay('Belet Film', 'id')"><img src="belet.png" class="menu-img"><span>Belet Film</span></div>
-        <div class="menu-item" onclick="location.reload()"><div style="height:100px; display:flex; align-items:center; justify-content:center;"><i class="fas fa-sync-alt" style="font-size:35px; color:var(--primary);"></i></div><span>Täzele</span></div>
+        <div class="menu-item" onclick="location.reload()"><div style="height:90px; display:flex; align-items:center; justify-content:center;"><i class="fas fa-sync-alt" style="font-size:35px; color:var(--primary);"></i></div><span>Täzele</span></div>
     </div>
 
-    <div class="holiday-banner" id="holiday-txt">
-        🌙 Oraza baýramyňyz mübarek bolsun! <br> Alla kabul etsin!
+    <div class="history-box" id="history-box" style="display:none;">
+        <div style="font-weight:900; margin-bottom:15px; color:var(--primary); font-size:14px;"><i class="fas fa-history"></i> <span id="txt-hist">Soňky tölegler</span></div>
+        <div id="history-list"></div>
     </div>
+
+    <div id="holiday-txt" style="text-align:center; margin-top:30px; font-weight:800; color:var(--primary);">🌙 Oraza baýramyňyz mübarek!</div>
 </div>
 
 <div id="payment-page">
-    <button onclick="goBack()" style="background:none; border:none; color:var(--primary); font-weight:900; font-size:18px; cursor:pointer; margin-bottom: 15px;"><i class="fas fa-arrow-left"></i> <span id="txt-back">Yza</span></button>
+    <button onclick="goBack()" style="background:none; border:none; color:var(--primary); font-weight:900; font-size:18px; cursor:pointer; margin-bottom: 20px;"><i class="fas fa-arrow-left"></i> <span id="txt-back">Yza</span></button>
     <div class="payment-container">
-        <h2 id="pay-title" style="color:var(--primary); margin-bottom:10px;">Hyzmat</h2>
-        <input type="text" id="inp-name" spellcheck="false">
+        <h2 id="pay-title" style="color:var(--primary); margin-bottom:20px; text-align:center;">Hyzmat</h2>
+        <input type="text" id="inp-name">
         <div style="position:relative;">
             <span id="tel-prefix" style="position:absolute; left:15px; top:18px; font-weight:bold; color:var(--primary); display:none;">+993</span>
-            <input type="text" id="inp-id" spellcheck="false">
+            <input type="text" id="inp-id">
         </div>
         <input type="number" id="inp-amt">
-        <div id="tl-box" style="margin-top:10px; font-weight:900; color:red; text-align:center; font-size:20px;"></div>
+        <div id="tl-box" style="margin: 20px 0; font-weight: 900; color: #e30a17; text-align: center; font-size: 24px; padding: 15px; border-radius: 15px; background: #fff5f5; border: 2px dashed #e30a17;"></div>
         <button class="send-btn" id="btn-send" onclick="send()"><i class="fab fa-whatsapp"></i> <span>DEKONT UGRAT</span></button>
     </div>
 </div>
@@ -156,46 +156,47 @@
 
 <script>
     const langs = {
-        tk: { holiday: "🌙 Oraza baýramyňyz mübarek bolsun! Alla kabul etsin!", name: "Adyňyz we Familiýaňyz", wifi: "Öý telefon belgiňiz", id: "ID belgiňiz", tel: "Telefon belgiňiz", amt: "Manat (TMT)", send: "DEKONT UGRAT", back: "Yza", alert: "Ähli öýjükleri dolduryň!" },
-        tr: { holiday: "🌙 Ramazan Bayramınız Mübarek Olsun! Allah kabul etsin!", name: "Adınız ve Soyadınız", wifi: "Ev telefon numaranız", id: "ID numaranız", tel: "Telefon numaranız", amt: "Miktar (TMT)", send: "DEKONT GÖNDER", back: "Geri", alert: "Lütfen tüm alanları doldurun!" },
-        ru: { holiday: "🌙 С праздником Ораза байрам! Да примет Аллах ваш пост!", name: "Ваше Имя и Фамилия", wifi: "Номер дом. телефона", id: "ID номер", tel: "Номер телефона", amt: "Сумма (TMT)", send: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните все поля!" }
+        tk: { info: "Töleg: Karta pul geçirip, soňra dekont ugratmaly. Kurs: 1 TMT = 2.60 TL", hist: "Soňky tölegler", holiday: "🌙 Oraza baýramyňyz mübarek! Alla kabul etsin!", name: "Adyňyz Familiýaňyz", wifi: "Öý telefon belgiňiz", id: "ID belgiňiz", tel: "Telefon belgiňiz", amt: "Manat (TMT)", send: "DEKONT UGRAT", back: "Yza", alert: "Ähli ýeri dolduryň!" },
+        tr: { info: "Ödeme: Karta para atıp dekont gönderin. Kur: 1 TMT = 2.60 TL", hist: "Son işlemler", holiday: "🌙 Ramazan Bayramınız Mübarek!", name: "Adınız Soyadınız", wifi: "Ev telefonu no", id: "ID numaranız", tel: "Telefon numaranız", amt: "Miktar (TMT)", send: "DEKONT GÖNDER", back: "Geri", alert: "Tüm alanları doldurun!" },
+        en: { info: "Payment: Transfer to card, then send receipt. Rate: 1 TMT = 2.60 TL", hist: "Recent payments", holiday: "🌙 Eid Mubarak!", name: "Your Full Name", wifi: "Phone number", id: "ID number", tel: "Phone number", amt: "Amount (TMT)", send: "SEND RECEIPT", back: "Back", alert: "Fill all fields!" },
+        ru: { info: "Оплата: Перевод на карту и чек. Курс: 1 TMT = 2.60 TL", hist: "История", holiday: "🌙 С праздником Ораза!", name: "Имя Фамилия", wifi: "Дом. телефон", id: "ID номер", tel: "Номер телефона", amt: "Сумма (TMT)", send: "ОТПРАВИТЬ ЧЕК", back: "Назад", alert: "Заполните поля!" }
     };
     
     let curLang = 'tk', currentType = '';
 
     window.onload = () => { 
-        const savedName = localStorage.getItem('aman_customer_name');
-        if(savedName) document.getElementById('inp-name').value = savedName;
-        setTimeout(() => { document.getElementById('splash').style.opacity = '0'; 
-        setTimeout(() => document.getElementById('splash').style.display = 'none', 500); }, 2500); 
+        const n = localStorage.getItem('aman_customer_name');
+        if(n) document.getElementById('inp-name').value = n;
+        updateHistory();
+        setTimeout(() => { document.getElementById('splash').style.display='none'; }, 2500); 
     };
 
     function changeLang(l, btn) {
         curLang = l;
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        document.getElementById('holiday-txt').innerHTML = langs[l].holiday;
-        updatePlaceholders();
+        document.getElementById('holiday-txt').innerText = langs[l].holiday;
+        document.getElementById('txt-hist').innerText = langs[l].hist;
         document.getElementById('btn-send').querySelector('span').innerText = langs[l].send;
         document.getElementById('txt-back').innerText = langs[l].back;
+        updatePlaceholders();
     }
 
     function updatePlaceholders() {
         document.getElementById('inp-name').placeholder = langs[curLang].name;
-        const inpId = document.getElementById('inp-id');
-        if (currentType === 'tel') inpId.placeholder = langs[curLang].tel;
-        else if (currentType === 'wifi' || currentType === 'phone') inpId.placeholder = langs[curLang].wifi;
-        else inpId.placeholder = langs[curLang].id;
+        const inp = document.getElementById('inp-id');
+        if (currentType === 'tel') inp.placeholder = langs[curLang].tel;
+        else if (currentType === 'wifi' || currentType === 'phone') inp.placeholder = langs[curLang].wifi;
+        else inp.placeholder = langs[curLang].id;
         document.getElementById('inp-amt').placeholder = langs[curLang].amt;
     }
 
-    function openPay(name, type) {
-        currentType = type;
-        document.getElementById('pay-title').innerText = name;
-        const prefix = document.getElementById('tel-prefix');
-        const inp = document.getElementById('inp-id');
-        if (type === 'tel') { prefix.style.display = 'block'; inp.style.paddingLeft = '65px'; }
-        else { prefix.style.display = 'none'; inp.style.paddingLeft = '16px'; }
+    function openPay(n, t) {
+        currentType = t; document.getElementById('pay-title').innerText = n;
+        const p = document.getElementById('tel-prefix');
+        const i = document.getElementById('inp-id');
+        if (t === 'tel') { p.style.display = 'block'; i.style.paddingLeft = '65px'; }
+        else { p.style.display = 'none'; i.style.paddingLeft = '16px'; }
         updatePlaceholders();
         document.getElementById('main-page').style.display = 'none';
         document.getElementById('payment-page').style.display = 'block';
@@ -204,34 +205,43 @@
     function goBack() { document.getElementById('payment-page').style.display = 'none'; document.getElementById('main-page').style.display = 'block'; }
 
     document.getElementById('inp-amt').oninput = function() {
-        let tl = (this.value * 2.6).toFixed(2);
-        document.getElementById('tl-box').innerText = this.value > 0 ? "🇹🇷 " + tl + " TL" : "";
+        let v = (this.value * 2.6).toFixed(2);
+        document.getElementById('tl-box').innerText = this.value > 0 ? "🇹🇷 " + v + " TL" : "";
     };
 
-    function showAlert(msg) {
-        document.getElementById('alert-text').innerText = msg;
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('custom-alert').style.display = 'block';
-    }
-
-    function closeAlert() { document.getElementById('overlay').style.display = 'none'; document.getElementById('custom-alert').style.display = 'none'; }
+    function showInfo() { alert(langs[curLang].info); }
 
     function send() {
-        let name = document.getElementById('inp-name').value;
+        let n = document.getElementById('inp-name').value;
         let id = document.getElementById('inp-id').value;
-        let amt = document.getElementById('inp-amt').value;
-        if(!name || !id || !amt) { showAlert(langs[curLang].alert); return; }
+        let a = document.getElementById('inp-amt').value;
+        if(!n || !id || !a) { alert(langs[curLang].alert); return; }
+        
         document.getElementById('clickSound').play();
-        localStorage.setItem('aman_customer_name', name);
-        let prefix = (currentType === 'tel') ? "+993 " : "";
-        let msg = `👤 *Müşderi:* ${name}%0A🛠 *Hyzmat:* ${document.getElementById('pay-title').innerText}%0A💳 *Hasap:* ${prefix}${id}%0A💰 *Möçberi:* ${amt} TMT (${(amt*2.6).toFixed(2)} TL)`;
-        setTimeout(() => { window.open(`https://wa.me/99364041065?text=${msg}`); }, 400);
+        localStorage.setItem('aman_customer_name', n);
+        
+        let h = JSON.parse(localStorage.getItem('aman_history') || '[]');
+        h.unshift({ service: document.getElementById('pay-title').innerText, amt: a });
+        localStorage.setItem('aman_history', JSON.stringify(h.slice(0, 5)));
+        updateHistory();
+
+        let p = (currentType === 'tel') ? "+993 " : "";
+        let m = `👤 *Müşderi:* ${n}%0A🛠 *Hyzmat:* ${document.getElementById('pay-title').innerText}%0A💳 *Hasap:* ${p}${id}%0A💰 *Möçberi:* ${a} TMT (${(a*2.6).toFixed(2)} TL)`;
+        setTimeout(() => { window.open(`https://wa.me/99364041065?text=${m}`); }, 400);
+    }
+
+    function updateHistory() {
+        let h = JSON.parse(localStorage.getItem('aman_history') || '[]');
+        if(h.length > 0) {
+            document.getElementById('history-box').style.display = 'block';
+            document.getElementById('history-list').innerHTML = h.map(i => `<div class="history-item"><span>${i.service}</span> <span>${i.amt} TMT</span></div>`).join('');
+        }
     }
 
     function copyText(t) {
         navigator.clipboard.writeText(t);
-        let ts = document.getElementById('toast');
-        ts.style.display = 'block'; setTimeout(() => ts.style.display='none', 2000);
+        let s = document.getElementById('toast');
+        s.style.display = 'block'; setTimeout(() => s.style.display='none', 2000);
     }
 </script>
 </body>
