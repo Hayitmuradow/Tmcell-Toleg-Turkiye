@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aman Töleg - Pro Edition</title>
+    <title>Aman Töleg - Final Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
             --primary: #00873c;
@@ -14,74 +13,64 @@
             --gold: #ffc107;
             --bg: #ffffff;
             --text: #111827;
-            --card-bg: #fff;
+            --card-bg: #ffffff;
         }
 
-        /* GIJE FUNKSIÝASY */
         .dark-mode {
             --bg: #0b0f19;
             --text: #ffffff;
             --card-bg: #161b22;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; transition: background 0.3s, color 0.3s; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; transition: 0.3s; }
 
-        /* SPLASH SCREEN */
-        #splash { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: radial-gradient(circle at center, #00873c, #004d26); 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            z-index: 10000; color: white;
+        /* 1. CUSTOM ALERT (GITHUB-Y AYRYAN DURUŞ) */
+        #custom-alert { 
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            background: var(--card-bg); width: 85%; max-width: 350px; padding: 25px; border-radius: 20px; 
+            z-index: 20000; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.3);
+            border: 2px solid var(--primary); color: var(--text);
         }
-        .splash-logo { font-size: 80px; color: var(--gold); animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .handwritten { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--gold); margin-top: 15px; }
+        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 15000; backdrop-filter: blur(3px); }
+
+        /* SPLASH */
+        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #004d26; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; color: white; }
+        .handwritten { font-family: 'Dancing Script', cursive; font-size: 30px; color: var(--gold); margin-top: 10px; }
 
         /* HEADER */
         .header { background: var(--dark-green); padding: 15px; position: sticky; top: 0; z-index: 1000; }
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
-        .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 6px 10px; border-radius: 8px; font-size: 11px; cursor: pointer; }
+        .lang-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
         .lang-btn.active { background: var(--gold); color: black; font-weight: bold; }
 
-        /* BANK CARD 3D & GLOW */
+        /* BANK CARD & ANIMATION */
         .main-page { max-width: 500px; margin: auto; padding: 20px; }
         .bank-card { 
-            background: #1a1a1a; padding: 3px; border-radius: 25px; color: white; margin-bottom: 30px; 
-            position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            background: #004d26; padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; 
+            position: relative; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.4s;
         }
-        .bank-card::after {
-            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: conic-gradient(transparent, transparent, var(--primary), transparent);
-            animation: rotate-border 6s linear infinite;
-        }
-        @keyframes rotate-border { 100% { transform: rotate(360deg); } }
-        .card-inner { position: relative; z-index: 1; background: #004d26; border-radius: 22px; padding: 25px; }
+        .bank-card:hover { transform: translateY(-5px) rotateX(5deg); }
 
         /* MENU GRID */
         .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .menu-item { 
-            background: var(--card-bg); border-radius: 25px; text-align: center; padding: 25px 15px; 
-            cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05);
+            background: var(--card-bg); border-radius: 20px; text-align: center; padding: 25px 10px; 
+            cursor: pointer; transition: 0.3s; border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
-        .menu-item:hover { transform: translateY(-10px); border-color: var(--primary); }
-        .menu-img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 12px; animation: floating-img 4s ease-in-out infinite; }
-        @keyframes floating-img { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .menu-item:hover { transform: translateY(-8px); border-color: var(--primary); }
+        .menu-img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 10px; animation: floatIcon 3s ease-in-out infinite; }
+        @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         /* PAYMENT PAGE */
-        #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; overflow-y: auto; }
-        .payment-container { background: var(--card-bg); padding: 25px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        input { width: 100%; padding: 16px; border-radius: 15px; border: 2px solid #eee; font-size: 16px; font-weight: bold; margin-bottom: 15px; outline: none; background: var(--bg); color: var(--text); }
-        .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 800; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; }
+        .payment-container { background: var(--card-bg); padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #eee; margin-bottom: 15px; outline: none; background: var(--bg); color: var(--text); font-weight: 600; }
+        .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 18px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 16px; }
 
-        /* ÇEK (RECEIPT) STILI - BU GÖRÜNMEÝÄR, DIŇE SURAT ÜÇIN */
-        #receipt-template { 
-            position: absolute; left: -9999px; width: 350px; background: white; padding: 30px; border-radius: 20px; color: #333; text-align: center;
-        }
-        .receipt-header { border-bottom: 2px dashed #eee; padding-bottom: 15px; margin-bottom: 15px; }
-
-        #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #111; color: white; padding: 12px 30px; border-radius: 50px; display: none; z-index: 25000; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #111; color: white; padding: 10px 25px; border-radius: 50px; display: none; }
     </style>
 </head>
 <body>
@@ -89,154 +78,141 @@
 <audio id="clickSound" src="https://www.myinstants.com/media/sounds/cash-register-purchase.mp3" preload="auto"></audio>
 
 <div id="splash">
-    <div class="splash-logo"><i class="fas fa-star-and-crescent"></i></div>
-    <div class="splash-title" style="text-align:center; margin-top:20px; font-weight:900;">ORAZA BAÝRAMYŇYZ<br>MÜBAREK BOLSUN!</div>
+    <i class="fas fa-star-and-crescent" style="font-size: 60px; color: var(--gold);"></i>
+    <div style="margin-top:20px; font-weight:900; text-align:center;">ORAZA BAÝRAMYŇYZ MÜBAREK!</div>
     <div class="handwritten">Aman töleg siz bilen</div>
 </div>
 
-<div id="receipt-template">
-    <div class="receipt-header">
-        <h2 style="color: #00873c;">AMAN TÖLEG</h2>
-        <p style="font-size: 12px; color: #777;" id="receipt-date"></p>
-    </div>
-    <div style="text-align: left; font-size: 14px;">
-        <p><b>Müşderi:</b> <span id="r-name"></span></p>
-        <p><b>Hyzmat:</b> <span id="r-service"></span></p>
-        <p><b>Hasap:</b> <span id="r-id"></span></p>
-        <p style="margin-top: 10px; font-size: 18px; color: #00873c;"><b>Jemi:</b> <span id="r-amt"></span> TMT</p>
-        <p style="font-size: 14px; color: #e30a17;"><b>( <span id="r-tl"></span> TL )</b></p>
-    </div>
-    <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;">
-        <p style="font-size: 10px; color: #aaa;">Töleg üstünlikli kabul edildi. Sag boluň!</p>
-    </div>
+<div id="overlay"></div>
+<div id="custom-alert">
+    <i class="fas fa-exclamation-triangle" style="font-size: 40px; color: var(--gold); margin-bottom: 15px;"></i>
+    <p id="alert-msg" style="font-weight: 600;"></p>
+    <button onclick="closeAlert()" style="margin-top: 20px; background: var(--primary); color: white; border: none; padding: 12px 40px; border-radius: 10px; cursor: pointer; font-weight: 800;">OK</button>
 </div>
 
 <header class="header">
     <div class="top-row">
         <div style="display:flex; gap:5px;">
-            <button class="lang-btn active" onclick="changeLang('tk', this)">🇹🇲</button>
-            <button class="lang-btn" onclick="changeLang('tr', this)">🇹🇷</button>
-            <button class="lang-btn" onclick="changeLang('en', this)">🇺🇸</button>
-            <button class="lang-btn" onclick="changeLang('ru', this)">🇷🇺</button>
+            <button class="lang-btn active" onclick="setLang('tk', this)">🇹🇲</button>
+            <button class="lang-btn" onclick="setLang('tr', this)">🇹🇷</button>
+            <button class="lang-btn" onclick="setLang('ru', this)">🇷🇺</button>
+            <button class="lang-btn" onclick="setLang('en', this)">🇺🇸</button>
         </div>
-        <h2 style="color:white; font-size:16px;">AMAN TÖLEG</h2>
-        <i class="fas fa-moon" id="theme-icon" onclick="toggleTheme()" style="color:white; font-size: 20px; cursor:pointer;"></i>
+        <i class="fas fa-moon" onclick="toggleMode()" style="color:white; cursor:pointer; font-size: 20px;"></i>
     </div>
 </header>
 
 <div class="main-page" id="main-page">
     <div class="bank-card">
-        <div class="card-inner">
-            <h4 style="font-size: 11px; text-transform: uppercase; opacity: 0.7;">Karta Eýesi</h4>
-            <h3 onclick="copyText('AMAN HAYITMURADOV')">AMAN HAYITMURADOV</h3>
-            <p onclick="copyText('TR910015700000000201151163')" style="margin-top:20px; font-family:monospace; background:rgba(255,255,255,0.1); padding:12px; border-radius:12px; display:flex; justify-content:space-between; font-size: 14px;">
-                <span>TR91 0015 ... 1163</span> <i class="fas fa-copy"></i>
-            </p>
-        </div>
+        <h4 style="font-size: 11px; opacity: 0.7;">KARTA EÝESI</h4>
+        <h3 onclick="copyText('AMAN HAYITMURADOV')">AMAN HAYITMURADOV</h3>
+        <p onclick="copyText('TR910015700000000201151163')" style="margin-top:20px; background:rgba(255,255,255,0.1); padding:12px; border-radius:12px; display:flex; justify-content:space-between; font-family:monospace;">
+            <span>TR91 0015 ... 1163</span> <i class="fas fa-copy"></i>
+        </p>
     </div>
 
     <div class="menu-grid">
-        <div class="menu-item" onclick="openPay('Altyn Asyr', 'tel')"><img src="tmcell.png" class="menu-img"><span>Altyn Asyr</span></div>
-        <div class="menu-item" onclick="openPay('Wi-Fi', 'wifi')"><img src="wifi.png" class="menu-img"><span>Wi-Fi</span></div>
-        <div class="menu-item" onclick="openPay('Öý Telefony', 'phone')"><img src="phone.png" class="menu-img"><span>Öý Telefony</span></div>
-        <div class="menu-item" onclick="openPay('Älem TV', 'id')"><img src="alemtv.png" class="menu-img"><span>Älem TV</span></div>
-        <div class="menu-item" onclick="openPay('Belet Film', 'id')"><img src="belet.png" class="menu-img"><span>Belet Film</span></div>
-        <div class="menu-item" onclick="location.reload()"><i class="fas fa-sync-alt" style="font-size:30px; color:var(--primary); display:block; margin: 15px auto;"></i><span>Täzele</span></div>
+        <div class="menu-item" onclick="openP('Altyn Asyr', 'tel')"><img src="tmcell.png" class="menu-img"><br><span class="m-txt">Altyn Asyr</span></div>
+        <div class="menu-item" onclick="openP('Wi-Fi', 'wifi')"><img src="wifi.png" class="menu-img"><br><span class="m-txt">Wi-Fi</span></div>
+        <div class="menu-item" onclick="openP('Öý Telefony', 'phone')"><img src="phone.png" class="menu-img"><br><span class="m-txt">Öý Telefony</span></div>
+        <div class="menu-item" onclick="openP('Älem TV', 'id')"><img src="alemtv.png" class="menu-img"><br><span class="m-txt">Älem TV</span></div>
+        <div class="menu-item" onclick="openP('Belet Film', 'id')"><img src="belet.png" class="menu-img"><br><span class="m-txt">Belet Film</span></div>
+        <div class="menu-item" onclick="location.reload()"><i class="fas fa-sync-alt" style="font-size:30px; color:var(--primary); margin:15px 0; display:block;"></i><span class="m-txt">Täzele</span></div>
     </div>
 </div>
 
 <div id="payment-page">
-    <button onclick="goBack()" style="background:none; border:none; color:var(--primary); font-weight:800; font-size:18px; margin-bottom: 20px;"><i class="fas fa-arrow-left"></i> Yza</button>
+    <button onclick="closeP()" style="background:none; border:none; color:var(--primary); font-weight:800; font-size:17px; margin-bottom:15px; cursor:pointer;"><i class="fas fa-arrow-left"></i> <span id="back-t">Yza</span></button>
     <div class="payment-container">
-        <h2 id="pay-title" style="text-align:center; margin-bottom:20px;">Hyzmat</h2>
-        <input type="text" id="inp-name" placeholder="Adyňyz Familiýaňyz">
+        <h2 id="pay-title" style="text-align:center; margin-bottom:20px;"></h2>
+        <input type="text" id="i-name">
         <div style="position:relative;">
-            <span id="tel-prefix" style="position:absolute; left:15px; top:16px; font-weight:bold; color:var(--primary); display:none;">+993</span>
-            <input type="text" id="inp-id" placeholder="Belgiňiz">
+            <span id="prefix" style="position:absolute; left:12px; top:15px; font-weight:bold; color:var(--primary); display:none;">+993</span>
+            <input type="text" id="i-id">
         </div>
-        <input type="number" id="inp-amt" placeholder="Möçberi (TMT)">
-        <div id="tl-box" style="margin:15px 0; text-align:center; font-weight:800; color:red; font-size:22px;"></div>
-        <button class="send-btn" onclick="generateReceipt()">
-            <i class="fab fa-whatsapp"></i> DEKONT UGRAT
-        </button>
+        <input type="number" id="i-amt">
+        <div id="tl-val" style="text-align:center; font-weight:900; color:red; font-size:22px; margin-bottom:15px;"></div>
+        <button class="send-btn" onclick="sendW()"><i class="fab fa-whatsapp"></i> <span id="send-t">DEKONT UGRAT</span></button>
     </div>
 </div>
 
 <div id="toast">Göçürildi! ✅</div>
 
 <script>
-    let isDark = false;
-    let curLang = 'tk', currentType = '';
-
-    // GIJE-GÜNDIZ FUNKSIÝASY
-    function toggleTheme() {
-        isDark = !isDark;
-        document.body.classList.toggle('dark-mode');
-        const icon = document.getElementById('theme-icon');
-        icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-    }
-
-    window.onload = () => { 
-        setTimeout(() => { document.getElementById('splash').style.display='none'; }, 2500); 
+    const lData = {
+        tk: { alert: "Ähli maglumatlary giriziň!", name: "Adyňyz Familiýaňyz", id: "Belgiňiz", amt: "Möçberi (TMT)", send: "DEKONT UGRAT", back: "Yza" },
+        tr: { alert: "Lütfen tüm bilgileri girin!", name: "Adınız Soyadınız", id: "Numaranız", amt: "Miktar (TMT)", send: "DEKONT GÖNDER", back: "Geri" },
+        ru: { alert: "Заполните все данные!", name: "Имя Фамилия", id: "Номер", amt: "Сумма (TMT)", send: "ОТПРАВИТЬ ЧЕК", back: "Назад" },
+        en: { alert: "Please fill all fields!", name: "Full Name", id: "ID Number", amt: "Amount (TMT)", send: "SEND RECEIPT", back: "Back" }
     };
 
-    function openPay(n, t) {
-        currentType = t; document.getElementById('pay-title').innerText = n;
-        const p = document.getElementById('tel-prefix');
-        const i = document.getElementById('inp-id');
-        p.style.display = (t === 'tel') ? 'block' : 'none';
-        i.style.paddingLeft = (t === 'tel') ? '65px' : '16px';
+    let curL = 'tk', cType = '';
+
+    window.onload = () => { setTimeout(() => { document.getElementById('splash').style.display='none'; }, 2500); };
+
+    function toggleMode() { document.body.classList.toggle('dark-mode'); }
+
+    function setLang(l, btn) {
+        curL = l;
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        updateUI();
+    }
+
+    function updateUI() {
+        document.getElementById('i-name').placeholder = lData[curL].name;
+        document.getElementById('i-id').placeholder = lData[curL].id;
+        document.getElementById('i-amt').placeholder = lData[curL].amt;
+        document.getElementById('send-t').innerText = lData[curL].send;
+        document.getElementById('back-t').innerText = lData[curL].back;
+    }
+
+    function showAlert(t) {
+        document.getElementById('alert-msg').innerText = t;
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('custom-alert').style.display = 'block';
+    }
+
+    function closeAlert() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('custom-alert').style.display = 'none';
+    }
+
+    function openP(title, type) {
+        cType = type;
+        document.getElementById('pay-title').innerText = title;
+        document.getElementById('prefix').style.display = (type === 'tel') ? 'block' : 'none';
+        document.getElementById('i-id').style.paddingLeft = (type === 'tel') ? '55px' : '15px';
+        updateUI();
         document.getElementById('main-page').style.display = 'none';
         document.getElementById('payment-page').style.display = 'block';
     }
 
-    function goBack() { 
-        document.getElementById('payment-page').style.display = 'none'; 
-        document.getElementById('main-page').style.display = 'block'; 
+    function closeP() {
+        document.getElementById('payment-page').style.display = 'none';
+        document.getElementById('main-page').style.display = 'block';
     }
 
-    document.getElementById('inp-amt').oninput = function() {
-        document.getElementById('tl-box').innerText = this.value > 0 ? (this.value * 2.6).toFixed(2) + " TL" : "";
+    document.getElementById('i-amt').oninput = function() {
+        document.getElementById('tl-val').innerText = this.value > 0 ? (this.value * 2.6).toFixed(2) + " TL" : "";
     };
 
-    // PROFESSIONAL ÇEK ÝASAMAK FUNKSIÝASY
-    function generateReceipt() {
-        const name = document.getElementById('inp-name').value;
-        const id = document.getElementById('inp-id').value;
-        const amt = document.getElementById('inp-amt').value;
-
-        if(!name || !id || !amt) { alert("Ähli maglumatlary giriziň!"); return; }
-
+    function sendW() {
+        let n = document.getElementById('i-name').value;
+        let id = document.getElementById('i-id').value;
+        let a = document.getElementById('i-amt').value;
+        if(!n || !id || !a) { showAlert(lData[curL].alert); return; }
+        
         document.getElementById('clickSound').play();
-
-        // Maglumatlary çek şablonyna salýarys
-        document.getElementById('r-name').innerText = name;
-        document.getElementById('r-service').innerText = document.getElementById('pay-title').innerText;
-        document.getElementById('r-id').innerText = (currentType === 'tel' ? '+993 ' : '') + id;
-        document.getElementById('r-amt').innerText = amt;
-        document.getElementById('r-tl').innerText = (amt * 2.6).toFixed(2);
-        document.getElementById('receipt-date').innerText = new Date().toLocaleString();
-
-        // Çegi surata öwürýäris
-        const receipt = document.getElementById('receipt-template');
-        html2canvas(receipt).then(canvas => {
-            // WhatsApp-a diňe tekst ugradyp bolýar, surat ugratmak üçin telefonda galereýadan saýlamaly
-            // Ýöne biz müşderä "Çek döredildi!" diýip tekstini ugradýarys.
-            let msg = `👤 *Müşderi:* ${name}%0A🛠 *Hyzmat:* ${document.getElementById('pay-title').innerText}%0A💳 *Hasap:* ${id}%0A💰 *Möçberi:* ${amt} TMT (${(amt*2.6).toFixed(2)} TL)%0A✅ *Töleg Edildi!*`;
-            window.open(`https://wa.me/99364041065?text=${msg}`);
-        });
+        let p = (cType === 'tel') ? "+993 " : "";
+        let m = `👤 *Müşderi:* ${n}%0A🛠 *Hyzmat:* ${document.getElementById('pay-title').innerText}%0A💳 *Hasap:* ${p}${id}%0A💰 *Möçberi:* ${a} TMT (${(a*2.6).toFixed(2)} TL)`;
+        window.open(`https://wa.me/99364041065?text=${m}`);
     }
 
     function copyText(t) {
         navigator.clipboard.writeText(t);
         let s = document.getElementById('toast');
         s.style.display = 'block'; setTimeout(() => s.style.display='none', 2000);
-    }
-
-    function changeLang(l, btn) {
-        curLang = l;
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
     }
 </script>
 </body>
