@@ -5,110 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aman Töleg</title>
     <style>
-        :root {
-            --primary-color: #2ecc71;
-            --bg-color: #f4f4f4; /* Ekranyň fonuny çalaja çal etdim, knopkalar ak görüner ýaly */
-        }
-
+        /* Ekranyň fonuny çalaja reňkli etdik, ak knopkalar saýlanar ýaly */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: var(--bg-color);
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; 
             margin: 0;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
-        h2 { color: #333; margin-bottom: 20px; }
+        h2 { text-align: center; }
 
-        /* Menýu Bölümi - Her öýjük doly AK */
+        /* Menýu öýjükleri - HEMME ÝERI AK */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         .menu-item {
-            background-color: #ffffff; /* SURATYŇ ARKA FONY INDY DOLY AK */
-            padding: 15px;
-            border-radius: 15px;
+            background-color: #ffffff; /* FUNKSIÝANYŇ FONY AK */
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
+            /* ANIMASIÝA ÜÇIN ŞU AŞAKDAKYLAR GOŞULDY */
+            transition: transform 0.1s active;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Ýönekeýje kölege */
-            transition: 0.2s;
         }
 
+        /* BASYLANDA IŞLEÝÄN ANIMASIÝA */
         .menu-item:active {
-            transform: scale(0.95); /* Basylanda animasiýa */
+            transform: scale(0.95);
+            background-color: #f9f9f9;
         }
 
         .menu-item img {
-            width: 60px; /* Suratyň ululygy */
-            height: 60px;
-            object-fit: contain; /* Suratyň gyrasy kesilmez ýaly */
-            margin-bottom: 8px;
-            background-color: #ffffff; /* Suratyň özüniň arkasyny hem ak etdik */
+            width: 80px;
+            height: 80px;
+            background-color: #ffffff; /* SURATYŇ ARKA FONY AK */
+            object-fit: contain;
+            margin-bottom: 10px;
         }
 
         .menu-item span {
             font-weight: bold;
-            font-size: 14px;
-            color: #333;
         }
 
-        /* Hasaplaýyş Bölümi */
-        .calculator-card {
-            background: white;
+        /* Hasaplaýyş bölümi - ÖŇKI ÝALY DUR */
+        .calculator {
+            background-color: #ffffff;
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-            box-sizing: border-box;
+            border-radius: 10px;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
         }
 
         button {
             width: 100%;
-            padding: 15px;
-            background-color: var(--primary-color);
+            padding: 10px;
+            background-color: #28a745;
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
+            border-radius: 5px;
             font-weight: bold;
-            cursor: pointer;
+        }
+
+        .item-list {
+            margin-top: 20px;
         }
 
         .item {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding: 5px 0;
         }
 
         .total {
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 20px;
             font-weight: bold;
-            color: #27ae60;
             text-align: center;
-            padding-top: 10px;
         }
     </style>
 </head>
@@ -126,39 +111,45 @@
             <span>TMCELL</span>
         </div>
         <div class="menu-item">
-            <img src="https://play-lh.googleusercontent.com/I_vjWpIay_xXf6-L1U_S9M9v07uP-L2Xy9H9m_uM3Z0X3y0" alt="Agt">
+            <img src="https://itunes.apple.com/us/app/asgabat-agt/id1457116562?mt=8" alt="AGT">
             <span>Aşgabat Agt</span>
         </div>
         <div class="menu-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_6uY6uP-JmR3-Vb_h5mI8k9K8-999" alt="Pöwre">
+            <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/01/9b/61/019b61d2-0676-1f65-4f40-7e368136363c/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg" alt="Powre">
             <span>Pöwre</span>
         </div>
     </div>
 
-    <div class="calculator-card">
-        <input type="text" id="itemName" placeholder="Harydyň ady...">
-        <input type="number" id="itemPrice" placeholder="Bahasy (TL)...">
-        <button onclick="addItem()">Hasaba Goş</button>
+    <div class="calculator">
+        <input type="text" id="name" placeholder="Harydyň ady">
+        <input type="number" id="price" placeholder="Bahasy (TL)">
+        <button onclick="addItem()">Goş</button>
 
-        <div id="itemList"></div>
-        <div class="total" id="totalPrice">Jemi: 0.00 TL</div>
+        <div class="item-list" id="list"></div>
+        <div class="total" id="total">Jemi: 0.00 TL</div>
     </div>
 
     <script>
-        let total = 0;
+        let totalSum = 0;
         function addItem() {
-            const name = document.getElementById('itemName');
-            const price = document.getElementById('itemPrice');
-            if(name.value && price.value) {
-                total += parseFloat(price.value);
-                const div = document.createElement('div');
+            let name = document.getElementById('name').value;
+            let price = document.getElementById('price').value;
+            
+            if(name && price) {
+                totalSum += parseFloat(price);
+                let list = document.getElementById('list');
+                let div = document.createElement('div');
                 div.className = 'item';
-                div.innerHTML = `<span>${name.value}</span> <span>${price.value} TL</span>`;
-                document.getElementById('itemList').prepend(div);
-                document.getElementById('totalPrice').innerText = `Jemi: ${total.toFixed(2)} TL`;
-                name.value = ''; price.value = '';
+                div.innerHTML = `<span>${name}</span><span>${price} TL</span>`;
+                list.appendChild(div);
+                
+                document.getElementById('total').innerText = "Jemi: " + totalSum.toFixed(2) + " TL";
+                
+                document.getElementById('name').value = "";
+                document.getElementById('price').value = "";
             }
         }
     </script>
+
 </body>
 </html>
