@@ -11,57 +11,41 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: var(--text); min-height: 100vh; overflow: hidden; }
 
-        /* SPLASH - TÜRKIYE & TURKMENISTAN COLORS */
+        /* PROFESSIONAL SPLASH (TURKMEN-TURK COLORS) */
         #splash { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: linear-gradient(135deg, #004d26 0%, #00873c 45%, #e30a17 55%, #8b0000 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; transition: 0.8s; 
         }
-        .splash-text { text-align: center; color: white; }
-        .main-slogan { font-weight: 900; font-size: 22px; letter-spacing: 2px; margin-bottom: 10px; }
-        .sub-slogan { font-family: 'Dancing Script', cursive; font-size: 30px; color: var(--gold); opacity: 0; animation: fadeIn 1.5s forwards 1s; }
+        .main-slogan { color: white; font-weight: 900; font-size: 22px; letter-spacing: 2px; }
+        .sub-slogan { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--gold); margin-top: 15px; opacity: 0; animation: fadeIn 1.5s forwards 1s; }
 
-        /* MAIN LAYOUT */
+        /* HEADER */
         .header { background: var(--dark-green); padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
         .main-page { padding: 20px; max-width: 500px; margin: auto; overflow-y: auto; height: calc(100vh - 60px); }
         
-        /* BANK CARD & COPY */
-        .bank-card { 
-            background: #2e7d32; padding: 25px; border-radius: 25px; color: white; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 30px; cursor: pointer;
-        }
-        .bank-card:active { transform: scale(0.98); }
+        /* BANK CARD */
+        .bank-card { background: #2e7d32; padding: 20px; border-radius: 25px; color: white; box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 25px; }
+        .copy-item { padding: 5px; cursor: pointer; border-radius: 10px; transition: 0.2s; }
+        .copy-item:active { background: rgba(255,255,255,0.2); transform: scale(0.98); }
 
         /* MENU GRID */
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 30px; }
-        .menu-item { 
-            background: white; border-radius: 25px; padding: 25px 10px; text-align: center; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.2s;
-        }
-        .menu-item:active { transform: scale(0.92); }
+        .menu-item { background: white; border-radius: 25px; padding: 25px 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .menu-item img { width: 55px; height: 55px; object-fit: contain; margin-bottom: 12px; }
         .menu-item span { display: block; font-weight: 700; color: #333; font-size: 15px; }
 
-        /* PAGES */
-        #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 500; padding: 20px; }
+        /* TOAST ALERT */
+        #toast { position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 20px; border-radius: 50px; display: none; z-index: 20000; font-size: 14px; }
         
-        /* TOAST */
-        #toast { 
-            position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%); 
-            background: rgba(0,0,0,0.8); color: white; padding: 10px 25px; border-radius: 20px; 
-            display: none; z-index: 20000; font-size: 14px; 
-        }
-
         @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body onload="initApp()">
 
 <div id="splash">
-    <div class="splash-text">
-        <div class="main-slogan">YNAMLY WE ÇALT TÖLEGLER</div>
-        <div class="sub-slogan">Aman Töleg Siziň Bilen</div>
-    </div>
+    <div class="main-slogan">YNAMLY WE ÇALT TÖLEGLER</div>
+    <div class="sub-slogan">Aman Töleg Siziň Bilen</div>
 </div>
 
 <div class="header">
@@ -70,61 +54,41 @@
 </div>
 
 <div class="main-page">
-    <div class="bank-card" onclick="copyData('AMAN HAYITMURADOV \nIBAN: TKM12345678901234567890')">
-        <div style="display: flex; justify-content: space-between;">
-            <div>
-                <p style="font-size: 11px; opacity: 0.8; letter-spacing: 1px;">SÖWDA HASABY</p>
-                <h2 style="font-size: 19px; margin-top: 5px;">AMAN HAYITMURADOV</h2>
-            </div>
-            <i class="fas fa-copy" style="opacity: 0.5;"></i>
+    <div class="bank-card">
+        <div class="copy-item" onclick="copyData('AMAN HAYITMURADOV', 'Adyňyz nusgalandy!')">
+            <p style="font-size: 11px; opacity: 0.8;">SÖWDA HASABY</p>
+            <h2 style="font-size: 19px; margin-top: 5px;">AMAN HAYITMURADOV <i class="fas fa-copy" style="font-size: 12px; opacity: 0.5;"></i></h2>
         </div>
-        <div style="margin-top: 25px; font-size: 22px; font-weight: 700; letter-spacing: 3px;">
-            **** **** **** 2026
+        
+        <div style="margin-top: 20px; font-size: 24px; font-weight: 700; letter-spacing: 3px;">**** **** **** 2026</div>
+        
+        <div class="copy-item" onclick="copyData('TR91 0015 7000 0000 0201 1511 63', 'IBAN nusgalandy!')" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+            <p style="font-size: 10px; opacity: 0.7;">IBAN BELGI:</p>
+            <p style="font-size: 15px; font-weight: 700; letter-spacing: 1px;">TR91 0015 7000 0000 0201 1511 63 <i class="fas fa-copy" style="font-size: 12px; opacity: 0.5;"></i></p>
         </div>
-        <p style="font-size: 10px; margin-top: 10px; opacity: 0.7;">IBAN: TKM12345678901234567890</p>
     </div>
 
     <div class="menu-grid">
-        <div class="menu-item" onclick="openPage('Tmcell')">
-            <img src="tmcell.png"><span>Tmcell</span>
-        </div>
-        <div class="menu-item" onclick="openPage('Belet Film')">
-            <img src="belet.png"><span>Belet Film</span>
-        </div>
-        <div class="menu-item" onclick="openPage('Alem TV')">
-            <img src="alemtv.png"><span>Alem TV</span>
-        </div>
-        <div class="menu-item" onclick="openPage('Wi-Fi Internet')">
-            <img src="wifi.png"><span>Wi-Fi Internet</span>
-        </div>
-        <div class="menu-item" onclick="openPage('Altyn Asyr')">
-            <img src="altynasyr.png"><span>Altyn Asyr</span>
-        </div>
-        <div class="menu-item" onclick="openPage('Öý Telefon')">
-            <img src="phone.png"><span>Öý Telefon</span>
-        </div>
+        <div class="menu-item"><img src="tmcell.png"><span>Tmcell</span></div>
+        <div class="menu-item"><img src="belet.png"><span>Belet Film</span></div>
+        <div class="menu-item"><img src="alemtv.png"><span>Alem TV</span></div>
+        <div class="menu-item"><img src="wifi.png"><span>Wi-Fi Internet</span></div>
+        <div class="menu-item"><img src="altynasyr.png"><span>Altyn Asyr</span></div>
+        <div class="menu-item"><img src="phone.png"><span>Öý Telefon</span></div>
     </div>
 </div>
-
-<div id="payment-page">
-    <button onclick="closePage()" style="border:none; background:none; color:var(--primary); font-weight:900; font-size:18px; margin-bottom:20px;">
-        <i class="fas fa-arrow-left"></i> Yza
-    </button>
-    <h2 id="page-title"></h2>
-    </div>
 
 <div id="toast">Nusgalandy!</div>
 
 <script>
     function initApp() {
-        // 1. Internet Barlagy
+        // Internet barlagy
         if (!navigator.onLine) {
-            alert("Internet birikmesi ýok! Programma diňe internetli işleýär.");
-            document.body.innerHTML = "<h2 style='text-align:center; margin-top:50px;'>Internet gerek...</h2>";
+            alert("Internet ýok! Programma internetsiz işlemeýär.");
+            window.stop();
             return;
         }
 
-        // 2. Splash Aýyrmak
         setTimeout(() => {
             const sp = document.getElementById('splash');
             sp.style.opacity = '0';
@@ -132,28 +96,19 @@
         }, 3000);
     }
 
-    // Nusgalama Funksiýasy
-    function copyData(text) {
-        navigator.clipboard.writeText(text);
+    function copyData(text, msg) {
+        const temp = document.createElement("textarea");
+        document.body.appendChild(temp);
+        temp.value = text;
+        temp.select();
+        document.execCommand("copy");
+        document.body.removeChild(temp);
+        
         const toast = document.getElementById('toast');
+        toast.innerText = msg;
         toast.style.display = 'block';
         setTimeout(() => { toast.style.display = 'none'; }, 2000);
     }
-
-    // Sahypa Açmak Funksiýasy
-    function openPage(title) {
-        document.getElementById('payment-page').style.display = 'block';
-        document.getElementById('page-title').innerText = title;
-    }
-
-    function closePage() {
-        document.getElementById('payment-page').style.display = 'none';
-    }
-
-    window.addEventListener('offline', () => {
-        alert("Internet kesildi!");
-        location.reload();
-    });
 </script>
 
 </body>
