@@ -7,11 +7,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00873c; --dark-green: #2e7d32; --gold: #ffc107; --bg: #f0f4f2; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: #333; min-height: 100vh; overflow: hidden; }
+        :root { 
+            --primary: #00873c; 
+            --dark-green: #2e7d32; 
+            --gold: #ffc107; 
+            --bg: #f0f4f2; 
+            --text: #333;
+            --card-bg: white;
+        }
 
-        /* SPLASH (TURKMEN-TURK COLORS) */
+        /* GIJE-GÜNDIZ TEMA (DARK MODE) */
+        .dark-mode { 
+            --bg: #121212; 
+            --text: #f0f4f2; 
+            --card-bg: #1e1e1e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; transition: 0.3s; }
+
+        /* SPLASH */
         #splash { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: linear-gradient(135deg, #004d26 0%, #00873c 45%, #e30a17 55%, #8b0000 100%);
@@ -21,24 +36,39 @@
         .sub-slogan { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--gold); margin-top: 15px; opacity: 0; animation: fadeIn 1.5s forwards 1s; }
 
         /* HEADER */
-        .header { background: #1b5e20; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .main-page { padding: 15px; max-width: 500px; margin: auto; overflow-y: auto; height: calc(100vh - 60px); }
+        .header { background: #1b5e20; padding: 15px; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .theme-btn { background: none; border: none; color: var(--gold); font-size: 20px; cursor: pointer; }
+
+        .main-page { padding: 15px; max-width: 500px; margin: auto; }
         
-        /* BANK CARD (KIÇELDILDI) */
+        /* BANK CARD */
         .bank-card { background: var(--dark-green); padding: 15px; border-radius: 20px; color: white; box-shadow: 0 8px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
         .copy-box { cursor: pointer; padding: 5px; border-radius: 10px; transition: 0.2s; position: relative; }
-        .copy-box:active { background: rgba(255,255,255,0.1); }
 
         /* MENU GRID */
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 50px; }
-        .menu-item { background: white; border-radius: 25px; padding: 20px 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; }
-        .menu-item img, .menu-item i { width: 55px; height: 55px; object-fit: contain; margin-bottom: 10px; display: inline-block; }
-        .menu-item i { font-size: 50px; color: var(--primary); line-height: 55px; }
-        .menu-item span { display: block; font-weight: 700; color: #1b5e20; font-size: 14px; }
+        .menu-item { background: var(--card-bg); border-radius: 25px; padding: 20px 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; color: var(--text); }
+        .menu-item img, .menu-item i { width: 55px; height: 55px; margin-bottom: 10px; font-size: 50px; color: var(--primary); }
+        .menu-item span { display: block; font-weight: 700; font-size: 14px; }
 
-        /* TOAST */
+        /* PAYMENT OVERLAY */
+        #payment-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: var(--bg); z-index: 5000; display: none; padding: 20px; overflow-y: auto;
+        }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 700; }
+        input { 
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ccc; 
+            background: var(--card-bg); color: var(--text); font-size: 16px;
+        }
+        .calc-result { 
+            background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 10px; 
+            margin-top: 10px; font-weight: 900; text-align: center; font-size: 18px;
+        }
+        .dark-mode .calc-result { background: #1b5e20; color: white; }
+
         #toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 25px; border-radius: 50px; display: none; z-index: 20000; }
-        
         @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -50,31 +80,50 @@
 </div>
 
 <div class="header">
-    <div style="color: white; font-weight: 900; font-size: 20px;">AMAN TÖLEG</div>
-    <div style="color: var(--gold); font-size: 20px;"><i class="fas fa-crown"></i></div>
+    <div style="font-weight: 900; font-size: 20px;">AMAN TÖLEG</div>
+    <button class="theme-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
 </div>
 
 <div class="main-page">
     <div class="bank-card">
         <div class="copy-box" onclick="copyData('AMAN HAYITMURADOV', 'Adyňyz nusgalandy!')">
-            <p style="font-size: 10px; opacity: 0.8; letter-spacing: 1px;">SÖWDA HASABY</p>
-            <h2 style="font-size: 18px; margin-top: 3px;">AMAN HAYITMURADOV <i class="fas fa-copy" style="font-size: 12px; opacity: 0.5;"></i></h2>
+            <p style="font-size: 10px; opacity: 0.8;">SÖWDA HASABY</p>
+            <h2 style="font-size: 18px;">AMAN HAYITMURADOV <i class="fas fa-copy" style="font-size: 12px; opacity: 0.5;"></i></h2>
         </div>
-        
         <div class="copy-box" onclick="copyData('TR91 0015 7000 0000 0201 1511 63', 'IBAN nusgalandy!')" style="margin-top: 12px; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 12px;">
-            <p style="font-size: 9px; opacity: 0.8;">IBAN BELGI:</p>
-            <p style="font-size: 13px; font-weight: 700; word-break: break-all;">TR91 0015 7000 0000 0201 1511 63 <i class="fas fa-copy" style="font-size: 11px; opacity: 0.5;"></i></p>
+            <p style="font-size: 13px; font-weight: 700;">TR91 0015 7000 0000 0201 1511 63</p>
         </div>
     </div>
 
     <div class="menu-grid">
-        <div class="menu-item"><img src="tmcell.png"><span>Tmcell</span></div>
-        <div class="menu-item"><img src="belet.png"><span>Belet Film</span></div>
-        <div class="menu-item"><img src="alemtv.png"><span>Alem TV</span></div>
-        <div class="menu-item"><img src="wifi.png"><span>Wi-Fi Internet</span></div>
-        <div class="menu-item"><img src="phone.png"><span>Öý Telefon</span></div>
+        <div class="menu-item" onclick="openPayment('Tmcell')"><img src="tmcell.png"><span>Tmcell</span></div>
+        <div class="menu-item" onclick="openPayment('Belet Film')"><img src="belet.png"><span>Belet Film</span></div>
+        <div class="menu-item" onclick="openPayment('Alem TV')"><img src="alemtv.png"><span>Alem TV</span></div>
+        <div class="menu-item" onclick="openPayment('Wi-Fi Internet')"><img src="wifi.png"><span>Wi-Fi Internet</span></div>
+        <div class="menu-item" onclick="openPayment('Öý Telefon')"><img src="phone.png"><span>Öý Telefon</span></div>
         <div class="menu-item" onclick="location.reload()"><i class="fas fa-sync-alt"></i><span>Refresh</span></div>
     </div>
+</div>
+
+<div id="payment-overlay">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 id="service-title">Töleg</h2>
+        <button onclick="closePayment()" style="background:none; border:none; font-size:24px; color:var(--text);"><i class="fas fa-times"></i></button>
+    </div>
+    
+    <div class="input-group">
+        <label>Müşderiniň ady we familiýasy:</label>
+        <input type="text" id="client-name" placeholder="Mysal: Ahmet Ahmetow">
+    </div>
+
+    <div class="input-group">
+        <label>Geçiriljek mukdar (Manat):</label>
+        <input type="number" id="manat-amount" placeholder="0" oninput="calculateTL()">
+    </div>
+
+    <div class="calc-result" id="tl-result">Tölener: 0.00 TL</div>
+    
+    <button style="width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:10px; margin-top:20px; font-weight:900;">TÖLEG ET</button>
 </div>
 
 <div id="toast">Nusgalandy!</div>
@@ -89,8 +138,38 @@
         setTimeout(() => {
             const sp = document.getElementById('splash');
             sp.style.opacity = '0';
-            setTimeout(() => { sp.style.display = 'none'; document.body.style.overflow="auto"; }, 800);
+            setTimeout(() => { sp.style.display = 'none'; }, 800);
         }, 3000);
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        const icon = document.querySelector('.theme-btn i');
+        icon.classList.toggle('fa-moon');
+        icon.classList.toggle('fa-sun');
+    }
+
+    function openPayment(service) {
+        document.getElementById('service-title').innerText = service + " Tölegi";
+        document.getElementById('payment-overlay').style.display = 'block';
+    }
+
+    function closePayment() {
+        document.getElementById('payment-overlay').style.display = 'none';
+        document.getElementById('manat-amount').value = '';
+        document.getElementById('client-name').value = '';
+        document.getElementById('tl-result').innerText = 'Tölener: 0.00 TL';
+    }
+
+    function calculateTL() {
+        const manat = document.getElementById('manat-amount').value;
+        const tlResult = document.getElementById('tl-result');
+        if (manat > 0) {
+            const tl = manat * 2.6; // 100 manat = 260 tl / 400 manat = 1040 tl hasaby
+            tlResult.innerText = `Tölener: ${tl.toFixed(2)} TL`;
+        } else {
+            tlResult.innerText = 'Tölener: 0.00 TL';
+        }
     }
 
     function copyData(text, msg) {
