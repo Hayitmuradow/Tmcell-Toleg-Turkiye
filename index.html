@@ -21,6 +21,7 @@
         .copy-box { padding: 10px; margin: 8px 0; background: rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer; }
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; }
         .modal-content { background: var(--card); width: 92%; border-radius: 25px; padding: 35px 25px; position: relative; animation: pop 0.3s ease; }
+        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         input { width: 100%; padding: 16px; margin: 10px 0; border: 1px solid #ddd; border-radius: 12px; font-size: 16px; background: var(--card); color: var(--text); outline: none; }
         .res-box { background: #f0fdf4; padding: 18px; border-radius: 15px; text-align: center; margin: 15px 0; font-weight: 900; color: #d32f2f; font-size: 24px; border: 1px dashed #2e7d32; }
         .btn-send { background: #2e7d32; color: white; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: bold; font-size: 16px; cursor: pointer; }
@@ -61,7 +62,7 @@
         <h3>ÖÝ TELEFON</h3>
     </div>
     <div class="card" onclick="location.reload()">
-        <img src="https://cdn-icons-png.flaticon.com/512/9340/9340807.png">
+        <img src="https://cdn-icons-png.flaticon.com/512/3585/3585896.png">
         <h3>TÄZELE</h3>
     </div>
 </div>
@@ -72,7 +73,7 @@
         <strong>AMAN HAYITMURADOV</strong>
     </div>
     <div class="copy-box" onclick="copyText('TR91 0015 7000 0000 0201 1511 63')">
-        <span style="font-size: 11px; opacity: 0.8;">Ziraat Bank IBAN:</span>
+        <span style="font-size: 11px; opacity: 0.8;">Enpara IBAN:</span>
         <strong>TR91 0015 7000 0000 0201 1511 63</strong>
     </div>
 </div>
