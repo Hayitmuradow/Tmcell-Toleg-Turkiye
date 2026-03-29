@@ -3,92 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aman Töleg - Final Luxury</title>
+    <title>Aman Töleg - Luxury Update</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00873c; --dark-green: #005a28; --gold: #ffc107; --bg: #f0f4f2; --text: #111827; }
+        :root { 
+            --primary: #00873c; 
+            --dark-green: #2e7d32; 
+            --gold: #ffc107; 
+            --bg: #f8fcf9; /* TizTole professional fon reňki */
+            --text: #111827; 
+            --input-border: #e2e8f0; 
+            --glass-white: #ffffff;
+        }
+
+        .dark-mode { 
+            --bg: #0b1120; 
+            --text: #f0f4f2; 
+            --input-border: #2d3748; 
+            --glass-white: #111827;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; position: relative; transition: 0.3s; }
 
-        /* HEADER */
-        .header { background: var(--dark-green); padding: 15px; color: white; text-align: center; }
-        .header h1 { font-size: 20px; font-weight: 900; letter-spacing: 1px; }
+        /* SPLASH - PROFESSIONAL LUXURY GARAŞMA EKRANY */
+        #splash { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(135deg, #004d26 0%, #00873c 45%, #e30a17 55%, #8b0000 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; color: white; transition: 0.8s; 
+        }
+        .splash-text { font-weight: 900; font-size: 22px; letter-spacing: 2px; text-align: center; }
+        .splash-sub-text { font-family: 'Dancing Script', cursive; font-size: 30px; color: var(--gold); margin-top: 15px; opacity: 0; }
+        .fade-in { animation: fadeInAnimation 1.5s forwards 1.2s; }
 
-        /* BANK CARD */
-        .main-page { max-width: 500px; margin: auto; padding: 20px; }
-        .bank-card { background: linear-gradient(135deg, #004d26, #00873c); padding: 25px; border-radius: 25px; color: white; margin-bottom: 30px; box-shadow: 0 15px 35px rgba(0,135,60,0.3); }
-        .bank-card .name { font-size: 20px; font-weight: 900; margin-bottom: 15px; }
-        .bank-card .iban { background: rgba(0,0,0,0.2); padding: 10px; border-radius: 12px; font-size: 14px; font-weight: 700; }
+        @keyframes fadeInAnimation { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* MENU GRID */
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .menu-item { background: #ffffff; border-radius: 25px; text-align: center; padding: 25px 10px; cursor: pointer; transition: 0.2s; border: 1px solid rgba(0,0,0,0.05); }
-        .menu-item:active { transform: scale(0.92); background-color: #f9f9f9; }
-        .menu-item i { font-size: 35px; color: var(--primary); margin-bottom: 10px; display: block; }
-        .menu-item span { font-weight: 800; font-size: 16px; color: #004d26; }
+        /* HEADER & NAVBAR - TIZTOLE PROFESSIONAL STIL */
+        .header { background: #ffffff; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; }
+        .logo-box { display: flex; align-items: center; gap: 10px; }
+        .logo-img { width: 35px; height: 35px; border-radius: 8px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px; }
+        .logo-text { font-weight: 900; font-size: 18px; color: var(--text); text-transform: uppercase; }
+        .header-icons { display: flex; gap: 15px; }
+        .icon-btn { color: #818cf8; font-size: 20px; cursor: pointer; }
 
-        /* OVERLAY */
-        #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; }
-        .payment-container { background: #ffffff; padding: 25px; border-radius: 30px; }
-        input { width: 100%; padding: 18px; border-radius: 15px; border: 1.5px solid rgba(0,0,0,0.1); margin-bottom: 15px; font-weight: 700; font-size: 16px; }
-        .send-btn { width: 100%; background: #25d366; color: white; border: none; padding: 20px; border-radius: 15px; font-weight: 900; font-size: 18px; }
+        /* MAIN CONTENT - GIRIŞ ÝAZGYLARY */
+        .main-page { max-width: 500px; margin: auto; padding: 20px 15px; }
+        .welcome-text { font-weight: 900; font-size: 24px; color: var(--text); margin-bottom: 5px; }
+        .sub-welcome { font-size: 14px; color: #6b7280; margin-bottom: 25px; }
+
+        /* MENU GRID - TIZTOLE 3D PROFESSIONAL DÜWMELER */
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 30px; }
+        .menu-item { 
+            background: linear-gradient(135deg, #74a0ff, #c3d9ff); /* TizTole professional düwme reňki */
+            border-radius: 15px; padding: 20px 10px; text-align: center; cursor: pointer; 
+            transition: 0.2s ease-in-out; box-shadow: 0 5px 15px rgba(116, 160, 255, 0.2); border: 1px solid rgba(255,255,255,0.2); 
+        }
+        .menu-item:active { transform: scale(0.95); }
+        .menu-item img { width: 45px; height: 45px; object-fit: contain; margin-bottom: 10px; }
+        .menu-item .menu-main-text { display: block; font-weight: 900; font-size: 15px; color: #004d26; text-transform: uppercase; }
+        .menu-item .menu-sub-text { display: block; font-size: 12px; color: #1e3a8a; font-weight: 700; margin-top: 2px; }
+
+        /* ÖÝJÜKLER DÜWMELERI ÜÇIN ÝERITE REŇKLER */
+        .internet-btn { background: linear-gradient(135deg, #57a8f8, #c4e4ff); }
+        .wifi-btn { background: linear-gradient(135deg, #51a5f6, #c2e2fe); }
+        .astu-btn { background: linear-gradient(135deg, #e4effe, #ffffff); border: 1px solid #d1d5db; }
+        .belet-btn { background: linear-gradient(135deg, #a1c7fc, #e1eeff); }
+        .phone-btn { background: linear-gradient(135deg, #64aef7, #cbe5ff); }
+
+        /* FORM PANEL - PROFESSIONAL "GLASS-WHITE" DÖREDIŞ */
+        #payment-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); 
+            z-index: 5000; display: none; padding: 25px; transition: 0.4s; overflow-y: auto; 
+        }
+        .form-panel { background: #ffffff; padding: 25px; border-radius: 30px; border: 1px solid var(--input-border); box-shadow: 0 10px 30px rgba(0,0,0,0.02); max-width: 450px; margin: auto; }
+        .form-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; color: var(--primary); }
+        .form-title { font-weight: 900; font-size: 20px; }
+        .input-group { margin-bottom: 15px; }
+        input { 
+            width: 100%; padding: 15px; border-radius: 12px; border: 1.5px solid var(--input-border); outline: none; transition: 0.3s; font-size: 15px; font-weight: 700; color: var(--text); 
+        }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0, 135, 60, 0.1); }
+        .calc-box { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 12px; margin-top: 10px; font-weight: 900; font-size: 22px; text-align: center; }
+        
+        .whatsapp-btn { 
+            width: 100%; background: linear-gradient(135deg, #3ae76e, #25d366); color: white; border: none; padding: 18px; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; transition: 0.3s; 
+        }
+        .whatsapp-btn:active { transform: scale(0.97); }
+
+        /* TOAST ALERT */
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #111; color: white; padding: 12px 30px; border-radius: 50px; display: none; z-index: 100000; font-size: 14px; }
     </style>
 </head>
-<body>
+<body onload="initApp()">
+
+<div id="splash">
+    <div class="splash-text">YNAMLY WE ÇALT TÖLEGLER</div>
+    <div class="splash-sub-text fade-in">Aman Töleg Siziň Bilen</div>
+</div>
 
 <div class="header">
-    <h1>AMAN TÖLEG</h1>
+    <div class="logo-box">
+        <div class="logo-img">T</div>
+        <div class="logo-text">Aman Töleg</div>
+    </div>
+    <div class="header-icons">
+        <i class="fas fa-file-invoice icon-btn"></i>
+        <i class="fas fa-adjust icon-btn" onclick="document.body.classList.toggle('dark-mode')"></i>
+    </div>
 </div>
 
 <div class="main-page">
-    <div class="bank-card">
-        <div class="name">AMAN HAYITMURADOV</div>
-        <div class="iban">TR91 0015 7000 0000 0201 1511 63</div>
-    </div>
+    <div class="welcome-text">Hoş geldiňiz!</div>
+    <div class="sub-welcome">Bugün näme tölemek isleýärsiňiz?</div>
 
     <div class="menu-grid">
-        <div class="menu-item" onclick="openPay('Tmcell')"><i class="fas fa-mobile-alt"></i><span>Tmcell</span></div>
-        <div class="menu-item" onclick="openPay('Internet')"><i class="fas fa-wifi"></i><span>Internet</span></div>
-        <div class="menu-item" onclick="openPay('Belet')"><i class="fas fa-play"></i><span>Belet Film</span></div>
-        <div class="menu-item" onclick="openPay('Altyn Asyr')"><i class="fas fa-sim-card"></i><span>Altyn Asyr</span></div>
+        <div class="menu-item tmcell-btn" onclick="openPayment('Tmcell')">
+            <img src="tmcell.png">
+            <span class="menu-main-text">Tmcell</span>
+            <span class="menu-sub-text">Altyn Asyr</span>
+        </div>
+        <div class="menu-item internet-btn" onclick="openPayment('Internet GB')">
+            <img src="internetgb.png">
+            <span class="menu-main-text">Internet GB</span>
+            <span class="menu-sub-text">Tmcell / Belet</span>
+        </div>
+        <div class="menu-item wifi-btn" onclick="openPayment('Wi-Fi Internet')">
+            <img src="wifi.png">
+            <span class="menu-main-text">Wi-Fi</span>
+            <span class="menu-sub-text">Belet Internet</span>
+        </div>
+        <div class="menu-item astu-btn" onclick="openPayment('Şagabat AŞTU')">
+            <img src="astu.png">
+            <span class="menu-main-text">Şagabat AŞTU</span>
+        </div>
+        <div class="menu-item belet-btn" onclick="openPayment('Belet Film')">
+            <img src="belet.png">
+            <span class="menu-main-text">Belet Film</span>
+        </div>
+        <div class="menu-item phone-btn" onclick="openPayment('Öý Telefon')">
+            <img src="phone.png">
+            <span class="menu-main-text">Öý Telefon</span>
+            <span class="menu-sub-text">AŞTU</span>
+        </div>
     </div>
 </div>
 
-<div id="payment-page">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-        <h2 id="title" style="font-weight: 900;"></h2>
-        <i class="fas fa-times" onclick="closePay()" style="font-size: 24px;"></i>
+<div id="payment-overlay">
+    <div class="form-panel">
+        <div class="form-header">
+            <div class="form-title" id="form-title">Töleg</div>
+            <i class="fas fa-times" onclick="closePayment()" style="font-size: 24px; cursor: pointer; color: #a1a1a1;"></i>
+        </div>
+        
+        <div class="input-group">
+            <input type="text" id="cust-name" placeholder="Adyňyz Familiýaňyz">
+        </div>
+
+        <div class="input-group">
+            <input type="tel" id="cust-phone" value="+993" maxlength="13" oninput="checkPrefix(this)">
+        </div>
+
+        <div class="input-group">
+            <input type="number" id="amt" placeholder="Tölenjek mukdar (Manat)" oninput="calculate()">
+        </div>
+
+        <div class="calc-box" id="calc-result">1040.00 TL</div>
+        
+        <button class="whatsapp-btn" onclick="sendWhatsApp()">
+            <i class="fab fa-whatsapp"></i> DEKONT UGRAT
+        </button>
     </div>
-    <input type="text" id="c-name" placeholder="Müşderiniň ady">
-    <input type="tel" id="c-phone" value="+993" maxlength="13" onkeydown="checkKey(event)" oninput="checkInp(this)">
-    <input type="number" id="c-amt" placeholder="Manat" oninput="calc()">
-    <div id="res" style="text-align: center; font-weight: 900; font-size: 22px; margin-bottom: 20px;">0.00 TL</div>
-    <button class="send-btn" onclick="send()">DEKONT IBERIŇ</button>
 </div>
+
+<div id="toast">Nusgalandy!</div>
 
 <script>
-    let service = "";
-    function openPay(s) { service = s; document.getElementById('title').innerText = s; document.getElementById('payment-page').style.display = 'block'; }
-    function closePay() { document.getElementById('payment-page').style.display = 'none'; }
-    
-    function checkKey(e) { if ((e.key==="Backspace"||e.key==="Delete") && e.target.selectionStart <= 4) e.preventDefault(); }
-    function checkInp(i) { if (!i.value.startsWith('+993')) i.value = '+993'; }
-    
-    function calc() {
-        let m = document.getElementById('c-amt').value;
-        document.getElementById('res').innerText = (m * 2.5).toFixed(2) + " TL";
+    let currentService = "";
+
+    function initApp() {
+        if (!navigator.onLine) {
+            alert("Internet birikmesi ýok! Programma internetsiz işlemäýär.");
+            return;
+        }
+
+        setTimeout(() => {
+            const sp = document.getElementById('splash');
+            sp.style.opacity = '0';
+            setTimeout(() => { sp.style.display = 'none'; }, 800);
+        }, 3000);
     }
 
-    function send() {
-        let n = document.getElementById('c-name').value;
-        let p = document.getElementById('c-phone').value;
-        let a = document.getElementById('c-amt').value;
-        if(!n || !a) return alert("Maglumatlary giriziň!");
-        let txt = `📄 *AMAN TÖLEG*%0A👤 *Müşderi:* ${n}%0A📞 *Tel:* ${p}%0A🛠 *Hyzmat:* ${service}%0A💰 *Mukdar:* ${a} Manat (${(a*2.5).toFixed(2)} TL)`;
-        window.open(`https://wa.me/99364041065?text=${txt}`, '_blank');
+    function openPayment(service) {
+        currentService = service;
+        document.getElementById('form-title').innerText = service;
+        document.getElementById('payment-overlay').style.display = 'block';
+    }
+
+    function closePayment() {
+        document.getElementById('payment-overlay').style.display = 'none';
+        document.getElementById('cust-name').value = '';
+        document.getElementById('cust-phone').value = '+993';
+        document.getElementById('amt').value = '';
+        document.getElementById('calc-result').innerText = '1040.00 TL';
+    }
+
+    function calculate() {
+        const manat = document.getElementById('amt').value;
+        const tlResult = document.getElementById('calc-result');
+        if (manat) {
+            const tl = manat * 2.6; // Mysal: 400 manat * 2.6 = 1040.00 TL
+            tlResult.innerText = `${tl.toFixed(2)} TL`;
+        } else {
+            tlResult.innerText = '1040.00 TL';
+        }
+    }
+
+    function checkPrefix(input) {
+        if (!input.value.startsWith('+993')) {
+            input.value = '+993' + input.value.replace(/^\+993/g, '');
+        }
+    }
+
+    function sendWhatsApp() {
+        const name = document.getElementById('cust-name').value;
+        const phone = document.getElementById('cust-phone').value;
+        const manat = document.getElementById('amt').value;
+        const tlResult = document.getElementById('calc-result').innerText;
+        
+        if(!name || !manat || phone.length < 13) {
+            alert("Xahys, ähli maglumatlary dogry giriziň!");
+            return;
+        }
+
+        // WhatsApp-a ugradylyş Çegi (Receipt) formaty
+        const text = `📄 *AMAN TÖLEG - TÖLEG DEKONT*%0A%0A👤 *Müşderi:* ${name}%0A📞 *Belgi:* ${phone}%0A🛠 *Hyzmat:* ${currentService}%0A💰 *Mukdar:* ${manat} Manat%0A💳 *Kurb (TL):* ${tlResult}%0A%0A✅ *Töleg barlanylýar...*`;
+        
+        // Seniň WhatsApp belgini bärde sazla
+        const myWhatsApp = "99364041065"; 
+        window.open(`https://wa.me/${myWhatsApp}?text=${text}`, '_blank');
     }
 </script>
 
 </body>
 </html>
+
