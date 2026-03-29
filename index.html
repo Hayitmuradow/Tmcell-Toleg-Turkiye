@@ -4,55 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aman Töleg</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #097133; --bg: #f8f9fa; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background-color: var(--bg); }
 
-        /* SPLASH EKRAN - TÜRKMEN & TÜRK BAÝDAK REŇKLERI */
+        /* SPLASH EKRAN - TÄZE ŞRIFT */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #097133 0%, #097133 50%, #e30a17 50%, #e30a17 100%);
-            display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999;
+            display: flex; justify-content: center; align-items: center; z-index: 9999;
             color: white; text-align: center;
         }
-        
-        /* ÖÇÜP-ÝANYP DURAN BIR SETIRLI ÝAZGY */
         .splash-title {
-            font-size: 28px; font-weight: 900; letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif; /* Täze Şrift */
+            font-size: 26px; font-weight: 900;
             animation: blink 1.5s infinite alternate;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
         }
 
-        @keyframes blink {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.4; transform: scale(0.95); }
-        }
+        @keyframes blink { 0% { opacity: 1; } 100% { opacity: 0.4; } }
 
-        /* CONTENT */
-        .header { padding: 15px; background: white; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .logo { background: var(--primary); color: white; padding: 5px 10px; border-radius: 8px; font-weight: bold; }
-        
-        .welcome { padding: 20px; }
-        .welcome h2 { font-size: 24px; color: #111; }
+        /* HEADER */
+        .header { padding: 12px 15px; background: white; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .logo { background: var(--primary); color: white; padding: 4px 8px; border-radius: 6px; font-weight: bold; font-size: 14px; }
+        .header h1 { font-size: 16px; font-weight: 800; }
 
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; }
+        /* MENÝULARY KIÇELTMEK */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; }
         .card { 
-            background: white; border-radius: 15px; padding: 20px 10px; text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05); border: 1px solid #eee;
+            background: white; border-radius: 12px; padding: 15px 8px; text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #eee;
         }
-        
-        /* GITHUB SURATLARY ÜÇIN STIL */
-        .card img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 10px; }
-        
-        .card h3 { font-size: 14px; font-weight: bold; color: #333; }
-        .card p { font-size: 12px; color: #888; margin-top: 4px; }
+        .card img { width: 45px; height: 45px; object-fit: contain; margin-bottom: 8px; }
+        .card h3 { font-size: 12px; font-weight: 700; color: #333; }
+        .card p { font-size: 10px; color: #888; }
 
-        .refresh-btn {
-            display: block; width: 90%; margin: 20px auto; padding: 15px;
-            background: white; border: 1px solid #ddd; border-radius: 12px;
-            text-align: center; font-weight: bold; color: var(--primary); text-decoration: none;
-        }
+        /* REFRESH (ALTYN ASYRYŇ ÝERINE) */
+        .refresh-card { background: #f0fdf4; border: 1px dashed var(--primary); }
+        .refresh-card h3 { color: var(--primary); }
+
+        /* IBAN & AT-FAMILIÝA BÖLÜMI (KOPÝA EDÝÄN) */
+        .footer-info { background: #1a4d2e; margin: 15px; padding: 15px; border-radius: 12px; color: white; text-align: center; }
+        .copy-item { margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 6px; cursor: pointer; transition: 0.3s; }
+        .copy-item:active { background: rgba(255,255,255,0.3); }
+        .copy-item span { display: block; font-size: 10px; opacity: 0.7; margin-bottom: 2px; }
+        .copy-item strong { font-size: 14px; letter-spacing: 0.5px; }
+
+        /* TOAST HABARLANDYRYŞ */
+        #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; display: none; z-index: 10000; }
     </style>
 </head>
 <body>
@@ -63,12 +64,7 @@
 
 <div class="header">
     <div class="logo">T</div>
-    <h1 style="font-size: 18px;">AMAN TÖLEG</h1>
-</div>
-
-<div class="welcome">
-    <h2>Hoş geldiňiz!</h2>
-    <p style="color: #666;">Bugün haýsy hyzmat üçin töleg edýäris?</p>
+    <h1>AMAN TÖLEG</h1>
 </div>
 
 <div class="grid">
@@ -77,50 +73,66 @@
         <h3>Tmcell</h3>
         <p>Altyn Asyr</p>
     </div>
-
     <div class="card">
         <img src="https://raw.githubusercontent.com/Hayitmuradow/Tmcell-Toleg-Turkiye/main/wifi.png" alt="Wi-Fi">
         <h3>Wi-Fi</h3>
         <p>Belet Internet</p>
     </div>
-
     <div class="card">
         <img src="https://raw.githubusercontent.com/Hayitmuradow/Tmcell-Toleg-Turkiye/main/alemtv.png" alt="Alem TV">
         <h3>Alem TV</h3>
         <p>Teleýaýlym</p>
     </div>
-
     <div class="card">
         <img src="https://raw.githubusercontent.com/Hayitmuradow/Tmcell-Toleg-Turkiye/main/belet.png" alt="Belet Film">
         <h3>Belet Film</h3>
         <p>Kinoteatr</p>
     </div>
-
-    <div class="card">
-        <img src="https://raw.githubusercontent.com/Hayitmuradow/Tmcell-Toleg-Turkiye/main/phone.png" alt="Altyn Asyr">
-        <h3>Altyn Asyr</h3>
-        <p>Bank kartlary</p>
-    </div>
-
     <div class="card">
         <img src="https://raw.githubusercontent.com/Hayitmuradow/Tmcell-Toleg-Turkiye/main/phone.png" alt="Öý Telefon">
         <h3>Öý Telefon</h3>
         <p>AŞTU / Telekom</p>
     </div>
+    <div class="card refresh-card" onclick="location.reload()">
+        <div style="font-size: 30px; margin-bottom: 5px;">🔄</div>
+        <h3>TÄZELE</h3>
+        <p>Refresh Page</p>
+    </div>
 </div>
 
-<a href="#" class="refresh-btn" onclick="location.reload()">🔄 TÄZELE (REFRESH)</a>
+<div class="footer-info">
+    <div class="copy-item" onclick="copyText('AMAN HAYITMURADOV', 'At-Familiýa kopýalandy!')">
+        <span>Söwda hasaby:</span>
+        <strong>AMAN HAYITMURADOV</strong>
+    </div>
+    <div class="copy-item" onclick="copyText('TR91 0015 7000 0000 0201 1511 63', 'IBAN kopýalandy!')">
+        <span>IBAN (Ziraat Bank):</span>
+        <strong>TR91 0015 7000 0000 0201 1511 63</strong>
+    </div>
+</div>
+
+<div id="toast">Kopýalandy!</div>
 
 <script>
+    // Splash
     window.onload = function() {
         setTimeout(function() {
             var s = document.getElementById('splash');
             s.style.opacity = '0';
             setTimeout(function() { s.style.display = 'none'; }, 600);
-        }, 2500);
+        }, 2000);
     };
+
+    // Kopýa etmek funksiýasy
+    function copyText(text, message) {
+        navigator.clipboard.writeText(text).then(() => {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2000);
+        });
+    }
 </script>
 
 </body>
 </html>
-
