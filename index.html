@@ -3,92 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aman Töleg</title>
+    <title>Aman Töleg - Final Luxury</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
-    
     <style>
-        /* ASYL DIZAYNYŇ ÜÇIN STIL (HIÇ ZAT ÜÝTGEDILMEDI) */
         :root {
             --primary: #00873c;
-            --dark-green: #004d26;
+            --dark-green: #005a28;
             --gold: #ffc107;
             --bg: #f0f4f2;
             --text: #111827;
+            --glass: #ffffff; 
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; transition: 0.3s; overflow-x: hidden; position: relative; }
 
-        /* TÄZE SPLASH SCREEN (DIŇE ŞU GOŞULDY) */
+        /* JANLY ARKA FON */
+        .bg-glow { position: fixed; width: 300px; height: 300px; background: var(--primary); filter: blur(100px); opacity: 0.15; z-index: -1; border-radius: 50%; animation: moveGlow 15s infinite alternate; }
+        .glow-2 { background: var(--gold); left: auto; right: -100px; top: 20%; animation-delay: -5s; }
+        @keyframes moveGlow { 0% { transform: translate(0, 0); } 100% { transform: translate(100px, 150px); } }
+
+        /* TÄZE PROFESSIONAL SPLASH (TÜRKMEN-TÜRK BAÝDAK RENKLERI) */
         #splash { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: radial-gradient(circle, #004d26 0%, #001a0d 100%); 
+            background: linear-gradient(135deg, #004d26 0%, #00873c 45%, #e30a17 55%, #8b0000 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            z-index: 10000; transition: 0.8s ease; 
+            z-index: 10000; color: white; transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
         }
-        .logo-container { width: 250px; margin-bottom: 20px; animation: zoomIn 1s ease-out; }
-        .logo-img { width: 100%; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); }
-        .slogan-box { text-align: center; opacity: 0; animation: fadeIn 1s forwards 0.8s; }
-        .main-slogan { color: var(--gold); font-size: 18px; font-weight: 900; letter-spacing: 2px; }
-        .sub-slogan { font-family: 'Dancing Script', cursive; color: #ffffff; font-size: 24px; margin-top: 5px; }
+        
+        /* Splash-daky Logo we Yazgy animasiyalary */
+        .splash-content { text-align: center; animation: zoomIn 1.2s ease-out; }
+        .splash-sub-text { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--gold); margin-top: 20px; opacity: 0; }
+        .show-sub { animation: fadeIn 1.5s forwards 1s; }
 
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes fadeIn { to { opacity: 1; } }
 
-        /* ESASY SAHYPA DIZAYNY (SKRINŞOTDAKY ÝALY) */
-        .header { background: var(--dark-green); padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .main-page { padding: 20px; max-width: 500px; margin: auto; }
-        .bank-card { 
-            background: #2e7d32; padding: 25px; border-radius: 25px; color: white; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-bottom: 30px; 
-        }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        /* HEADER */
+        .header { background: var(--dark-green); padding: 15px; position: sticky; top: 0; z-index: 1000; }
+        .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
+
+        /* BANK CARD */
+        .main-page { max-width: 500px; margin: auto; padding: 20px; }
+        .bank-card { background: linear-gradient(135deg, #004d26, #00873c); padding: 25px; border-radius: 25px; color: white; margin-bottom: 30px; box-shadow: 0 15px 35px rgba(0,135,60,0.3); position: relative; }
+
+        /* MENU GRID */
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .menu-item { 
-            background: white; border-radius: 25px; padding: 30px 10px; 
-            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            background: #ffffff; border-radius: 25px; text-align: center; 
+            padding: 25px 10px; cursor: pointer; transition: 0.2s ease; 
+            border: 1px solid rgba(0,0,0,0.05); 
         }
-        .menu-item i { font-size: 40px; color: var(--primary); margin-bottom: 10px; display: block; }
-        .menu-item span { font-weight: 700; font-size: 16px; color: #333; }
+        .menu-item:active { transform: scale(0.92); background-color: #f9f9f9; }
+        .menu-item i { font-size: 35px; color: var(--primary); display: block; margin-bottom: 10px; }
+        .menu-item span { display: block; font-weight: 800; font-size: 17px; color: #004d26; }
+
+        /* PAYMENT PAGE (GIZLIN DURMALY) */
+        #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; overflow-y: auto; }
     </style>
 </head>
 <body onload="initApp()">
 
+<div class="bg-glow"></div>
+<div class="bg-glow glow-2"></div>
+
 <div id="splash">
-    <div class="logo-container">
-        <img src="8994.png" alt="Aman Töleg" class="logo-img">
-    </div>
-    <div class="slogan-box">
-        <div class="main-slogan">YNAMLY WE ÇALT TÖLEGLER</div>
-        <div class="sub-slogan">Aman Töleg Siziň Bilen</div>
+    <div class="splash-content">
+        <img src="8994.png" alt="Aman Töleg" style="width: 250px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));">
+        <div style="margin-top: 20px; font-weight: 900; letter-spacing: 2px; font-size: 20px;">YNAMLY WE ÇALT TÖLEGLER</div>
+        <div class="splash-sub-text show-sub">Aman Töleg Siziň Bilen</div>
     </div>
 </div>
 
 <div class="header">
-    <div style="color: white; font-weight: 900; font-size: 22px;">AMAN TÖLEG</div>
-    <div style="color: var(--gold); font-size: 22px;"><i class="fas fa-crown"></i></div>
+    <div class="top-row">
+        <div style="color: white; font-weight: 900; font-size: 22px; letter-spacing: 1px;">AMAN TÖLEG</div>
+        <div style="color: var(--gold); font-size: 22px;"><i class="fas fa-crown"></i></div>
+    </div>
 </div>
 
 <div class="main-page">
     <div class="bank-card">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>
-                <p style="font-size: 12px; opacity: 0.9;">SÖWDA HASABY</p>
+                <p style="font-size: 12px; opacity: 0.9; letter-spacing: 1px;">SÖWDA HASABY</p>
                 <h2 style="font-size: 20px; margin-top: 5px; text-transform: uppercase;">AMAN HAYITMURADOV</h2>
             </div>
-            <img src="8994.png" style="width: 55px; opacity: 0.8;">
+            <img src="8994.png" style="width: 50px; filter: brightness(0) invert(1); opacity: 0.8;">
         </div>
-        <div style="margin-top: 30px; font-size: 24px; font-weight: 700; letter-spacing: 3px;">
-            **** **** **** 2026
-        </div>
+        <div style="margin-top: 30px; font-size: 24px; font-weight: 700; letter-spacing: 4px;">**** **** **** 2026</div>
     </div>
 
     <div class="menu-grid">
-        <div class="menu-item">
+        <div class="menu-item" onclick="openPayment('Tmcell')">
             <i class="fas fa-mobile-alt"></i>
             <span>Tmcell</span>
         </div>
-        <div class="menu-item">
+        <div class="menu-item" onclick="openPayment('Internet')">
             <i class="fas fa-wifi"></i>
             <span>Internet</span>
         </div>
@@ -97,12 +109,17 @@
 
 <script>
     function initApp() {
-        // Splash screen 3 sekuntdan soň ýitýär
+        // Splash 3.5 sekuntdan soň ýuwaşja aýrylýar
         setTimeout(() => {
             const sp = document.getElementById('splash');
             sp.style.opacity = '0';
             setTimeout(() => { sp.style.display = 'none'; }, 800);
-        }, 3000);
+        }, 3500);
+    }
+
+    function openPayment(type) {
+        // Bärde öňki original töleg funksiýalaryňyzy goşup bilersiňiz
+        alert(type + " töleg bölümi taýýar!");
     }
 </script>
 
