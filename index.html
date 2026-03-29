@@ -7,124 +7,153 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #00873c;
-            --dark-green: #005a28;
-            --gold: #ffc107;
-            --bg: #f0f4f2;
-            --text: #111827;
-            --glass: #ffffff; 
-        }
-
+        :root { --primary: #00873c; --dark-green: #005a28; --gold: #ffc107; --bg: #f0f4f2; --text: #111827; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; position: relative; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow: hidden; }
 
-        /* JANLY ARKA FON */
-        .bg-glow { position: fixed; width: 300px; height: 300px; background: var(--primary); filter: blur(100px); opacity: 0.15; z-index: -1; border-radius: 50%; animation: moveGlow 15s infinite alternate; }
-        .glow-2 { background: var(--gold); right: -100px; top: 20%; animation-delay: -5s; }
-        @keyframes moveGlow { 0% { transform: translate(0, 0); } 100% { transform: translate(100px, 150px); } }
-
-        /* TÄZE PROFESSIONAL SPLASH (TÜRKMEN-TÜRK BAÝDAK RENKLERI) */
+        /* SPLASH - TÜRKIYE & TURKMENISTAN COLORS */
         #splash { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: linear-gradient(135deg, #004d26 0%, #00873c 45%, #e30a17 55%, #8b0000 100%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            z-index: 10000; color: white; transition: 0.8s ease; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; transition: 0.8s; 
         }
-        .splash-content { text-align: center; animation: zoomIn 1.2s ease-out; }
-        .splash-sub-text { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--gold); margin-top: 20px; opacity: 0; animation: fadeIn 1.5s forwards 1s; }
+        .splash-text { text-align: center; color: white; }
+        .main-slogan { font-weight: 900; font-size: 22px; letter-spacing: 2px; margin-bottom: 10px; }
+        .sub-slogan { font-family: 'Dancing Script', cursive; font-size: 30px; color: var(--gold); opacity: 0; animation: fadeIn 1.5s forwards 1s; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        /* HEADER */
-        .header { background: var(--dark-green); padding: 15px; position: sticky; top: 0; z-index: 1000; }
-        .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
-
-        /* MAIN PAGE */
-        .main-page { max-width: 500px; margin: auto; padding: 20px; }
-        .bank-card { background: linear-gradient(135deg, #004d26, #00873c); padding: 25px; border-radius: 25px; color: white; margin-bottom: 30px; box-shadow: 0 15px 35px rgba(0,135,60,0.3); position: relative; }
+        /* MAIN LAYOUT */
+        .header { background: var(--dark-green); padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .main-page { padding: 20px; max-width: 500px; margin: auto; overflow-y: auto; height: calc(100vh - 60px); }
+        
+        /* BANK CARD & COPY */
+        .bank-card { 
+            background: #2e7d32; padding: 25px; border-radius: 25px; color: white; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 30px; cursor: pointer;
+        }
+        .bank-card:active { transform: scale(0.98); }
 
         /* MENU GRID */
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 30px; }
         .menu-item { 
-            background: #ffffff; border-radius: 25px; text-align: center; 
-            padding: 20px 10px; cursor: pointer; transition: 0.2s ease; 
-            border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            background: white; border-radius: 25px; padding: 25px 10px; text-align: center; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.2s;
         }
-        .menu-item:active { transform: scale(0.92); background-color: #f9f9f9; }
-        .menu-item img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 10px; }
-        .menu-item span { display: block; font-weight: 800; font-size: 15px; color: #004d26; }
+        .menu-item:active { transform: scale(0.92); }
+        .menu-item img { width: 55px; height: 55px; object-fit: contain; margin-bottom: 12px; }
+        .menu-item span { display: block; font-weight: 700; color: #333; font-size: 15px; }
+
+        /* PAGES */
+        #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 500; padding: 20px; }
+        
+        /* TOAST */
+        #toast { 
+            position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%); 
+            background: rgba(0,0,0,0.8); color: white; padding: 10px 25px; border-radius: 20px; 
+            display: none; z-index: 20000; font-size: 14px; 
+        }
+
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body onload="initApp()">
 
-<div class="bg-glow"></div>
-<div class="bg-glow glow-2"></div>
-
 <div id="splash">
-    <div class="splash-content">
-        <img src="8994.png" alt="Aman Töleg" style="width: 250px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));">
-        <div style="margin-top: 20px; font-weight: 900; letter-spacing: 2px; font-size: 20px;">YNAMLY WE ÇALT TÖLEGLER</div>
-        <div class="splash-sub-text">Aman Töleg Siziň Bilen</div>
+    <div class="splash-text">
+        <div class="main-slogan">YNAMLY WE ÇALT TÖLEGLER</div>
+        <div class="sub-slogan">Aman Töleg Siziň Bilen</div>
     </div>
 </div>
 
 <div class="header">
-    <div class="top-row">
-        <div style="color: white; font-weight: 900; font-size: 22px;">AMAN TÖLEG</div>
-        <div style="color: var(--gold); font-size: 22px;"><i class="fas fa-crown"></i></div>
-    </div>
+    <div style="color: white; font-weight: 900; font-size: 20px;">AMAN TÖLEG</div>
+    <div style="color: var(--gold); font-size: 20px;"><i class="fas fa-crown"></i></div>
 </div>
 
 <div class="main-page">
-    <div class="bank-card">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div class="bank-card" onclick="copyData('AMAN HAYITMURADOV \nIBAN: TKM12345678901234567890')">
+        <div style="display: flex; justify-content: space-between;">
             <div>
-                <p style="font-size: 12px; opacity: 0.9; letter-spacing: 1px;">SÖWDA HASABY</p>
-                <h2 style="font-size: 20px; margin-top: 5px; text-transform: uppercase;">AMAN HAYITMURADOV</h2>
+                <p style="font-size: 11px; opacity: 0.8; letter-spacing: 1px;">SÖWDA HASABY</p>
+                <h2 style="font-size: 19px; margin-top: 5px;">AMAN HAYITMURADOV</h2>
             </div>
-            <img src="8994.png" style="width: 50px; filter: brightness(0) invert(1); opacity: 0.8;">
+            <i class="fas fa-copy" style="opacity: 0.5;"></i>
         </div>
-        <div style="margin-top: 30px; font-size: 24px; font-weight: 700; letter-spacing: 4px;">**** **** **** 2026</div>
+        <div style="margin-top: 25px; font-size: 22px; font-weight: 700; letter-spacing: 3px;">
+            **** **** **** 2026
+        </div>
+        <p style="font-size: 10px; margin-top: 10px; opacity: 0.7;">IBAN: TKM12345678901234567890</p>
     </div>
 
     <div class="menu-grid">
-        <div class="menu-item">
-            <img src="tmcell.png" alt="Tmcell">
-            <span>Tmcell</span>
+        <div class="menu-item" onclick="openPage('Tmcell')">
+            <img src="tmcell.png"><span>Tmcell</span>
         </div>
-        <div class="menu-item">
-            <img src="belet.png" alt="Belet Film">
-            <span>Belet Film</span>
+        <div class="menu-item" onclick="openPage('Belet Film')">
+            <img src="belet.png"><span>Belet Film</span>
         </div>
-        <div class="menu-item">
-            <img src="alemtv.png" alt="Alem TV">
-            <span>Alem TV</span>
+        <div class="menu-item" onclick="openPage('Alem TV')">
+            <img src="alemtv.png"><span>Alem TV</span>
         </div>
-        <div class="menu-item">
-            <img src="wifi.png" alt="Wi-Fi">
-            <span>Wi-Fi Internet</span>
+        <div class="menu-item" onclick="openPage('Wi-Fi Internet')">
+            <img src="wifi.png"><span>Wi-Fi Internet</span>
         </div>
-        <div class="menu-item">
-            <img src="telecom.png" alt="Altyn Asyr">
-            <span>Altyn Asyr</span>
+        <div class="menu-item" onclick="openPage('Altyn Asyr')">
+            <img src="altynasyr.png"><span>Altyn Asyr</span>
         </div>
-        <div class="menu-item">
-            <img src="phone.png" alt="Öý Telefon">
-            <span>Öý Telefon</span>
+        <div class="menu-item" onclick="openPage('Öý Telefon')">
+            <img src="phone.png"><span>Öý Telefon</span>
         </div>
     </div>
 </div>
 
+<div id="payment-page">
+    <button onclick="closePage()" style="border:none; background:none; color:var(--primary); font-weight:900; font-size:18px; margin-bottom:20px;">
+        <i class="fas fa-arrow-left"></i> Yza
+    </button>
+    <h2 id="page-title"></h2>
+    </div>
+
+<div id="toast">Nusgalandy!</div>
+
 <script>
     function initApp() {
+        // 1. Internet Barlagy
+        if (!navigator.onLine) {
+            alert("Internet birikmesi ýok! Programma diňe internetli işleýär.");
+            document.body.innerHTML = "<h2 style='text-align:center; margin-top:50px;'>Internet gerek...</h2>";
+            return;
+        }
+
+        // 2. Splash Aýyrmak
         setTimeout(() => {
             const sp = document.getElementById('splash');
             sp.style.opacity = '0';
-            setTimeout(() => { sp.style.display = 'none'; }, 800);
-        }, 3500);
+            setTimeout(() => { sp.style.display = 'none'; document.body.style.overflow="auto"; }, 800);
+        }, 3000);
     }
+
+    // Nusgalama Funksiýasy
+    function copyData(text) {
+        navigator.clipboard.writeText(text);
+        const toast = document.getElementById('toast');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2000);
+    }
+
+    // Sahypa Açmak Funksiýasy
+    function openPage(title) {
+        document.getElementById('payment-page').style.display = 'block';
+        document.getElementById('page-title').innerText = title;
+    }
+
+    function closePage() {
+        document.getElementById('payment-page').style.display = 'none';
+    }
+
+    window.addEventListener('offline', () => {
+        alert("Internet kesildi!");
+        location.reload();
+    });
 </script>
 
 </body>
