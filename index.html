@@ -7,48 +7,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00873c; --dark-green: #2d5a27; --gold: #ffc107; --bg: #f0f4f2; --text: #333; --card-bg: white; }
+        :root { --primary: #00873c; --dark-green: #2d5a27; --bg: #f0f4f2; --text: #333; --card-bg: white; }
         .dark-mode { --bg: #121212; --text: #f0f4f2; --card-bg: #1e1e1e; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: var(--bg); color: var(--text); transition: 0.3s; }
 
         /* HEADER */
         .header { background: var(--dark-green); padding: 15px; display: flex; justify-content: space-between; align-items: center; color: white; }
-        .header h1 { font-size: 20px; text-transform: uppercase; font-weight: 900; }
-        .theme-toggle { color: var(--gold); font-size: 20px; cursor: pointer; }
+        .header h1 { font-size: 22px; text-transform: uppercase; font-weight: 900; letter-spacing: 0.5px; }
+        .theme-toggle { color: #ffc107; font-size: 22px; cursor: pointer; }
 
         .main-container { padding: 15px; max-width: 500px; margin: auto; }
 
-        /* BANK CARD - SURATDAKY ÝALY */
-        .bank-card { background: var(--dark-green); padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .bank-card .label { font-size: 10px; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; }
-        .bank-card .name { font-size: 20px; font-weight: 900; margin: 5px 0 20px 0; }
-        .bank-card .iban-box { background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; }
+        /* BANK CARD - SURATDAKY ÝALY BERKIDILDI */
+        .bank-card { background: var(--dark-green); padding: 25px; border-radius: 30px; color: white; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .bank-card .label { font-size: 11px; opacity: 0.8; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
+        .bank-card .name { font-size: 22px; font-weight: 900; margin-bottom: 20px; }
+        .bank-card .iban-box { background: rgba(0,0,0,0.25); padding: 12px; border-radius: 12px; font-size: 14.5px; font-weight: 700; text-align: center; }
 
-        /* MENU GRID */
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .menu-item { background: var(--card-bg); border-radius: 25px; padding: 25px 10px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); cursor: pointer; }
-        .menu-item i { font-size: 35px; color: var(--primary); margin-bottom: 12px; display: block; }
-        .menu-item span { font-weight: 700; color: var(--text); font-size: 16px; }
+        /* MENU GRID - SURATDAKY ÝALY 2 SANY */
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .menu-item { background: var(--card-bg); border-radius: 30px; padding: 35px 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer; }
+        .menu-item i { font-size: 40px; color: var(--primary); margin-bottom: 15px; display: block; }
+        .menu-item span { font-weight: 700; color: var(--text); font-size: 18px; }
 
         /* PAYMENT OVERLAY */
-        #payment-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 5000; display: none; padding: 20px; }
+        #payment-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 5000; display: none; padding: 25px; }
         .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 14px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 15px; }
         input { width: 100%; padding: 16px; border-radius: 15px; border: 1.5px solid #ddd; background: var(--card-bg); color: var(--text); font-size: 16px; outline: none; }
-        .result-box { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 12px; text-align: center; font-weight: 900; font-size: 18px; margin: 15px 0; }
+        .result-box { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 15px; text-align: center; font-weight: 900; font-size: 20px; margin: 20px 0; }
         
-        /* CUSTOM ALERT */
-        #custom-alert { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 30px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); z-index: 10000; display: none; text-align: center; width: 85%; border: 2px solid var(--primary); }
-        #custom-alert button { margin-top: 20px; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 900; }
+        .btn-send { width: 100%; padding: 20px; background: #56c870; color: white; border: none; border-radius: 15px; font-weight: 900; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-        .btn-send { width: 100%; padding: 18px; background: #56c870; color: white; border: none; border-radius: 15px; font-weight: 900; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        /* ALERT */
+        #custom-alert { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 30px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); z-index: 10000; display: none; text-align: center; width: 85%; border: 2.5px solid var(--primary); }
+        #custom-alert button { margin-top: 20px; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 900; }
     </style>
 </head>
 <body>
 
 <div id="custom-alert">
-    <p id="alert-msg" style="font-weight: 700;"></p>
+    <p id="alert-msg" style="font-weight: 700; font-size: 16px;"></p>
     <button onclick="document.getElementById('custom-alert').style.display='none'">OK</button>
 </div>
 
@@ -72,8 +72,8 @@
 
 <div id="payment-overlay">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-        <h2 id="pay-title" style="font-weight: 900;"></h2>
-        <i class="fas fa-times" onclick="closePay()" style="font-size: 24px;"></i>
+        <h2 id="pay-title" style="font-weight: 900; font-size: 24px;"></h2>
+        <i class="fas fa-times" onclick="closePay()" style="font-size: 28px; cursor: pointer;"></i>
     </div>
 
     <div class="input-group">
@@ -115,8 +115,17 @@
         document.getElementById('c-res').innerText = 'Tölener: 0.00 TL';
     }
 
-    function checkKey(e) { if ((e.key==="Backspace" || e.key==="Delete") && e.target.selectionStart <= 4) e.preventDefault(); }
-    function checkInp(i) { if (!i.value.startsWith('+993')) i.value = '+993'; }
+    // +993 POZULMAZLYGY ÜÇIN BERKIDILDI
+    function checkKey(e) { 
+        if ((e.key === "Backspace" || e.key === "Delete") && e.target.selectionStart <= 4) {
+            e.preventDefault();
+        }
+    }
+    function checkInp(i) { 
+        if (!i.value.startsWith('+993')) {
+            i.value = '+993' + i.value.replace(/^\+993/g, '');
+        }
+    }
 
     function calc() {
         let m = document.getElementById('c-amount').value;
