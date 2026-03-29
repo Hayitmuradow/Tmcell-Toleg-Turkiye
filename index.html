@@ -2,109 +2,135 @@
 <html lang="tk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aman Töleg</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --main-bg: #fdfdfd; --card-bg: #ffffff; --text-color: #333; }
-        body { background-color: var(--main-bg); color: var(--text-color); font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 40px; }
-        
-        /* Header we Ikonlar */
-        .header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: white; }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-box { background: #2e7d32; color: white; padding: 5px 10px; border-radius: 8px; font-weight: bold; }
-        .header-icons { display: flex; gap: 15px; font-size: 22px; color: #2e7d32; }
+        :root { --primary: #2e7d32; --bg: #f8f9fa; --card-bg: #ffffff; --text: #333; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; }
 
-        .welcome-text { padding: 20px; }
-        .welcome-text h2 { margin: 0; font-size: 24px; font-weight: 800; }
-        .welcome-text p { color: #666; margin-top: 5px; }
-
-        /* Grid Menýu */
-        .menu-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); 
-            gap: 15px; padding: 0 20px; 
+        /* SPLASH EKRAN - ÝAŞYL/GYZYL DIZAÝN */
+        #splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #2e7d32 0%, #2e7d32 50%, #c62828 50%, #c62828 100%);
+            display: flex; justify-content: center; align-items: center; z-index: 9999;
+            transition: opacity 0.5s ease;
         }
-        .menu-card { 
-            background: var(--card-bg); border-radius: 20px; padding: 20px 10px;
-            text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid #f0f0f0; transition: 0.3s;
-        }
-        .menu-card:active { transform: scale(0.96); }
-        .menu-card img { width: 55px; height: 55px; object-fit: contain; margin-bottom: 12px; }
-        .menu-card h3 { font-size: 14px; margin: 0; font-weight: 700; text-transform: uppercase; }
-        .menu-card p { font-size: 11px; color: #999; margin-top: 4px; }
+        #splash h1 { color: white; font-size: 24px; font-weight: 900; text-align: center; padding: 20px; }
 
-        /* Refresh Düwmesi */
-        .refresh-container { text-align: center; margin-top: 30px; }
+        /* HEADER */
+        .header { 
+            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; 
+            background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .logo-square { background: var(--primary); color: white; padding: 6px 10px; border-radius: 6px; font-weight: bold; }
+        .header h1 { font-size: 18px; font-weight: 900; }
+        .header-icons { display: flex; gap: 15px; align-items: center; font-size: 22px; color: var(--primary); }
+
+        /* MAZMUN */
+        .content { padding: 20px; }
+        .welcome { margin-bottom: 25px; }
+        .welcome h2 { font-size: 26px; font-weight: 800; }
+        .welcome p { color: #777; font-size: 14px; }
+
+        /* MENU GRID - AK REŇKLI DÜWMELER */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .card { 
+            background: #ffffff; border-radius: 18px; padding: 20px 10px; text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; transition: 0.2s;
+        }
+        .card:active { transform: scale(0.95); }
+        .card img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 12px; display: block; margin-left: auto; margin-right: auto; }
+        .card h3 { font-size: 14px; font-weight: 700; color: #333; text-transform: uppercase; }
+        .card p { font-size: 11px; color: #999; margin-top: 3px; }
+
+        /* REFRESH DÜWMESI */
+        .refresh-area { text-align: center; margin: 30px 0; }
         .refresh-btn { 
-            display: inline-flex; align-items: center; gap: 8px;
-            background: white; border: 1.5px solid #eee; padding: 10px 25px;
-            border-radius: 30px; font-weight: bold; color: #2e7d32;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: inline-flex; align-items: center; gap: 8px; background: white; 
+            padding: 10px 25px; border-radius: 25px; border: 1px solid #ddd;
+            font-weight: bold; color: var(--primary); box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         }
     </style>
 </head>
 <body>
 
+<div id="splash">
+    <h1>YNAMLY WE ÇALT TÖLEGLER</h1>
+</div>
+
 <div class="header">
-    <div class="logo-area">
-        <div class="logo-box">T</div>
-        <span style="font-weight: 900; letter-spacing: 0.5px;">AMAN TÖLEG</span>
+    <div class="header-left">
+        <div class="logo-square">T</div>
+        <h1>AMAN TÖLEG</h1>
     </div>
     <div class="header-icons">
-        <i class="fas fa-book"></i>
+        <i class="fas fa-book-bookmark"></i>
         <i class="fas fa-moon"></i>
     </div>
 </div>
 
-<div class="welcome-text">
-    <h2>Hoş geldiňiz!</h2>
-    <p>Bugün näme tölemek isleýärsiňiz?</p>
+<div class="content">
+    <div class="welcome">
+        <h2>Hoş geldiňiz!</h2>
+        <p>Bugün näme tölemek isleýärsiňiz?</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <img src="https://tmcell.tm/static/media/logo.548c0817.png" alt="Tmcell">
+            <h3>Tmcell</h3>
+            <p>Altyn Asyr</p>
+        </div>
+
+        <div class="card">
+            <img src="https://belet.com.tm/belet-logo.png" alt="Wi-Fi">
+            <h3>Wi-Fi</h3>
+            <p>Belet Internet</p>
+        </div>
+
+        <div class="card">
+            <img src="https://alemtv.com.tm/static/media/logo.92e35a90.png" alt="Alem TV">
+            <h3>Alem TV</h3>
+            <p>Teleýaýlym</p>
+        </div>
+
+        <div class="card">
+            <img src="https://belet.me/favicon.ico" style="transform: scale(2.5);" alt="Belet Film">
+            <h3>Belet Film</h3>
+            <p>Kinoteatr</p>
+        </div>
+
+        <div class="card">
+            <img src="https://it.com.tm/wp-content/uploads/2021/05/Altyn-Asyr-logo.png" alt="Altyn Asyr">
+            <h3>Altyn Asyr</h3>
+            <p>Bank hyzmatlary</p>
+        </div>
+
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/45/45001.png" alt="Öý Telefon">
+            <h3>Öý Telefon</h3>
+            <p>AŞTU / Telekom</p>
+        </div>
+    </div>
+
+    <div class="refresh-area">
+        <div class="refresh-btn" onclick="location.reload()">
+            <i class="fas fa-sync-alt"></i> TÄZELE (REFRESH)
+        </div>
+    </div>
 </div>
 
-<div class="menu-grid">
-    <div class="menu-card">
-        <img src="https://tmcell.tm/static/media/logo.548c0817.png" alt="Tmcell">
-        <h3>Tmcell</h3>
-        <p>Altyn Asyr</p>
-    </div>
-
-    <div class="menu-card">
-        <img src="https://belet.com.tm/belet-logo.png" alt="Wi-Fi">
-        <h3>Wi-Fi</h3>
-        <p>Belet Internet</p>
-    </div>
-
-    <div class="menu-card">
-        <img src="https://alemtv.com.tm/static/media/logo.92e35a90.png" alt="Alem TV">
-        <h3>Alem TV</h3>
-        <p>Teleýaýlym</p>
-    </div>
-
-    <div class="menu-card">
-        <img src="https://belet.me/favicon.ico" style="transform: scale(2.5);" alt="Belet Film">
-        <h3>Belet Film</h3>
-        <p>Kinoteatr</p>
-    </div>
-
-    <div class="menu-card">
-        <img src="https://it.com.tm/wp-content/uploads/2021/05/Altyn-Asyr-logo.png" alt="Altyn Asyr">
-        <h3>Altyn Asyr</h3>
-        <p>Bank hyzmatlary</p>
-    </div>
-
-    <div class="menu-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/45/45001.png" alt="Öý Telefon">
-        <h3>Öý Telefon</h3>
-        <p>AŞTU / Telekom</p>
-    </div>
-</div>
-
-<div class="refresh-container">
-    <div class="refresh-btn" onclick="location.reload()">
-        <i class="fas fa-sync-alt"></i> TÄZELE (REFRESH)
-    </div>
-</div>
+<script>
+    // Splash ekrany 2 sekuntdan aýyrýar
+    setTimeout(() => {
+        const splash = document.getElementById('splash');
+        splash.style.opacity = '0';
+        setTimeout(() => splash.style.display = 'none', 500);
+    }, 2000);
+</script>
 
 </body>
 </html>
