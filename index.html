@@ -5,145 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aman Töleg</title>
     <style>
-        :root { --primary: #2e7d32; --bg: #f8f9fa; --card-bg: #ffffff; --text: #333; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; }
+        :root { --primary: #2e7d32; --bg: #f4f7f6; --card-bg: #ffffff; --text: #333; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg); overflow-x: hidden; }
 
-        /* SPLASH EKRAN - TÄZE DIZAÝN */
+        /* SPLASH EKRAN - TÜRKMEN & TÜRK BAÝDAK REŇKLERI */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            background: linear-gradient(135deg, #097133 0%, #097133 50%, #e30a17 50%, #e30a17 100%);
             display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999;
-            transition: opacity 0.6s ease; color: white; text-align: center;
+            transition: opacity 0.8s ease; text-align: center;
         }
-        .splash-content h1 { font-size: 32px; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .splash-content p { font-size: 18px; font-weight: 300; font-style: italic; opacity: 0.9; letter-spacing: 1px; }
-
-        /* HEADER */
-        .header { 
-            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; 
-            background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .header-left { display: flex; align-items: center; gap: 10px; }
-        .logo-box { background: var(--primary); color: white; padding: 5px 12px; border-radius: 8px; font-weight: 900; font-size: 20px; }
-        .header h1 { font-size: 18px; font-weight: 800; color: #222; }
-
-        /* WELCOME SECTION */
-        .welcome { padding: 25px 20px; }
-        .welcome h2 { font-size: 28px; font-weight: 800; color: #1a1a1a; }
-        .welcome p { color: #666; font-size: 15px; margin-top: 5px; }
-
-        /* MENU GRID - SURATLAR KODYŇ IÇINDE */
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; padding: 0 20px 30px; }
-        .card { 
-            background: var(--card-bg); border-radius: 24px; padding: 30px 15px; text-align: center;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; transition: all 0.3s ease;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .card:active { transform: scale(0.94); background-color: #f1f8e9; }
         
-        .card-icon { width: 55px; height: 55px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; }
-        .card-icon svg { width: 100%; height: 100%; fill: var(--primary); }
+        /* ÖÇÜP-ÝANYP DURAN (ANIMATION) ÝAZGY */
+        .splash-text {
+            color: white; font-size: 30px; font-weight: 900; letter-spacing: 1px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            animation: blink 1.5s infinite alternate;
+        }
+        .splash-sub { color: white; font-size: 18px; margin-top: 10px; opacity: 0.9; font-weight: 300; }
 
-        .card h3 { font-size: 15px; font-weight: 800; color: #222; text-transform: uppercase; letter-spacing: 0.5px; }
-        .card p { font-size: 12px; color: #888; margin-top: 6px; font-weight: 500; }
+        @keyframes blink {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.3; transform: scale(0.98); }
+        }
+
+        /* HEADER & CONTENT */
+        .header { padding: 15px 20px; background: white; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); sticky: top; }
+        .logo-square { background: #097133; color: white; padding: 6px 12px; border-radius: 10px; font-weight: bold; font-size: 20px; }
+        .header h1 { font-size: 18px; color: #222; font-weight: 800; }
+
+        .welcome-box { padding: 25px 20px; }
+        .welcome-box h2 { font-size: 26px; font-weight: 800; color: #111; }
+        .welcome-box p { color: #777; font-size: 14px; margin-top: 4px; }
+
+        /* GRID SYSTEM - SURATLAR KODYŇ IÇINDE (HIÇ WAGT ÝITMEZ) */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px 30px; }
+        .card { 
+            background: white; border-radius: 20px; padding: 25px 10px; text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #eee; transition: 0.2s;
+        }
+        .card:active { transform: scale(0.95); background: #f9f9f9; }
+        
+        .icon-container { width: 50px; height: 50px; margin: 0 auto 12px; }
+        .icon-container svg { width: 100%; height: 100%; fill: #097133; }
+
+        .card h3 { font-size: 14px; font-weight: 700; color: #222; text-transform: uppercase; }
+        .card p { font-size: 11px; color: #999; margin-top: 5px; }
 
         /* REFRESH BUTTON */
-        .refresh-area { text-align: center; margin-bottom: 40px; }
-        .refresh-btn { 
-            display: inline-flex; align-items: center; gap: 10px; background: white; 
-            padding: 14px 35px; border-radius: 50px; border: 1.5px solid #eee;
-            font-weight: 700; color: var(--primary); font-size: 14px; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        .btn-refresh {
+            display: block; width: 80%; margin: 10px auto 40px; padding: 15px;
+            background: white; border: 1px solid #ddd; border-radius: 15px;
+            text-align: center; font-weight: bold; color: #097133; text-decoration: none;
         }
     </style>
 </head>
 <body>
 
 <div id="splash">
-    <div class="splash-content">
-        <h1>AMAN TÖLEG</h1>
-        <p>Siziň Bilen</p>
-    </div>
+    <div class="splash-text">AMAN TÖLEG</div>
+    <div class="splash-sub">Siziň Bilen</div>
 </div>
 
 <div class="header">
-    <div class="header-left">
-        <div class="logo-box">T</div>
-        <h1>AMAN TÖLEG</h1>
-    </div>
+    <div class="logo-square">T</div>
+    <h1>AMAN TÖLEG</h1>
 </div>
 
-<div class="welcome">
+<div class="welcome-box">
     <h2>Hoş geldiňiz!</h2>
-    <p>Bugün haýsy hyzmat üçin töleg edýäris?</p>
+    <p>Bugun haýsy hyzmat üçin töleg edýäris?</p>
 </div>
 
 <div class="grid">
     <div class="card">
-        <div class="card-icon">
-            <svg viewBox="0 0 24 24"><path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21C5,22.1 5.9,23 7,23H17C18.1,23 19,22.1 19,21V3C19,1.89 18.1,1 17,1Z"/></svg>
-        </div>
+        <div class="icon-container"><svg viewBox="0 0 24 24"><path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21C5,22.1 5.9,23 7,23H17C18.1,23 19,22.1 19,21V3C19,1.89 18.1,1 17,1Z"/></svg></div>
         <h3>Tmcell</h3>
         <p>Altyn Asyr</p>
     </div>
 
     <div class="card">
-        <div class="card-icon">
-            <svg viewBox="0 0 24 24"><path d="M12,3C7.79,3 3.7,4.41 0.38,7C4.41,12.06 7.89,16.37 12,21.5C16.08,16.42 20.24,11.24 23.65,7C20.32,4.41 16.22,3 12,3Z"/></svg>
-        </div>
+        <div class="icon-container"><svg viewBox="0 0 24 24"><path d="M12,3C7.79,3 3.7,4.41 0.38,7C4.41,12.06 7.89,16.37 12,21.5C16.08,16.42 20.24,11.24 23.65,7C20.32,4.41 16.22,3 12,3Z"/></svg></div>
         <h3>Wi-Fi</h3>
         <p>Belet Internet</p>
     </div>
 
     <div class="card">
-        <div class="card-icon">
-            <svg viewBox="0 0 24 24"><path d="M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.89,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21V17M16,11L9,15V7L16,11Z"/></svg>
-        </div>
+        <div class="icon-container"><svg viewBox="0 0 24 24"><path d="M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.89,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21V17M16,11L9,15V7L16,11Z"/></svg></div>
         <h3>Alem TV</h3>
         <p>Teleýaýlym</p>
     </div>
 
     <div class="card">
-        <div class="card-icon">
-            <svg viewBox="0 0 24 24"><path d="M18,4L20,8H17L15,4H13L15,8H12L10,4H8L10,8H7L5,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V4H18Z"/></svg>
-        </div>
+        <div class="icon-container"><svg viewBox="0 0 24 24"><path d="M18,4L20,8H17L15,4H13L15,8H12L10,4H8L10,8H7L5,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V4H18Z"/></svg></div>
         <h3>Belet Film</h3>
         <p>Kinoteatr</p>
     </div>
 
     <div class="card">
-        <div class="card-icon">
-            <svg viewBox="0 0 24 24"><path d="M20,4H4C2.89,4 2.01,4.89 2.01,6L2,18C2,19.1 2.89,20 4,20H20C21.1,20 22,19.1 22,18V6C22,4.89 21.1,4 20,4M20,18H4V12H20V18M20,8H4V6H20V8Z"/></svg>
-        </div>
+        <div class="icon-container"><svg viewBox="0 0 24 24"><path d="M20,4H4C2.89,4 2.01,4.89 2.01,6L2,18C2,19.1 2.89,20 4,20H20C21.1,20 22,19.1 22,18V6C22,4.89 21.1,4 20,4M20,18H4V12H20V18M20,8H4V6H20V8Z"/></svg></div>
         <h3>Altyn Asyr</h3>
         <p>Bank kartlary</p>
     </div>
 
     <div class="card">
-        <div class="card-icon">
-            <svg viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg>
-        </div>
+        <div class="icon-container"><svg viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg></div>
         <h3>Öý Telefon</h3>
         <p>AŞTU / Telekom</p>
     </div>
 </div>
 
-<div class="refresh-area">
-    <div class="refresh-btn" onclick="location.reload()">
-        <span>🔄</span> TÄZELE (REFRESH)
-    </div>
-</div>
+<a href="#" class="btn-refresh" onclick="location.reload()">🔄 TÄZELE (REFRESH)</a>
 
 <script>
-    // Splash ekranyny 2.5 sekuntdan aýyrýar
-    window.addEventListener('load', function() {
-        setTimeout(() => {
-            const splash = document.getElementById('splash');
-            splash.style.opacity = '0';
-            setTimeout(() => splash.style.display = 'none', 600);
-        }, 2500);
-    });
+    // Splash ekranyny 3 sekuntdan aýyrýar
+    window.onload = function() {
+        setTimeout(function() {
+            var s = document.getElementById('splash');
+            s.style.opacity = '0';
+            setTimeout(function() { s.style.display = 'none'; }, 800);
+        }, 3000);
+    };
 </script>
 
 </body>
