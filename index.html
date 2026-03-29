@@ -3,81 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aman Töleg - Luxury Update</title>
+    <title>Aman Töleg - WhatsApp Receipt</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --primary: #00873c; 
-            --dark-green: #2e7d32; 
-            --gold: #ffc107; 
-            --bg: #f0f4f2; 
-            --text: #333;
-            --card-bg: white;
-        }
-
-        /* GIJE-GÜNDIZ TEMA (DARK MODE) */
-        .dark-mode { 
-            --bg: #121212; 
-            --text: #f0f4f2; 
-            --card-bg: #1e1e1e;
-        }
-
+        :root { --primary: #00873c; --dark-green: #2e7d32; --gold: #ffc107; --bg: #f0f4f2; --text: #333; --card-bg: white; }
+        .dark-mode { --bg: #121212; --text: #f0f4f2; --card-bg: #1e1e1e; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; transition: 0.3s; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; transition: 0.3s; }
 
-        /* SPLASH */
-        #splash { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(135deg, #004d26 0%, #00873c 45%, #e30a17 55%, #8b0000 100%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; transition: 0.8s; 
-        }
-        .main-slogan { color: white; font-weight: 900; font-size: 22px; letter-spacing: 2px; text-align: center; }
-        .sub-slogan { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--gold); margin-top: 15px; opacity: 0; animation: fadeIn 1.5s forwards 1s; }
-
-        /* HEADER */
         .header { background: #1b5e20; padding: 15px; display: flex; justify-content: space-between; align-items: center; color: white; }
         .theme-btn { background: none; border: none; color: var(--gold); font-size: 20px; cursor: pointer; }
 
         .main-page { padding: 15px; max-width: 500px; margin: auto; }
         
-        /* BANK CARD */
         .bank-card { background: var(--dark-green); padding: 15px; border-radius: 20px; color: white; box-shadow: 0 8px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .copy-box { cursor: pointer; padding: 5px; border-radius: 10px; transition: 0.2s; position: relative; }
+        .copy-box { cursor: pointer; padding: 5px; }
 
-        /* MENU GRID */
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 50px; }
         .menu-item { background: var(--card-bg); border-radius: 25px; padding: 20px 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; color: var(--text); }
         .menu-item img, .menu-item i { width: 55px; height: 55px; margin-bottom: 10px; font-size: 50px; color: var(--primary); }
         .menu-item span { display: block; font-weight: 700; font-size: 14px; }
 
-        /* PAYMENT OVERLAY */
-        #payment-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: var(--bg); z-index: 5000; display: none; padding: 20px; overflow-y: auto;
-        }
+        #payment-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 5000; display: none; padding: 20px; overflow-y: auto; }
         .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: 700; }
-        input { 
-            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ccc; 
-            background: var(--card-bg); color: var(--text); font-size: 16px;
-        }
-        .calc-result { 
-            background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 10px; 
-            margin-top: 10px; font-weight: 900; text-align: center; font-size: 18px;
-        }
+        label { display: block; margin-bottom: 5px; font-weight: 700; font-size: 13px; }
+        input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ccc; background: var(--card-bg); color: var(--text); font-size: 16px; }
+        
+        .calc-result { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 10px; margin-top: 10px; font-weight: 900; text-align: center; }
         .dark-mode .calc-result { background: #1b5e20; color: white; }
 
+        .send-btn { width: 100%; padding: 15px; background: #25D366; color: white; border: none; border-radius: 10px; margin-top: 20px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
         #toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 25px; border-radius: 50px; display: none; z-index: 20000; }
-        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body onload="initApp()">
-
-<div id="splash">
-    <div class="main-slogan">YNAMLY WE ÇALT TÖLEGLER</div>
-    <div class="sub-slogan">Aman Töleg Siziň Bilen</div>
-</div>
+<body>
 
 <div class="header">
     <div style="font-weight: 900; font-size: 20px;">AMAN TÖLEG</div>
@@ -87,10 +47,9 @@
 <div class="main-page">
     <div class="bank-card">
         <div class="copy-box" onclick="copyData('AMAN HAYITMURADOV', 'Adyňyz nusgalandy!')">
-            <p style="font-size: 10px; opacity: 0.8;">SÖWDA HASABY</p>
             <h2 style="font-size: 18px;">AMAN HAYITMURADOV <i class="fas fa-copy" style="font-size: 12px; opacity: 0.5;"></i></h2>
         </div>
-        <div class="copy-box" onclick="copyData('TR91 0015 7000 0000 0201 1511 63', 'IBAN nusgalandy!')" style="margin-top: 12px; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 12px;">
+        <div class="copy-box" onclick="copyData('TR91 0015 7000 0000 0201 1511 63', 'IBAN nusgalandy!')" style="margin-top: 10px; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 12px;">
             <p style="font-size: 13px; font-weight: 700;">TR91 0015 7000 0000 0201 1511 63</p>
         </div>
     </div>
@@ -112,74 +71,77 @@
     </div>
     
     <div class="input-group">
-        <label>Müşderiniň ady we familiýasy:</label>
-        <input type="text" id="client-name" placeholder="Mysal: Ahmet Ahmetow">
+        <label>Müşderiniň ady:</label>
+        <input type="text" id="client-name" placeholder="Ady we Familiýasy">
     </div>
 
     <div class="input-group">
-        <label>Geçiriljek mukdar (Manat):</label>
+        <label>Telefon belgisi:</label>
+        <input type="tel" id="client-phone" value="+993" maxlength="13">
+    </div>
+
+    <div class="input-group">
+        <label>Mukdar (Manat):</label>
         <input type="number" id="manat-amount" placeholder="0" oninput="calculateTL()">
     </div>
 
     <div class="calc-result" id="tl-result">Tölener: 0.00 TL</div>
     
-    <button style="width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:10px; margin-top:20px; font-weight:900;">TÖLEG ET</button>
+    <button class="send-btn" onclick="sendWhatsApp()">
+        <i class="fab fa-whatsapp"></i> DEKONT IBERIŇ
+    </button>
 </div>
 
 <div id="toast">Nusgalandy!</div>
 
 <script>
-    function initApp() {
-        if (!navigator.onLine) {
-            alert("Internet ýok! Programma internetsiz işlemeýär.");
-            window.stop();
-            return;
-        }
-        setTimeout(() => {
-            const sp = document.getElementById('splash');
-            sp.style.opacity = '0';
-            setTimeout(() => { sp.style.display = 'none'; }, 800);
-        }, 3000);
+    let currentService = "";
+    function toggleTheme() { document.body.classList.toggle('dark-mode'); }
+    function openPayment(service) { 
+        currentService = service; 
+        document.getElementById('service-title').innerText = service + " Tölegi"; 
+        document.getElementById('payment-overlay').style.display = 'block'; 
     }
-
-    function toggleTheme() {
-        document.body.classList.toggle('dark-mode');
-        const icon = document.querySelector('.theme-btn i');
-        icon.classList.toggle('fa-moon');
-        icon.classList.toggle('fa-sun');
-    }
-
-    function openPayment(service) {
-        document.getElementById('service-title').innerText = service + " Tölegi";
-        document.getElementById('payment-overlay').style.display = 'block';
-    }
-
-    function closePayment() {
+    function closePayment() { 
         document.getElementById('payment-overlay').style.display = 'none';
         document.getElementById('manat-amount').value = '';
-        document.getElementById('client-name').value = '';
-        document.getElementById('tl-result').innerText = 'Tölener: 0.00 TL';
+        document.getElementById('client-phone').value = '+993';
     }
 
     function calculateTL() {
         const manat = document.getElementById('manat-amount').value;
-        const tlResult = document.getElementById('tl-result');
-        if (manat > 0) {
-            const tl = manat * 2.6; // 100 manat = 260 tl / 400 manat = 1040 tl hasaby
-            tlResult.innerText = `Tölener: ${tl.toFixed(2)} TL`;
-        } else {
-            tlResult.innerText = 'Tölener: 0.00 TL';
+        const tl = manat * 2.6; // Hasaplamanyňyz: 100 Manat = 260 TL
+        document.getElementById('tl-result').innerText = `Tölener: ${tl.toFixed(2)} TL`;
+    }
+
+    function sendWhatsApp() {
+        const name = document.getElementById('client-name').value;
+        const phone = document.getElementById('client-phone').value;
+        const manat = document.getElementById('manat-amount').value;
+        const tl = (manat * 2.6).toFixed(2);
+        
+        if(!name || !manat || phone.length < 13) { 
+            alert("Xahys, maglumatlary we telefon belgisini doly giriziň!"); 
+            return; 
         }
+
+        const text = `📄 *AMAN TÖLEG - DEKONT*%0A%0A` +
+                     `👤 *Müşderi:* ${name}%0A` +
+                     `📞 *Telefon:* ${phone}%0A` +
+                     `🛠 *Hyzmat:* ${currentService}%0A` +
+                     `💰 *Mukdar:* ${manat} Manat%0A` +
+                     `💳 *Tölener:* ${tl} TL%0A%0A` +
+                     `✅ *Töleg garaşylýar...*`;
+        
+        window.open(`https://wa.me/99364041065?text=${text}`, '_blank');
     }
 
     function copyData(text, msg) {
         navigator.clipboard.writeText(text);
         const t = document.getElementById('toast');
-        t.innerText = msg;
-        t.style.display = 'block';
+        t.innerText = msg; t.style.display = 'block';
         setTimeout(() => { t.style.display = 'none'; }, 2000);
     }
 </script>
-
 </body>
 </html>
