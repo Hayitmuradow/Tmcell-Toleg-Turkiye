@@ -7,36 +7,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00873c; --dark-green: #005a28; --gold: #ffc107; --bg: #f0f4f2; --text: #111827; }
+        :root { --primary: #00873c; --dark-green: #2e7d32; --gold: #ffc107; --bg: #f0f4f2; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow: hidden; }
+        body { background: var(--bg); color: #333; min-height: 100vh; overflow: hidden; }
 
-        /* PROFESSIONAL SPLASH (TURKMEN-TURK COLORS) */
+        /* SPLASH (TURKMEN-TURK COLORS) */
         #splash { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: linear-gradient(135deg, #004d26 0%, #00873c 45%, #e30a17 55%, #8b0000 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; transition: 0.8s; 
         }
-        .main-slogan { color: white; font-weight: 900; font-size: 22px; letter-spacing: 2px; }
+        .main-slogan { color: white; font-weight: 900; font-size: 22px; letter-spacing: 2px; text-align: center; }
         .sub-slogan { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--gold); margin-top: 15px; opacity: 0; animation: fadeIn 1.5s forwards 1s; }
 
         /* HEADER */
-        .header { background: var(--dark-green); padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .main-page { padding: 20px; max-width: 500px; margin: auto; overflow-y: auto; height: calc(100vh - 60px); }
+        .header { background: #1b5e20; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .main-page { padding: 15px; max-width: 500px; margin: auto; overflow-y: auto; height: calc(100vh - 60px); }
         
         /* BANK CARD */
-        .bank-card { background: #2e7d32; padding: 20px; border-radius: 25px; color: white; box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 25px; }
-        .copy-item { padding: 5px; cursor: pointer; border-radius: 10px; transition: 0.2s; }
-        .copy-item:active { background: rgba(255,255,255,0.2); transform: scale(0.98); }
+        .bank-card { background: var(--dark-green); padding: 20px; border-radius: 25px; color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .copy-box { cursor: pointer; padding: 5px; border-radius: 10px; transition: 0.2s; position: relative; }
+        .copy-box:active { background: rgba(255,255,255,0.1); }
 
         /* MENU GRID */
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 30px; }
-        .menu-item { background: white; border-radius: 25px; padding: 25px 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .menu-item img { width: 55px; height: 55px; object-fit: contain; margin-bottom: 12px; }
-        .menu-item span { display: block; font-weight: 700; color: #333; font-size: 15px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 50px; }
+        .menu-item { background: white; border-radius: 25px; padding: 20px 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; }
+        .menu-item img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 10px; }
+        .menu-item span { display: block; font-weight: 700; color: #1b5e20; font-size: 14px; }
 
-        /* TOAST ALERT */
-        #toast { position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 20px; border-radius: 50px; display: none; z-index: 20000; font-size: 14px; }
+        /* TOAST */
+        #toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 25px; border-radius: 50px; display: none; z-index: 20000; }
         
         @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -55,16 +55,16 @@
 
 <div class="main-page">
     <div class="bank-card">
-        <div class="copy-item" onclick="copyData('AMAN HAYITMURADOV', 'Adyňyz nusgalandy!')">
-            <p style="font-size: 11px; opacity: 0.8;">SÖWDA HASABY</p>
+        <div class="copy-box" onclick="copyData('AMAN HAYITMURADOV', 'Adyňyz nusgalandy!')">
+            <p style="font-size: 11px; opacity: 0.8; letter-spacing: 1px;">SÖWDA HASABY</p>
             <h2 style="font-size: 19px; margin-top: 5px;">AMAN HAYITMURADOV <i class="fas fa-copy" style="font-size: 12px; opacity: 0.5;"></i></h2>
         </div>
         
-        <div style="margin-top: 20px; font-size: 24px; font-weight: 700; letter-spacing: 3px;">**** **** **** 2026</div>
+        <div style="margin-top: 25px; font-size: 24px; font-weight: 700; letter-spacing: 4px;">**** **** **** 2026</div>
         
-        <div class="copy-item" onclick="copyData('TR91 0015 7000 0000 0201 1511 63', 'IBAN nusgalandy!')" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
-            <p style="font-size: 10px; opacity: 0.7;">IBAN BELGI:</p>
-            <p style="font-size: 15px; font-weight: 700; letter-spacing: 1px;">TR91 0015 7000 0000 0201 1511 63 <i class="fas fa-copy" style="font-size: 12px; opacity: 0.5;"></i></p>
+        <div class="copy-box" onclick="copyData('TR91 0015 7000 0000 0201 1511 63', 'IBAN nusgalandy!')" style="margin-top: 20px; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 15px;">
+            <p style="font-size: 10px; opacity: 0.8;">IBAN BELGI:</p>
+            <p style="font-size: 14px; font-weight: 700; word-break: break-all;">TR91 0015 7000 0000 0201 1511 63 <i class="fas fa-copy" style="font-size: 12px; opacity: 0.5;"></i></p>
         </div>
     </div>
 
@@ -82,13 +82,11 @@
 
 <script>
     function initApp() {
-        // Internet barlagy
         if (!navigator.onLine) {
             alert("Internet ýok! Programma internetsiz işlemeýär.");
             window.stop();
             return;
         }
-
         setTimeout(() => {
             const sp = document.getElementById('splash');
             sp.style.opacity = '0';
@@ -104,10 +102,10 @@
         document.execCommand("copy");
         document.body.removeChild(temp);
         
-        const toast = document.getElementById('toast');
-        toast.innerText = msg;
-        toast.style.display = 'block';
-        setTimeout(() => { toast.style.display = 'none'; }, 2000);
+        const t = document.getElementById('toast');
+        t.innerText = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
     }
 </script>
 
