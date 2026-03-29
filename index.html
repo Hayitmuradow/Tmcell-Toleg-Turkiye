@@ -17,11 +17,11 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; transition: 0.3s; overflow-x: hidden; position: relative; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; position: relative; }
 
         /* JANLY ARKA FON */
         .bg-glow { position: fixed; width: 300px; height: 300px; background: var(--primary); filter: blur(100px); opacity: 0.15; z-index: -1; border-radius: 50%; animation: moveGlow 15s infinite alternate; }
-        .glow-2 { background: var(--gold); left: auto; right: -100px; top: 20%; animation-delay: -5s; }
+        .glow-2 { background: var(--gold); right: -100px; top: 20%; animation-delay: -5s; }
         @keyframes moveGlow { 0% { transform: translate(0, 0); } 100% { transform: translate(100px, 150px); } }
 
         /* TÄZE PROFESSIONAL SPLASH (TÜRKMEN-TÜRK BAÝDAK RENKLERI) */
@@ -29,13 +29,10 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: linear-gradient(135deg, #004d26 0%, #00873c 45%, #e30a17 55%, #8b0000 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            z-index: 10000; color: white; transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+            z-index: 10000; color: white; transition: 0.8s ease; 
         }
-        
-        /* Splash-daky Logo we Yazgy animasiyalary */
         .splash-content { text-align: center; animation: zoomIn 1.2s ease-out; }
-        .splash-sub-text { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--gold); margin-top: 20px; opacity: 0; }
-        .show-sub { animation: fadeIn 1.5s forwards 1s; }
+        .splash-sub-text { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--gold); margin-top: 20px; opacity: 0; animation: fadeIn 1.5s forwards 1s; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -44,7 +41,7 @@
         .header { background: var(--dark-green); padding: 15px; position: sticky; top: 0; z-index: 1000; }
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: auto; }
 
-        /* BANK CARD */
+        /* MAIN PAGE */
         .main-page { max-width: 500px; margin: auto; padding: 20px; }
         .bank-card { background: linear-gradient(135deg, #004d26, #00873c); padding: 25px; border-radius: 25px; color: white; margin-bottom: 30px; box-shadow: 0 15px 35px rgba(0,135,60,0.3); position: relative; }
 
@@ -52,15 +49,12 @@
         .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .menu-item { 
             background: #ffffff; border-radius: 25px; text-align: center; 
-            padding: 25px 10px; cursor: pointer; transition: 0.2s ease; 
-            border: 1px solid rgba(0,0,0,0.05); 
+            padding: 20px 10px; cursor: pointer; transition: 0.2s ease; 
+            border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 5px 15px rgba(0,0,0,0.03);
         }
         .menu-item:active { transform: scale(0.92); background-color: #f9f9f9; }
-        .menu-item i { font-size: 35px; color: var(--primary); display: block; margin-bottom: 10px; }
-        .menu-item span { display: block; font-weight: 800; font-size: 17px; color: #004d26; }
-
-        /* PAYMENT PAGE (GIZLIN DURMALY) */
-        #payment-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; padding: 20px; overflow-y: auto; }
+        .menu-item img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 10px; }
+        .menu-item span { display: block; font-weight: 800; font-size: 15px; color: #004d26; }
     </style>
 </head>
 <body onload="initApp()">
@@ -72,13 +66,13 @@
     <div class="splash-content">
         <img src="8994.png" alt="Aman Töleg" style="width: 250px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));">
         <div style="margin-top: 20px; font-weight: 900; letter-spacing: 2px; font-size: 20px;">YNAMLY WE ÇALT TÖLEGLER</div>
-        <div class="splash-sub-text show-sub">Aman Töleg Siziň Bilen</div>
+        <div class="splash-sub-text">Aman Töleg Siziň Bilen</div>
     </div>
 </div>
 
 <div class="header">
     <div class="top-row">
-        <div style="color: white; font-weight: 900; font-size: 22px; letter-spacing: 1px;">AMAN TÖLEG</div>
+        <div style="color: white; font-weight: 900; font-size: 22px;">AMAN TÖLEG</div>
         <div style="color: var(--gold); font-size: 22px;"><i class="fas fa-crown"></i></div>
     </div>
 </div>
@@ -96,30 +90,40 @@
     </div>
 
     <div class="menu-grid">
-        <div class="menu-item" onclick="openPayment('Tmcell')">
-            <i class="fas fa-mobile-alt"></i>
+        <div class="menu-item">
+            <img src="tmcell.png" alt="Tmcell">
             <span>Tmcell</span>
         </div>
-        <div class="menu-item" onclick="openPayment('Internet')">
-            <i class="fas fa-wifi"></i>
-            <span>Internet</span>
+        <div class="menu-item">
+            <img src="belet.png" alt="Belet Film">
+            <span>Belet Film</span>
+        </div>
+        <div class="menu-item">
+            <img src="alemtv.png" alt="Alem TV">
+            <span>Alem TV</span>
+        </div>
+        <div class="menu-item">
+            <img src="wifi.png" alt="Wi-Fi">
+            <span>Wi-Fi Internet</span>
+        </div>
+        <div class="menu-item">
+            <img src="telecom.png" alt="Altyn Asyr">
+            <span>Altyn Asyr</span>
+        </div>
+        <div class="menu-item">
+            <img src="phone.png" alt="Öý Telefon">
+            <span>Öý Telefon</span>
         </div>
     </div>
 </div>
 
 <script>
     function initApp() {
-        // Splash 3.5 sekuntdan soň ýuwaşja aýrylýar
         setTimeout(() => {
             const sp = document.getElementById('splash');
             sp.style.opacity = '0';
             setTimeout(() => { sp.style.display = 'none'; }, 800);
         }, 3500);
-    }
-
-    function openPayment(type) {
-        // Bärde öňki original töleg funksiýalaryňyzy goşup bilersiňiz
-        alert(type + " töleg bölümi taýýar!");
     }
 </script>
 
