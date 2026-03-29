@@ -5,180 +5,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aman Töleg</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00873c; --dark-green: #1b5e20; --gold: #ffc107; --bg: #f0f4f2; --text: #333; --card-bg: white; }
+        :root { --primary: #00873c; --dark-green: #2d5a27; --gold: #ffc107; --bg: #f0f4f2; --text: #333; --card-bg: white; }
         .dark-mode { --bg: #121212; --text: #f0f4f2; --card-bg: #1e1e1e; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; transition: 0.3s; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg); color: var(--text); transition: 0.3s; }
 
-        /* SPLASH SCREEN */
-        #splash { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(135deg, #004d26 0%, #00873c 45%, #e30a17 55%, #8b0000 100%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; transition: 0.8s; 
-        }
-        .splash-main { color: white; font-weight: 900; font-size: 22px; letter-spacing: 2px; text-align: center; }
-        .splash-sub { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--gold); margin-top: 15px; }
-
+        /* HEADER */
         .header { background: var(--dark-green); padding: 15px; display: flex; justify-content: space-between; align-items: center; color: white; }
-        .theme-btn { background: none; border: none; color: var(--gold); font-size: 18px; cursor: pointer; padding: 5px; }
+        .header h1 { font-size: 20px; text-transform: uppercase; font-weight: 900; }
+        .theme-toggle { color: var(--gold); font-size: 20px; cursor: pointer; }
 
-        .main-page { padding: 15px; max-width: 500px; margin: auto; }
-        .bank-card { background: var(--dark-green); padding: 20px; border-radius: 20px; color: white; box-shadow: 0 8px 15px rgba(0,0,0,0.1); margin-bottom: 20px; position: relative; }
-        
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 20px; }
-        .menu-item { background: var(--card-bg); border-radius: 25px; padding: 20px 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; color: var(--text); }
-        .menu-item img { width: 55px; height: 55px; margin-bottom: 10px; object-fit: contain; }
+        .main-container { padding: 15px; max-width: 500px; margin: auto; }
+
+        /* BANK CARD - SURATDAKY ÝALY */
+        .bank-card { background: var(--dark-green); padding: 25px; border-radius: 25px; color: white; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .bank-card .label { font-size: 10px; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; }
+        .bank-card .name { font-size: 20px; font-weight: 900; margin: 5px 0 20px 0; }
+        .bank-card .iban-box { background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; }
+
+        /* MENU GRID */
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .menu-item { background: var(--card-bg); border-radius: 25px; padding: 25px 10px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); cursor: pointer; }
+        .menu-item i { font-size: 35px; color: var(--primary); margin-bottom: 12px; display: block; }
+        .menu-item span { font-weight: 700; color: var(--text); font-size: 16px; }
 
         /* PAYMENT OVERLAY */
-        #payment-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 5000; display: none; padding: 20px; overflow-y: auto; }
-        .input-group { margin-bottom: 15px; }
-        input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #ccc; background: var(--card-bg); color: var(--text); font-size: 16px; outline: none; }
-        .calc-result { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 12px; margin-top: 10px; font-weight: 900; text-align: center; }
-
+        #payment-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 5000; display: none; padding: 20px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 14px; }
+        input { width: 100%; padding: 16px; border-radius: 15px; border: 1.5px solid #ddd; background: var(--card-bg); color: var(--text); font-size: 16px; outline: none; }
+        .result-box { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 12px; text-align: center; font-weight: 900; font-size: 18px; margin: 15px 0; }
+        
         /* CUSTOM ALERT */
-        #custom-alert { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 15000; display: none; text-align: center; width: 85%; }
-        #custom-alert button { margin-top: 20px; padding: 10px 30px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 900; }
+        #custom-alert { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 30px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); z-index: 10000; display: none; text-align: center; width: 85%; border: 2px solid var(--primary); }
+        #custom-alert button { margin-top: 20px; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 900; }
 
-        .send-btn { width: 100%; padding: 16px; background: #25D366; color: white; border: none; border-radius: 12px; margin-top: 20px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-send { width: 100%; padding: 18px; background: #56c870; color: white; border: none; border-radius: 15px; font-weight: 900; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
     </style>
 </head>
-<body onload="initApp()">
-
-<div id="splash">
-    <div class="splash-main">YNAMLY WE ÇALT TÖLEGLER</div>
-    <div class="splash-sub">Aman Töleg Siziň Bilen</div>
-</div>
+<body>
 
 <div id="custom-alert">
-    <p id="alert-text"></p>
-    <button onclick="closeAlert()">OK</button>
+    <p id="alert-msg" style="font-weight: 700;"></p>
+    <button onclick="document.getElementById('custom-alert').style.display='none'">OK</button>
 </div>
 
 <div class="header">
-    <div style="font-weight: 900; font-size: 20px;">AMAN TÖLEG</div>
-    <button class="theme-btn" onclick="document.body.classList.toggle('dark-mode')">
-        <i class="fas fa-adjust"></i>
-    </button>
+    <h1>AMAN TÖLEG</h1>
+    <i class="fas fa-adjust theme-toggle" onclick="document.body.classList.toggle('dark-mode')"></i>
 </div>
 
-<div class="main-page">
+<div class="main-container">
     <div class="bank-card">
-        <h2 style="font-size: 19px; letter-spacing: 1px;">AMAN HAYITMURADOV</h2>
-        <p style="font-size: 14px; font-weight: 700; margin-top: 12px; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 8px;">
-            TR91 0015 7000 0000 0201 1511 63
-        </p>
+        <div class="label">SÖWDA HASABY</div>
+        <div class="name">AMAN HAYITMURADOV</div>
+        <div class="iban-box">TR91 0015 7000 0000 0201 1511 63</div>
     </div>
 
     <div class="menu-grid">
-        <div class="menu-item" onclick="openPayment('Tmcell')"><img src="tmcell.png"><span>Tmcell</span></div>
-        <div class="menu-item" onclick="openPayment('Belet Film')"><img src="belet.png"><span>Belet Film</span></div>
-        <div class="menu-item" onclick="openPayment('Alem TV')"><img src="alemtv.png"><span>Alem TV</span></div>
-        <div class="menu-item" onclick="openPayment('Wi-Fi Internet')"><img src="wifi.png"><span>Wi-Fi Internet</span></div>
-        <div class="menu-item" onclick="openPayment('Altyn Asyr')"><img src="asyr.png"><span>Altyn Asyr</span></div>
-        <div class="menu-item" onclick="openPayment('Öý Telefon')"><img src="phone.png"><span>Öý Telefon</span></div>
+        <div class="menu-item" onclick="openPay('Tmcell')"><i class="fas fa-mobile-alt"></i><span>Tmcell</span></div>
+        <div class="menu-item" onclick="openPay('Internet')"><i class="fas fa-wifi"></i><span>Internet</span></div>
     </div>
 </div>
 
 <div id="payment-overlay">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-        <h2 id="service-title" style="font-weight: 900;">Töleg</h2>
-        <i class="fas fa-times" onclick="closePayment()" style="font-size: 24px;"></i>
-    </div>
-    
-    <div class="input-group">
-        <input type="text" id="client-name" placeholder="Müşderiniň ady we familiýasy">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h2 id="pay-title" style="font-weight: 900;"></h2>
+        <i class="fas fa-times" onclick="closePay()" style="font-size: 24px;"></i>
     </div>
 
     <div class="input-group">
-        <input type="tel" id="client-phone" value="+993" maxlength="13" onkeydown="handlePhoneKey(event)" oninput="handlePhoneInput(this)">
+        <label>Müşderiniň ady:</label>
+        <input type="text" id="c-name" placeholder="Ady we Familiýasy">
     </div>
 
     <div class="input-group">
-        <input type="number" id="manat-amount" placeholder="Mukdar (Manat)" oninput="calculateTL()">
+        <label>Telefon belgisi:</label>
+        <input type="tel" id="c-phone" value="+993" maxlength="13" onkeydown="checkKey(event)" oninput="checkInp(this)">
     </div>
 
-    <div class="calc-result" id="tl-result">Tölener: 0.00 TL</div>
-    
-    <button class="send-btn" onclick="sendWhatsApp()">
+    <div class="input-group">
+        <label>Mukdar (Manat):</label>
+        <input type="number" id="c-amount" placeholder="0" oninput="calc()">
+    </div>
+
+    <div class="result-box" id="c-res">Tölener: 0.00 TL</div>
+
+    <button class="btn-send" onclick="send()">
         <i class="fab fa-whatsapp"></i> DEKONT IBERIŇ
     </button>
 </div>
 
 <script>
-    let currentService = "";
+    let service = "";
 
-    function initApp() {
-        setTimeout(() => {
-            const sp = document.getElementById('splash');
-            sp.style.opacity = '0';
-            setTimeout(() => { sp.style.display = 'none'; }, 800);
-        }, 3000);
-
-        window.history.pushState(null, null, window.location.href);
-        window.onpopstate = function() {
-            if(document.getElementById('payment-overlay').style.display === 'block') {
-                closePayment();
-                window.history.pushState(null, null, window.location.href);
-            }
-        };
-    }
-
-    // +993 pozulmazlygy üçin funksiýalar
-    function handlePhoneKey(e) {
-        const input = e.target;
-        if ((e.key === "Backspace" || e.key === "Delete") && input.selectionStart <= 4) {
-            e.preventDefault();
-        }
-    }
-
-    function handlePhoneInput(input) {
-        if (!input.value.startsWith('+993')) {
-            input.value = '+993';
-        }
-    }
-
-    function openPayment(service) {
-        currentService = service;
-        document.getElementById('service-title').innerText = service + " Tölegi";
+    function openPay(s) {
+        service = s;
+        document.getElementById('pay-title').innerText = s + " Tölegi";
         document.getElementById('payment-overlay').style.display = 'block';
     }
 
-    function closePayment() {
+    function closePay() {
         document.getElementById('payment-overlay').style.display = 'none';
-        document.getElementById('manat-amount').value = '';
-        document.getElementById('client-name').value = '';
-        document.getElementById('client-phone').value = '+993';
-        document.getElementById('tl-result').innerText = 'Tölener: 0.00 TL';
+        document.getElementById('c-name').value = '';
+        document.getElementById('c-phone').value = '+993';
+        document.getElementById('c-amount').value = '';
+        document.getElementById('c-res').innerText = 'Tölener: 0.00 TL';
     }
 
-    function showAlert(msg) {
-        document.getElementById('alert-text').innerText = msg;
-        document.getElementById('custom-alert').style.display = 'block';
+    function checkKey(e) { if ((e.key==="Backspace" || e.key==="Delete") && e.target.selectionStart <= 4) e.preventDefault(); }
+    function checkInp(i) { if (!i.value.startsWith('+993')) i.value = '+993'; }
+
+    function calc() {
+        let m = document.getElementById('c-amount').value;
+        document.getElementById('c-res').innerText = "Tölener: " + (m * 2.5).toFixed(2) + " TL";
     }
 
-    function closeAlert() { document.getElementById('custom-alert').style.display = 'none'; }
-
-    function calculateTL() {
-        const manat = document.getElementById('manat-amount').value;
-        const tl = manat * 2.5; // Siziň kurbuňyz: 100 Manat = 250 TL
-        document.getElementById('tl-result').innerText = `Tölener: ${tl.toFixed(2)} TL`;
-    }
-
-    function sendWhatsApp() {
-        const name = document.getElementById('client-name').value;
-        const phone = document.getElementById('client-phone').value;
-        const manat = document.getElementById('manat-amount').value;
-        const tl = (manat * 2.5).toFixed(2);
-        
-        if(!name || !manat || phone.length < 13) {
-            showAlert("Xahys, maglumatlary we telefon belgisini doly giriziň!");
+    function send() {
+        let n = document.getElementById('c-name').value;
+        let p = document.getElementById('c-phone').value;
+        let a = document.getElementById('c-amount').value;
+        if(!n || !a || p.length < 13) {
+            document.getElementById('alert-msg').innerText = "Xahys, maglumatlary we telefon belgisini doly giriziň!";
+            document.getElementById('custom-alert').style.display = 'block';
             return;
         }
-
-        const text = `📄 *AMAN TÖLEG - DEKONT*%0A%0A👤 *Müşderi:* ${name}%0A📞 *Tel:* ${phone}%0A🛠 *Hyzmat:* ${currentService}%0A💰 *Mukdar:* ${manat} Manat%0A💳 *Tölener:* ${tl} TL%0A%0A✅ *Töleg garaşylýar...*`;
-        window.open(`https://wa.me/99364041065?text=${text}`, '_blank');
+        let txt = `📄 *AMAN TÖLEG*%0A👤 *Müşderi:* ${n}%0A📞 *Tel:* ${p}%0A🛠 *Hyzmat:* ${service}%0A💰 *Mukdar:* ${a} Manat%0A💳 *Tölener:* ${(a*2.5).toFixed(2)} TL`;
+        window.open(`https://wa.me/99364041065?text=${txt}`, '_blank');
     }
 </script>
 
