@@ -25,7 +25,6 @@
         .res-box { background: #f0fdf4; padding: 18px; border-radius: 15px; text-align: center; margin: 15px 0; font-weight: 900; color: #d32f2f; font-size: 24px; border: 1px dashed #2e7d32; }
         .btn-send { background: #2e7d32; color: white; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: bold; font-size: 16px; cursor: pointer; }
         
-        /* Täze owadan Alert dizaýny */
         #customAlert { 
             display: none; 
             position: fixed; 
@@ -42,7 +41,6 @@
             border: 2px solid #d32f2f;
             text-align: center;
         }
-
         @keyframes pop { from { transform: scale(0.8); } to { transform: scale(1); } }
     </style>
 </head>
@@ -117,18 +115,17 @@
         currentService = service;
         document.getElementById('serviceTitle').innerText = service + " Tölegi";
         document.getElementById('paymentModal').style.display = 'flex';
-        // Yza düwme üçin taryha goşýas
         history.pushState({modalOpen: true}, "");
     }
 
-    // Telefonuň yza düwmesine basylanda modal ýapylýar
     window.onpopstate = function() {
         document.getElementById('paymentModal').style.display = 'none';
     };
 
     function calculateTL() {
         let manat = document.getElementById('manatAmt').value;
-        document.getElementById('tlResult').innerText = (manat * 2.5).toFixed(2);
+        // Kurs: 100 Manat = 260 TL (1 Manat = 2.6 TL)
+        document.getElementById('tlResult').innerText = (manat * 2.6).toFixed(2);
     }
 
     function sendToWA() {
