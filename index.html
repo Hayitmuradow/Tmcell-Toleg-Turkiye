@@ -10,9 +10,22 @@
         .dark-mode { --bg: #121212; --text: #f8f9fa; --card: #1e1e1e; }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); transition: 0.3s; }
+        body { background-color: var(--bg); color: var(--text); transition: 0.3s; overflow-x: hidden; }
 
-        /* HEADER & NAVBAR */
+        /* SPLASH EKRAN */
+        #splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #097133 0%, #097133 50%, #e30a17 50%, #e30a17 100%);
+            display: flex; justify-content: center; align-items: center; z-index: 9999;
+            color: white; text-align: center; transition: 0.6s;
+        }
+        .splash-title {
+            font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 900;
+            animation: blink 1.5s infinite alternate; text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+        @keyframes blink { 0% { opacity: 1; } 100% { opacity: 0.4; } }
+
+        /* HEADER */
         .header { padding: 12px 15px; background: var(--card); display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
         .header-left { display: flex; align-items: center; gap: 10px; }
         .logo { background: var(--primary); color: white; padding: 4px 8px; border-radius: 6px; font-weight: bold; }
@@ -36,6 +49,12 @@
         .calc-box span { color: #e30a17; font-weight: 800; font-size: 20px; }
         .btn-send { background: #25d366; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; }
 
+        /* CUSTOM ALERT (GITHUB GÖRÜNMEZ ÝALY) */
+        #customAlert { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .alert-box { background: white; width: 85%; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .alert-box p { font-size: 14px; color: #333; margin-bottom: 20px; font-weight: 600; }
+        .alert-btn { background: var(--primary); color: white; padding: 10px 40px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; }
+
         /* FOOTER INFO */
         .footer-info { background: #1a4d2e; margin: 15px; padding: 15px; border-radius: 12px; color: white; text-align: center; }
         .copy-item { margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 6px; cursor: pointer; }
@@ -43,13 +62,17 @@
 </head>
 <body>
 
+<div id="splash">
+    <div class="splash-title">AMAN TÖLEG Siziň Bilen</div>
+</div>
+
 <div class="header">
     <div class="header-left">
         <div class="logo">T</div>
         <h1>AMAN TÖLEG</h1>
     </div>
     <div class="nav-icons">
-        <span onclick="alert('Arhiw häzirki wagtda boş')">📂</span>
+        <span onclick="showCustomAlert('Arhiw häzirki wagtda boş!')">📂</span>
         <span id="theme-toggle" onclick="toggleTheme()">🌙</span>
     </div>
 </div>
@@ -93,8 +116,8 @@
 <div id="paymentModal" class="modal">
     <div class="modal-content">
         <h2 id="serviceTitle" style="margin-bottom:15px; text-align:center;"></h2>
-        <input type="text" id="clientName" placeholder="Müşderiniň ady we familiýasy">
-        <input type="number" id="phoneNum" placeholder="+993 Belgisi">
+        <input type="text" id="clientName" placeholder="Adyňyz Familiýaňyz">
+        <input type="number" id="phoneNum" placeholder="+993 Belgiňiz">
         <input type="number" id="amountManat" placeholder="Mukdar (Manat)" oninput="calculateTL()">
         
         <div class="calc-box">
@@ -108,8 +131,24 @@
     </div>
 </div>
 
+<div id="customAlert">
+    <div class="alert-box">
+        <p id="alertMessage"></p>
+        <button class="alert-btn" onclick="closeCustomAlert()">OK</button>
+    </div>
+</div>
+
 <script>
     let currentService = "";
+
+    // Splash
+    window.onload = function() {
+        setTimeout(function() {
+            var s = document.getElementById('splash');
+            s.style.opacity = '0';
+            setTimeout(function() { s.style.display = 'none'; }, 600);
+        }, 2000);
+    };
 
     function openModal(service) {
         currentService = service;
@@ -121,13 +160,13 @@
         document.getElementById('paymentModal').style.display = 'none';
     }
 
-    // Hasaplama Logikasy: 100m = 250tl (400m = 1040tl bolýar)
     function calculateTL() {
         let manat = document.getElementById('amountManat').value;
-        let tl = manat * 2.6; // 100 * 2.6 = 260 TL
+        let tl = manat * 2.6; 
         document.getElementById('resTL').innerText = tl.toFixed(2);
     }
 
+    // Ýalňyş ýazgy düzedildi we GitHub linki gizlendi
     function sendDekont() {
         let name = document.getElementById('clientName').value;
         let phone = document.getElementById('phoneNum').value;
@@ -135,12 +174,22 @@
         let tl = document.getElementById('resTL').innerText;
 
         if(!name || !phone || !manat) {
-            alert("Xahys, maglumatlary doly giriziň!");
+            showCustomAlert("Xahys, maglumatlary doly giriziň!"); // Ýalňyş düzedildi
             return;
         }
 
         let text = `Töleg hyzmaty: ${currentService}%0AAt-Familiýa: ${name}%0ABelgi: +993${phone}%0AMukdar: ${manat} Manat%0ATölendi: ${tl} TL`;
-        window.open(`https://wa.me/905346790753?text=${text}`); // Öz nomeriňi ýazyp bilersiň
+        window.open(`https://wa.me/905346790753?text=${text}`);
+    }
+
+    // GitHub salgysyny gizleýän ýörite bildiriş
+    function showCustomAlert(msg) {
+        document.getElementById('alertMessage').innerText = msg;
+        document.getElementById('customAlert').style.display = 'flex';
+    }
+
+    function closeCustomAlert() {
+        document.getElementById('customAlert').style.display = 'none';
     }
 
     function toggleTheme() {
@@ -151,7 +200,7 @@
 
     function copyText(text) {
         navigator.clipboard.writeText(text);
-        alert("Kopýalandy!");
+        showCustomAlert("Kopýalandy!");
     }
 </script>
 
